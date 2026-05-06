@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuda Mútua - Sistema Seguro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #05070a; color: #e2e8f0; font-family: sans-serif; }
+        .gold-text { color: #d4af37; font-style: italic; }
+        .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
+        .card { background-color: rgba(15, 23, 42, 0.9); border: 1px solid rgba(212, 175, 55, 0.3); }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-md mx-auto text-center">
+        <h1 class="text-2xl font-bold gold-text mb-6 uppercase tracking-widest">Ajuda Mútua</h1>
+        
+        <div class="card p-8 rounded-3xl shadow-2xl mb-8">
+            <p class="text-[10px] uppercase opacity-50 mb-2">Enviar Pix de R$ 5,00 para:</p>
+            <p class="text-xl font-bold gold-text">Galdino Pereira Fidalgo</p>
+            <p class="text-xs text-slate-400 mb-6">Chave: 04036277375</p>
+            
+            <label class="gold-bg block w-full py-4 rounded-xl font-bold uppercase text-xs cursor-pointer">
+                ENVIAR COMPROVANTE
+                <input type="file" class="hidden">
+            </label>
+        </div>
+
+        <div id="form-cadastro">
+            <h2 class="text-xs font-bold gold-text mb-4 uppercase">Quero participar da rede</h2>
+            <input type="text" placeholder="Seu Nome Completo" class="w-full p-3 bg-black/40 border border-slate-800 rounded-lg mb-2 text-sm text-white">
+            <input type="text" placeholder="Sua Chave Pix" class="w-full p-3 bg-black/40 border border-slate-800 rounded-lg mb-4 text-sm text-white">
+            <button class="w-full border border-yellow-600 py-3 rounded-lg gold-text font-bold text-xs uppercase">Cadastrar e Gerar Link</button>
+        </div>
+    </div>
+</body>
+</html>
+

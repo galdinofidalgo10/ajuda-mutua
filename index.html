@@ -9,19 +9,12 @@
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { 
-            background: #020617; 
-            color: #f8fafc; 
-            font-family: 'Montserrat', sans-serif; 
-            min-height: 100vh; 
-            margin: 0; 
-            padding-bottom: 120px; 
-            overflow-x: hidden; 
-            -webkit-tap-highlight-color: transparent; 
+            background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; 
+            min-height: 100vh; margin: 0; padding-bottom: 120px; overflow-x: hidden; 
         }
 
         .pix-card {
-            background: rgba(30, 41, 59, 0.4); 
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
             transition: transform 0.1s;
         }
@@ -45,13 +38,10 @@
         }
 
         #toast {
-            visibility: hidden; min-width: 280px; 
-            background: linear-gradient(135deg, #b8860b, #d4af37);
+            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #d4af37);
             color: #000; text-align: center; border-radius: 50px; padding: 16px; 
-            position: fixed; z-index: 9999; left: 50%; top: 40px; 
-            transform: translateX(-50%); font-weight: 900; text-transform: uppercase; 
-            font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            border: 2px solid rgba(255,255,255,0.3);
+            position: fixed; z-index: 9999; left: 50%; top: 40px; transform: translateX(-50%); 
+            font-weight: 900; font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
         #toast.show { visibility: visible; animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s; }
 
@@ -108,16 +98,16 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
-            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante 01</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante 02</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Enviar Comprovante 03</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 01</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 02</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn"><span>Comprovante Nível 03</span><input type="file" class="hidden"></label>
         </div>
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
             <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
             <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
+            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Protocolo Agora</button>
         </div>
     </div>
 
@@ -126,26 +116,22 @@
     <div id="modal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
-                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Regulamento Oficial do Projeto</span>
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Estatuto e Funcionamento do Projeto</span>
                 <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
             </div>
             <div class="modal-content">
                 
                 <div class="rule-section">
-                    <span class="rule-header">1. Conceito e Funcionamento P2P</span>
-                    <p>O **Projeto Ajuda Mútua** opera sob o modelo **Pessoa para Pessoa (P2P)**. O sistema não retém valores; todas as doações são realizadas diretamente entre os membros via Pix para garantir liquidez imediata.</p>
+                    <span class="rule-header">1. O Gatilho de Ativação Único</span>
+                    <p>Para entrar no sistema e validar sua posição, você realiza 3 doações diretas de R$ 5,00 para os membros da sua linha ascendente que aparecem nos cards da página principal. Isso totaliza um custo de adesão único de R$ 15,00. Assim que os seus 3 comprovantes forem anexados e validados pela nossa auditoria manual em até 24 horas, o seu ID de divulgação inteligente será liberado.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">2. Ciclo de Ativação Único</span>
-                    <p>A entrada no sistema requer 3 doações voluntárias de R$ 5,00 (totalizando R$ 15,00). Este é o único investimento necessário; não há taxas mensais ou reinvestimentos obrigatórios para subir de nível.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">3. Matriz Forçada 3x10</span>
+                    <span class="rule-header">2. Estrutura da Matriz Forçada (3x10)</span>
+                    <p>O sistema organiza os participantes em uma matriz de 10 níveis de profundidade. O número "3" indica que você só pode ter 3 pessoas diretamente ligadas ao seu primeiro nível. Todo o crescimento além disso gera benefícios para a sua rede através do preenchimento automático de vagas vazias conforme a tabela abaixo:</p>
                     <div class="table-container">
                         <table>
-                            <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos (R$ 5/cada)</th></tr></thead>
+                            <thead><tr><th>Nível</th><th>Membros</th><th>Potencial de Ganho</th></tr></thead>
                             <tbody>
                                 <tr><td>Nível 1</td><td>3</td><td>R$ 15,00</td></tr>
                                 <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
@@ -163,43 +149,42 @@
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">4. Estratégia de Derramamento</span>
-                    <p>O sistema utiliza **Derramamento Inteligente**. Ao preencher seus 3 diretos, novos convidados transbordam para as vagas vazias da sua rede abaixo, ajudando no crescimento coletivo e acelerando os ganhos de todos os membros.</p>
+                    <span class="rule-header">3. O Poder do Derramamento (Transbordo)</span>
+                    <p>Este é o grande motor do Projeto Ajuda Mútua. Como cada membro só pode ter 3 diretos, se você ou o seu líder convidarem uma 4ª pessoa, o sistema a aloca automaticamente abaixo de um membro da sua rede que ainda tenha vagas disponíveis. Isso ajuda quem tem mais dificuldade em convidar a começar a receber doações, criando um ciclo onde os líderes ajudam a base a crescer mais rápido.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">5. Auditoria e Rastreio Antifraude</span>
-                    <p>Para segurança da comunidade, aplicamos auditoria manual de até 24 horas. O sistema rastreia **IP e CPF**; qualquer tentativa de fraude com comprovantes falsos resultará em banimento permanente e irreversível.</p>
+                    <span class="rule-header">4. Fluxo de Dinheiro Direto (P2P via Pix)</span>
+                    <p>O sistema não funciona como banco e não retém o dinheiro dos participantes. Todas as doações são realizadas no modelo Pessoa para Pessoa (P2P), enviadas diretamente para a chave Pix do membro recebedor. Isso garante liquidez imediata: o dinheiro cai direto na sua conta bancária sem a necessidade de solicitar "saques" na plataforma.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">6. Escritório Virtual e Link de ID</span>
-                    <p>Somente após a ativação, o membro ganha acesso ao seu link exclusivo com rastreio de ID. No Escritório Virtual, é possível monitorar a rede, verificar saldos em tempo real e acompanhar o status das ativações descendentes.</p>
+                    <span class="rule-header">5. Auditoria de Segurança e Banimento</span>
+                    <p>Para garantir a honestidade da rede, o sistema rastreia o IP e o CPF de cada usuário. Existe tolerância zero para fraudes: o envio de comprovantes falsos, editados ou repetidos resultará no bloqueio imediato e permanente do seu cadastro. O prazo de conferência de 24 horas garante que quem doou realmente receba a sua ativação e quem recebeu valide a transação.</p>
                 </div>
 
                 <div class="rule-section">
-                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"A integridade gera riqueza. O suporte mútuo é a base do Protocolo Elite."</p>
+                    <span class="rule-header">6. Escritório Virtual e Sustentabilidade</span>
+                    <p>Ao ser ativado, você ganha acesso a um Escritório Virtual completo onde poderá monitorar o crescimento da sua matriz, gerir sua rede descendente e validar os comprovantes que receber. O projeto é sustentável porque não depende de rendimentos fixos, mas sim do fluxo de doações voluntárias entre membros dentro de uma estrutura organizada.</p>
+                </div>
+
+                <div class="rule-section">
+                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"Ninguém cresce sozinho. O Protocolo Elite organiza a rede; a sua integridade garante a prosperidade."</p>
                 </div>
 
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Li e aceito os termos</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceito os Termos e Desejo Ativar</button>
         </div>
     </div>
 
     <script>
         function copyText(val) {
             const el = document.createElement('textarea');
-            el.value = val;
-            el.setAttribute('readonly', '');
-            el.style.position = 'fixed'; el.style.left = '-9999px'; el.style.top = '0';
-            document.body.appendChild(el);
-            el.select(); el.setSelectionRange(0, 99999);
-            document.execCommand('copy');
-            document.body.removeChild(el);
-
+            el.value = val; el.setAttribute('readonly', ''); el.style.position = 'fixed';
+            el.style.left = '-9999px'; document.body.appendChild(el);
+            el.select(); document.execCommand('copy'); document.body.removeChild(el);
             const toast = document.getElementById("toast");
-            toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            toast.className = "show"; setTimeout(() => { toast.className = ""; }, 3000);
         }
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }

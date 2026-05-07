@@ -3,98 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajuda Mútua - Fidalgo</title>
+    <title>Ajuda Mútua</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-
-        body { 
-            background-color: #05070a; 
-            color: #e2e8f0; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0;
-            padding: 20px;
-        }
-
+        body { background-color: #05070a; color: #e2e8f0; font-family: sans-serif; }
         .gold-text { color: #d4af37; font-style: italic; }
         .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
+        .card { background-color: #0f172a; border: 1px solid #1e293b; transition: all 0.2s; }
         
-        /* Estilo original dos cards */
-        .card { 
-            background-color: rgba(15, 23, 42, 0.9); 
-            border: 1px solid rgba(212, 175, 55, 0.3); 
-            margin-bottom: 15px;
-            padding: 18px;
-            border-radius: 15px;
-        }
-
-        /* Botão flutuante */
+        /* Botão Flutuante */
         .btn-regras {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 900;
-            text-transform: uppercase;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            z-index: 1000;
-            cursor: pointer;
-        }
-
-        #toast {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            background: #d4af37; color: #000; padding: 8px 20px; border-radius: 30px;
-            font-size: 11px; font-weight: 900; opacity: 0; transition: opacity 0.3s; z-index: 2000;
+            position: fixed; bottom: 30px; right: 20px; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 900; text-transform: uppercase; z-index: 1000;
         }
     </style>
 </head>
-<body>
-
-    <div id="toast">Copiado!</div>
+<body class="p-5">
 
     <div class="max-w-md mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-3xl font-black gold-text uppercase italic tracking-tighter">FILA DE ATIVAÇÃO</h1>
-            <p class="text-[10px] text-slate-500 uppercase mt-2 font-bold">Toque nos cards para copiar as chaves</p>
+            <h1 class="text-2xl font-black gold-text uppercase italic">Fila de Ativação</h1>
+            <p class="text-[10px] text-slate-500 uppercase font-bold">Toque nos cards para copiar as chaves</p>
         </header>
 
-        <div id="lista-mestres">
-            <p class="text-center animate-pulse text-slate-600">Sincronizando dados...</p>
+        <div id="lista-mestres" class="space-y-3">
+            <p class="text-center animate-pulse text-slate-600">Carregando...</p>
         </div>
 
-        <div class="mt-12 space-y-8">
-            <div class="text-center">
-                <p class="text-[11px] gold-text uppercase font-black mb-4">1. Anexe os Comprovantes</p>
-                <input type="file" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs text-slate-400 mb-2">
-                <input type="file" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs text-slate-400 mb-2">
-                <input type="file" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs text-slate-400">
+        <div class="mt-10 space-y-6">
+            <div>
+                <p class="text-center text-[10px] gold-text uppercase font-black mb-4">1. Anexe os Comprovantes</p>
+                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
+                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
+                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs">
             </div>
 
-            <div class="border-t border-slate-800 pt-8">
-                <p class="text-center text-[11px] gold-text uppercase font-black mb-4">2. Dados de Recebimento</p>
-                <input type="text" placeholder="Seu Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm mb-3 outline-none">
-                <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm mb-5 outline-none">
-                <button class="w-full gold-bg py-5 rounded-2xl font-black uppercase italic shadow-2xl text-sm">ATIVAR MEU PROTOCOLO</button>
+            <div class="border-t border-slate-800 pt-6">
+                <p class="text-center text-[10px] gold-text uppercase font-black mb-4">2. Dados de Recebimento</p>
+                <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-slate-900 rounded-xl text-sm mb-3">
+                <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 rounded-xl text-sm mb-4">
+                <button class="w-full gold-bg py-5 rounded-2xl font-black uppercase italic">Ativar Meu Protocolo</button>
             </div>
         </div>
 
         <footer class="mt-20 mb-10 text-center border-t border-slate-900 pt-8">
-            <p class="text-[9px] text-slate-600 uppercase font-black tracking-[0.3em]">
-                © 2026 PROTOCOLO DE ALAVANCAGEM
-            </p>
-            <p class="text-[10px] gold-text uppercase font-bold mt-1 tracking-widest">
-                Galdino Fidalgo
+            <p class="text-[9px] text-slate-600 uppercase font-black tracking-widest">
+                © 2026 PROTOCOLO DE ALAVANCAGEM <span class="gold-text">GALDINO FIDALGO</span>
             </p>
         </footer>
     </div>
 
-    <div onclick="mostrarRegras()" class="btn-regras gold-bg italic">Regras</div>
+    <div onclick="alert('REGRAS:\n1. Doe R$ 5,00 para cada mestre.\n2. Anexe os prints.\n3. Ative seu cadastro.')" class="btn-regras gold-bg italic">Regras</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
@@ -112,37 +72,23 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        window.mostrarRegras = () => {
-            alert("Instruções:\n1. Transfira R$ 5,00 para cada mestre.\n2. Anexe os comprovantes no formulário.\n3. Clique em Ativar.");
-        };
-
-        window.copiar = (txt) => {
-            navigator.clipboard.writeText(txt);
-            const t = document.getElementById('toast');
-            t.style.opacity = '1';
-            setTimeout(() => t.style.opacity = '0', 2000);
-        };
-
         async function carregar() {
             try {
                 const snap = await getDoc(doc(db, "usuarios", "mestre"));
                 if (snap.exists()) {
                     const d = snap.data();
-                    const n = d.nome || "Galdino Pereira Fidalgo";
-                    const p = d.pix || "04036277375";
-
                     document.getElementById('lista-mestres').innerHTML = `
-                        <div onclick="copiar('${p}')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[8px] gold-text uppercase font-black">Nível 1 - Mestre Direto</p><p class="font-bold text-white italic">${n}</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
+                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                            <div><p class="text-[8px] gold-text uppercase">Nível 1</p><p class="text-sm font-bold italic">${d.nome}</p></div>
+                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
                         </div>
-                        <div onclick="copiar('${p}')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[8px] gold-text uppercase font-black">Nível 2 - Mestre Indireto</p><p class="font-bold text-white italic">Sistema de Apoio</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
+                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                            <div><p class="text-[8px] gold-text uppercase">Nível 2</p><p class="text-sm font-bold italic">Suporte Sistema</p></div>
+                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
                         </div>
-                        <div onclick="copiar('${p}')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[8px] gold-text uppercase font-black">Nível 3 - Mestre Raiz</p><p class="font-bold text-white italic">${n} (Raiz)</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
+                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                            <div><p class="text-[8px] gold-text uppercase">Nível 3</p><p class="text-sm font-bold italic">${d.nome}</p></div>
+                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
                         </div>
                     `;
                 }

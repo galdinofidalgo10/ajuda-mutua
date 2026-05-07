@@ -10,7 +10,6 @@
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
         
-        /* Efeito de Vidro nos Cards */
         .glass-card { 
             background: rgba(15, 23, 42, 0.6); 
             backdrop-filter: blur(10px);
@@ -18,16 +17,13 @@
             border-radius: 20px; 
         }
 
-        /* Botões com Degradê Suave */
         .btn-gold { 
             background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); 
             color: #000; font-weight: 900; text-transform: uppercase;
             letter-spacing: 1px; transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
         }
-        .btn-gold:active { transform: scale(0.98); opacity: 0.9; }
 
-        /* Inputs Profissionais (Sem bordas brancas grossas) */
         .input-field {
             width: 100%;
             background: rgba(30, 41, 59, 0.5);
@@ -36,22 +32,15 @@
             border-radius: 12px;
             color: white;
             font-size: 13px;
-            transition: all 0.3s;
             outline: none;
         }
-        .input-field:focus {
-            border-color: var(--gold);
-            background: rgba(30, 41, 59, 0.8);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
-        }
-        .input-field::placeholder { color: rgba(255,255,255,0.3); font-style: italic; }
+        .input-field:focus { border-color: var(--gold); }
 
-        /* Toast Dourado */
         #toast {
             visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047);
             color: #000; text-align: center; border-radius: 50px; padding: 15px;
             position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
-            font-weight: 900; font-size: 11px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-weight: 900; font-size: 11px;
         }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
@@ -62,48 +51,52 @@
     <div id="toast">Notificação</div>
 
     <div id="cadastro-screen" class="max-w-md mx-auto">
-        <header class="text-center mb-10 pt-4">
+        <header class="text-center mb-8 pt-4">
             <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
             <p class="text-[9px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
         <div class="space-y-3 mb-8">
-            <div onclick="copy('04036277375')" class="glass-card p-5 cursor-pointer active:bg-slate-800">
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:bg-slate-800">
                 <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 01 - MASTER</p>
-                        <h3 class="font-black italic text-sm tracking-tight">Galdino Pereira Fidalgo</h3>
-                    </div>
+                    <div><p class="text-[7px] text-yellow-500 font-black mb-1">NÍVEL 01 - MASTER</p>
+                    <h3 class="font-black italic text-xs tracking-tight">Galdino Pereira Fidalgo</h3></div>
                     <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
                 </div>
             </div>
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:bg-slate-800">
+                <div class="flex justify-between items-start">
+                    <div><p class="text-[7px] text-yellow-500 font-black mb-1">NÍVEL 02 - SUPORTE</p>
+                    <h3 class="font-black italic text-xs tracking-tight">Galdino Pereira Fidalgo</h3></div>
+                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                </div>
             </div>
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:bg-slate-800">
+                <div class="flex justify-between items-start">
+                    <div><p class="text-[7px] text-yellow-500 font-black mb-1">NÍVEL 03 - FUNDADOR</p>
+                    <h3 class="font-black italic text-xs tracking-tight">Galdino Pereira Fidalgo</h3></div>
+                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                </div>
+            </div>
+        </div>
 
         <div class="glass-card p-6 border-t-2 border-t-yellow-500/30 shadow-2xl">
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6 tracking-widest">Validar sua Entrada</h2>
             
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2">
-                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
-                        PIX 01 <input type="file" class="hidden">
-                    </label>
-                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
-                        PIX 02 <input type="file" class="hidden">
-                    </label>
-                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
-                        PIX 03 <input type="file" class="hidden">
-                    </label>
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">PIX 01 <input type="file" class="hidden"></label>
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">PIX 02 <input type="file" class="hidden"></label>
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">PIX 03 <input type="file" class="hidden"></label>
                 </div>
 
                 <div class="pt-4 space-y-3">
                     <p class="text-[8px] text-slate-500 font-bold uppercase ml-1">Seus Dados de Cadastro</p>
                     <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field">
-                    <input type="text" id="pix" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-field">
+                    <input type="text" id="pix_user" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-field">
                 </div>
 
-                <button onclick="check()" class="btn-gold w-full h-16 rounded-xl text-sm shadow-inner mt-4">
-                    Ativar Agora
-                </button>
+                <button onclick="check()" class="btn-gold w-full h-16 rounded-xl text-sm mt-4">Ativar Agora</button>
             </div>
         </div>
     </div>
@@ -114,20 +107,15 @@
             t.innerText = m; t.className = "show";
             setTimeout(() => { t.className = ""; }, 3000);
         }
-
         function copy(v) {
             navigator.clipboard.writeText(v);
             showT("CHAVE COPIADA!");
         }
-
         function check() {
             const n = document.getElementById('nome').value;
-            const p = document.getElementById('pix').value;
-            if(n && p) {
-                showT("DADOS ENVIADOS! AGUARDE AUDITORIA.");
-            } else {
-                showT("PREENCHA TODOS OS CAMPOS!");
-            }
+            const p = document.getElementById('pix_user').value;
+            if(n && p) { showT("DADOS ENVIADOS! AGUARDE AUDITORIA."); }
+            else { showT("PREENCHA TODOS OS CAMPOS!"); }
         }
     </script>
 </body>

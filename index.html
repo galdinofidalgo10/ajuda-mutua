@@ -25,39 +25,48 @@
         .card { background-color: rgba(15, 23, 42, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); transition: all 0.2s; }
         .card:active { transform: scale(0.97); background-color: rgba(212, 175, 55, 0.15); }
         
-        /* Estrutura de Layout */
-        header { flex-shrink: 0; z-index: 40; background-color: #05070a; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
-        main { flex-grow: 1; overflow-y: auto; padding: 15px; scrollbar-width: thin; scrollbar-color: #d4af37 #05070a; }
-        footer { flex-shrink: 0; padding: 12px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
-
-        /* Regras com Scroll Interno */
-        .regras-scroll {
-            max-height: 280px;
-            overflow-y: auto;
-            padding-right: 12px;
-            text-align: justify;
-            scrollbar-width: thin;
-            scrollbar-color: #d4af37 #0f172a;
+        /* TOPO FIXO */
+        header { 
+            flex-shrink: 0; 
+            z-index: 100; 
+            background-color: #05070a; 
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2); 
+            padding-bottom: 10px;
         }
-        .regras-scroll::-webkit-scrollbar { width: 4px; }
-        .regras-scroll::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 10px; }
 
-        /* Botão Flutuante */
+        /* MEIO COM SCROLL */
+        main { 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            padding: 15px; 
+            padding-bottom: 100px; /* Espaço para não bater no rodapé */
+            scrollbar-width: none;
+        }
+        main::-webkit-scrollbar { display: none; }
+
+        /* RODAPÉ FIXO */
+        footer { 
+            flex-shrink: 0; 
+            padding: 15px; 
+            text-align: center; 
+            border-top: 1px solid rgba(212, 175, 55, 0.3); 
+            background-color: #05070a;
+            z-index: 100;
+        }
+
         .btn-regras { 
-            position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; border-radius: 50px; 
-            font-weight: 900; font-size: 11px; text-transform: uppercase; z-index: 50; 
+            position: fixed; bottom: 85px; right: 20px; padding: 12px 24px; border-radius: 50px; 
+            font-weight: 900; font-size: 11px; text-transform: uppercase; z-index: 150; 
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         .pulse-gold { animation: pulse 2s infinite; }
         @keyframes pulse { 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
-        /* Toast de Cópia */
         #toast {
             position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
             background: #d4af37; color: #000; padding: 10px 25px; border-radius: 30px;
             font-size: 12px; font-weight: 900; opacity: 0; transition: opacity 0.3s; z-index: 2000;
-            text-transform: uppercase; letter-spacing: 1px;
         }
     </style>
 </head>
@@ -71,33 +80,33 @@
             <p class="text-[8px] text-slate-500 uppercase mb-4 tracking-[0.2em] font-bold">Toque no card para copiar a chave</p>
             
             <div class="space-y-2">
-                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
-                    <div class="text-left">
-                        <p class="text-[8px] gold-text font-black uppercase tracking-widest">Nível 1 - Mestre Direto</p>
-                        <p class="text-sm font-bold text-white">Galdino Pereira Fidalgo</p>
+                <div id="card1" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left leading-tight">
+                        <p class="text-[8px] gold-text font-black uppercase">Nível 1 - Direto</p>
+                        <p id="mestre1-nome" class="text-sm font-bold text-white italic">Carregando...</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p id="mestre1-pix" class="text-[10px] font-mono text-slate-300">...</p>
                         <p class="text-[8px] text-slate-500 uppercase font-black italic">R$ 5,00</p>
                     </div>
                 </div>
-                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
-                    <div class="text-left">
-                        <p class="text-[8px] gold-text font-black uppercase tracking-widest">Nível 2 - Mestre Indireto</p>
-                        <p class="text-sm font-bold text-white">Galdino Pereira Fidalgo</p>
+                <div id="card2" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left leading-tight">
+                        <p class="text-[8px] gold-text font-black uppercase">Nível 2 - Indireto</p>
+                        <p id="mestre2-nome" class="text-sm font-bold text-white italic">Carregando...</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p id="mestre2-pix" class="text-[10px] font-mono text-slate-300">...</p>
                         <p class="text-[8px] text-slate-500 uppercase font-black italic">R$ 5,00</p>
                     </div>
                 </div>
-                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
-                    <div class="text-left">
-                        <p class="text-[8px] gold-text font-black uppercase tracking-widest">Nível 3 - Mestre Raiz</p>
-                        <p class="text-sm font-bold text-white">Galdino Pereira Fidalgo</p>
+                <div id="card3" class="card p-3 rounded-2xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left leading-tight">
+                        <p class="text-[8px] gold-text font-black uppercase">Nível 3 - Raiz</p>
+                        <p id="mestre3-nome" class="text-sm font-bold text-white italic">Carregando...</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p id="mestre3-pix" class="text-[10px] font-mono text-slate-300">...</p>
                         <p class="text-[8px] text-slate-500 uppercase font-black italic">R$ 5,00</p>
                     </div>
                 </div>
@@ -106,20 +115,19 @@
     </header>
 
     <main>
-        <div class="max-w-md mx-auto space-y-8 pb-24">
-            
+        <div class="max-w-md mx-auto space-y-8">
             <div class="space-y-4">
-                <p class="text-center text-[10px] gold-text uppercase font-black tracking-[0.2em]">Painel de Auditoria de Pix</p>
+                <p class="text-center text-[10px] gold-text uppercase font-black tracking-[0.2em]">Painel de Auditoria</p>
                 <div class="grid grid-cols-1 gap-3">
-                    <label class="bg-slate-900/80 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
                         <span id="label-pix1">📄 ANEXAR COMPROVANTE 01</span>
                         <input type="file" id="pix1" class="hidden" accept="image/*" onchange="validarAnexo('label-pix1')">
                     </label>
-                    <label class="bg-slate-900/80 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
                         <span id="label-pix2">📄 ANEXAR COMPROVANTE 02</span>
                         <input type="file" id="pix2" class="hidden" accept="image/*" onchange="validarAnexo('label-pix2')">
                     </label>
-                    <label class="bg-slate-900/80 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block hover:border-yellow-600 transition-all">
                         <span id="label-pix3">📄 ANEXAR COMPROVANTE 03</span>
                         <input type="file" id="pix3" class="hidden" accept="image/*" onchange="validarAnexo('label-pix3')">
                     </label>
@@ -127,114 +135,102 @@
             </div>
 
             <div class="space-y-4 pt-6 border-t border-slate-800 text-center">
-                <h2 class="text-[10px] font-black gold-text uppercase tracking-widest mb-4 italic">Seus Dados de Recebimento</h2>
-                <input type="text" id="nome" placeholder="Nome Completo para Registro" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600 transition-colors">
-                <input type="text" id="chave" placeholder="Sua Chave Pix Principal" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600 transition-colors">
-                <button onclick="enviarProtocolo()" class="w-full gold-bg py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform">
-                    Ativar Meu Protocolo
-                </button>
+                <h2 class="text-[10px] font-black gold-text uppercase tracking-widest mb-4 italic">Dados de Recebimento</h2>
+                <input type="text" id="nome_user" placeholder="Seu Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600">
+                <input type="text" id="pix_user" placeholder="Sua Chave Pix Principal" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600">
+                <button onclick="enviarProtocolo()" class="w-full gold-bg py-5 rounded-2xl text-xs font-black uppercase tracking-[0.2em] shadow-xl active:scale-95 transition-transform italic font-bold">Ativar Meu Protocolo</button>
             </div>
-
-            <p class="text-[9px] text-center text-slate-500 italic px-4 uppercase tracking-tighter">
-                O envio de comprovantes falsos ou duplicados acarreta o bloqueio imediato e permanente do acesso ao sistema.
-            </p>
-        </div>
-
-        <div id="tela-espera" class="hidden fixed inset-0 bg-[#05070a] z-[200] flex-col items-center justify-center p-8 text-center space-y-6">
-            <div class="w-20 h-20 border-4 border-yellow-600 border-t-transparent rounded-full animate-spin"></div>
-            <h2 class="gold-text text-xl font-black uppercase italic">Validando Protocolo...</h2>
-            <div class="card p-6 rounded-2xl border-yellow-600/30">
-                <p class="text-xs text-slate-300">Sua solicitação está na fila de conferência do Mestre Raiz.</p>
-                <p class="text-[10px] text-slate-500 mt-4 italic uppercase tracking-widest">Seu link será liberado nesta tela em instantes.</p>
-            </div>
-            <button onclick="location.reload()" class="text-[10px] text-slate-600 underline uppercase font-bold">Cancelar e Voltar</button>
         </div>
     </main>
 
     <footer>
-        <p class="text-[9px] text-slate-600 uppercase font-black tracking-widest">
-            &copy; 2026 Ajuda Mútua - Protocolo de Alavancagem Galdino Fidalgo
+        <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest">
+            © 2026 PROJETO <span class="gold-text">AJUDA MÚTUA</span>
         </p>
     </footer>
 
-    <div onclick="toggleModal()" class="btn-regras gold-bg pulse-gold animate-bounce">
-        REGRAS DO SISTEMA
-    </div>
+    <div onclick="toggleModal()" class="btn-regras gold-bg pulse-gold animate-bounce">REGRAS</div>
 
     <div id="modal-regras" class="fixed inset-0 bg-black/95 hidden items-center justify-center p-6 z-[1000]">
         <div class="card p-8 rounded-[2rem] max-w-sm w-full border border-yellow-500/50 relative shadow-2xl">
-            <button onclick="toggleModal()" class="absolute top-4 right-6 text-4xl text-slate-500 hover:text-white transition-colors">&times;</button>
-            <h3 class="gold-text font-black text-xl mb-6 text-center uppercase italic tracking-tighter">Estatuto de Governança</h3>
-            
-            <div class="regras-scroll text-[10px] space-y-4 text-slate-400">
-                <p><strong class="text-white uppercase">01. Objeto do Sistema:</strong> Protocolo de doação voluntária entre pessoas físicas (P2P), amparado pelo Código Civil Brasileiro. Não configura investimento ou pirâmide.</p>
-                
-                <p><strong class="text-white uppercase">02. Ativação Obrigatória:</strong> O acesso ao link de convite exige a realização de 3 doações de R$ 5,00. A liberação ocorre apenas após auditoria manual dos 3 comprovantes anexados.</p>
-                
-                <p><strong class="text-white uppercase">03. Matriz de Alavancagem (3x3):</strong> 
-                    <br>• Nível 1 (Direto): 3 pessoas x R$ 5,00 (R$ 15,00).
-                    <br>• Nível 2 (Indireto): 9 pessoas x R$ 5,00 (R$ 45,00).
-                    <br>• Nível 3 (Raiz): 27 pessoas x R$ 5,00 (R$ 135,00).
-                </p>
-                
-                <p><strong class="text-white uppercase">04. Privacidade e Dados:</strong> Ao ingressar, você autoriza a exibição de seu nome e Chave Pix para sua rede descendente visando possibilitar os recebimentos.</p>
-                
-                <p><strong class="text-white uppercase">05. Ética de Rede:</strong> É terminantemente proibido o aliciamento de membros de outras linhagens. O sistema preza pela fidelidade ao link original de entrada.</p>
-                
-                <p><strong class="text-white uppercase">06. Auditoria de Fraudes:</strong> O envio de comprovantes falsos, adulterados ou de valores incorretos invalidam o cadastro permanentemente.</p>
-                
-                <p><strong class="text-white uppercase">07. Isenção de Responsabilidade:</strong> O sistema é apenas uma interface de organização. Não retemos valores e não nos responsabilizamos por falhas em transações bancárias.</p>
-
-                <p><strong class="text-white uppercase">08. Compromisso de Liderança:</strong> Cada membro ativo assume o compromisso de instruir seus 3 convidados diretos sobre o funcionamento correto do ecossistema.</p>
-                
-                <p class="text-center gold-text font-black py-2 border-y border-yellow-600/20 uppercase tracking-[0.2em] mt-6">Protocolo v2.0 - 2026.05</p>
+            <button onclick="toggleModal()" class="absolute top-4 right-6 text-4xl text-slate-500">&times;</button>
+            <h3 class="gold-text font-black text-xl mb-6 text-center uppercase italic">Estatuto</h3>
+            <div class="space-y-4 text-[10px] text-slate-400 text-justify">
+                <p>Doação voluntária P2P entre pessoas físicas.</p>
+                <p>Ativação mediante 3 doações de R$ 5,00.</p>
+                <p>Comprovantes falsos geram banimento permanente.</p>
             </div>
-            
-            <button onclick="toggleModal()" class="mt-8 w-full gold-bg py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-inner active:scale-95 transition-all">Aceitar Protocolo</button>
+            <button onclick="toggleModal()" class="mt-8 w-full gold-bg py-4 rounded-xl font-black text-xs uppercase italic">Aceitar</button>
         </div>
     </div>
 
-    <script>
-        // Função para Copiar a Chave Pix e mostrar o Toast
-        function copiarPix(chave) {
-            navigator.clipboard.writeText(chave).then(() => {
-                const toast = document.getElementById('toast');
-                toast.style.opacity = '1';
-                setTimeout(() => { toast.style.opacity = '0'; }, 2000);
-            });
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-        // Função para atualizar o texto do botão após anexar imagem
-        function validarAnexo(id) {
+        const firebaseConfig = {
+            apiKey: "SUA_API_KEY",
+            authDomain: "SEU_PROJETO.firebaseapp.com",
+            projectId: "SEU_PROJETO",
+            storageBucket: "SEU_PROJETO.appspot.com",
+            messagingSenderId: "SEU_ID",
+            appId: "SEU_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.copiarPix = (txt) => {
+            if(!txt || txt === "...") return;
+            navigator.clipboard.writeText(txt);
+            const t = document.getElementById('toast');
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 2000);
+        };
+
+        window.validarAnexo = (id) => {
             const label = document.getElementById(id);
             label.innerText = "✅ PIX VALIDADO";
             label.style.color = "#d4af37";
-            label.style.borderColor = "#d4af37";
+        };
+
+        window.toggleModal = () => {
+            const m = document.getElementById('modal-regras');
+            m.classList.toggle('hidden');
+            m.classList.toggle('flex');
+        };
+
+        async function carregarFila() {
+            const params = new URLSearchParams(window.location.search);
+            const idPai = params.get('id') || "mestre";
+            try {
+                const doc1 = await getDoc(doc(db, "usuarios", idPai));
+                if(doc1.exists()){
+                    const d = doc1.data();
+                    document.getElementById('mestre1-nome').innerText = d.nome;
+                    document.getElementById('mestre1-pix').innerText = d.pix;
+                    document.getElementById('card1').onclick = () => copiarPix(d.pix);
+                    
+                    const idAvo = d.id_pai || "mestre";
+                    const doc2 = await getDoc(doc(db, "usuarios", idAvo));
+                    if(doc2.exists()){
+                        const d2 = doc2.data();
+                        document.getElementById('mestre2-nome').innerText = d2.nome;
+                        document.getElementById('mestre2-pix').innerText = d2.pix;
+                        document.getElementById('card2').onclick = () => copiarPix(d2.pix);
+                    }
+                }
+                const docM = await getDoc(doc(db, "usuarios", "mestre"));
+                if(docM.exists()){
+                    const dm = docM.data();
+                    document.getElementById('mestre3-nome').innerText = dm.nome;
+                    document.getElementById('mestre3-pix').innerText = dm.pix;
+                    document.getElementById('card3').onclick = () => copiarPix(dm.pix);
+                }
+            } catch (e) { console.error(e); }
         }
 
-        // Abrir e Fechar Modal de Regras
-        function toggleModal() {
-            const modal = document.getElementById('modal-regras');
-            modal.classList.toggle('hidden');
-            modal.classList.toggle('flex');
-        }
-
-        // Enviar Protocolo e validar campos
-        function enviarProtocolo() {
-            const p1 = document.getElementById('pix1').files.length;
-            const p2 = document.getElementById('pix2').files.length;
-            const p3 = document.getElementById('pix3').files.length;
-            const nome = document.getElementById('nome').value;
-            const chave = document.getElementById('chave').value;
-
-            if(p1 && p2 && p3 && nome.length > 3 && chave.length > 5) {
-                document.getElementById('tela-espera').classList.remove('hidden');
-                document.getElementById('tela-espera').classList.add('flex');
-            } else {
-                alert("ERRO DE PROTOCOLO: É obrigatório anexar os 3 comprovantes e preencher seus dados de recebimento corretamente.");
-            }
-        }
+        window.onload = carregarFila;
     </script>
-
 </body>
 </html>

@@ -13,6 +13,7 @@
             min-height: 100vh; margin: 0; padding-bottom: 120px; overflow-x: hidden; 
         }
 
+        /* Estilização dos Cards Pix */
         .pix-card {
             background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
@@ -20,6 +21,7 @@
         }
         .pix-card:active { transform: scale(0.98); background: rgba(212, 175, 55, 0.1); }
 
+        /* Botões Dourados Estilizados */
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
@@ -27,6 +29,7 @@
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
+        /* Botão Flutuante de Regras */
         .float-rules {
             position: fixed !important; bottom: 30px !important; right: 20px !important;
             width: 70px !important; height: 70px !important; border-radius: 50% !important;
@@ -37,6 +40,7 @@
             z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
+        /* Toast de Cópia */
         #toast {
             visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #d4af37);
             color: #000; text-align: center; border-radius: 50px; padding: 16px; 
@@ -48,6 +52,7 @@
         @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
         @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
+        /* Modal do Regulamento */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             backdrop-filter: blur(15px); display: none; z-index: 1000;
@@ -109,6 +114,7 @@
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
             <input type="text" id="nome_usuario" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
             <input type="text" id="pix_usuario" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            
             <button onclick="ativarAgora()" class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
         </div>
     </div>
@@ -125,7 +131,12 @@
             <br><br>
             Assim que seu perfil for ativado, seu <b>ID de Divulgação</b> e acesso à rede 3x10 serão liberados automaticamente nesta página.
         </p>
-        <button onclick="window.location.reload()" class="mt-10 text-yellow-500 font-black text-[10px] uppercase underline tracking-widest">Atualizar Status</button>
+        
+        <div class="mt-10 flex flex-col gap-4">
+            <button onclick="window.location.reload()" class="text-yellow-500 font-black text-[10px] uppercase underline tracking-widest">Atualizar Status</button>
+            
+            <button onclick="limparESair()" class="text-slate-500 font-bold text-[9px] uppercase tracking-widest mt-4">← Voltar / Novo Cadastro</button>
+        </div>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
@@ -154,6 +165,8 @@
                                 <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
                                 <tr><td>Nível 3</td><td>27</td><td>R$ 135,00</td></tr>
                                 <tr><td>Nível 4</td><td>81</td><td>R$ 405,00</td></tr>
+                                <tr><td>Nível 5</td><td>243</td><td>R$ 1.215,00</td></tr>
+                                <tr><td>Nível 6</td><td>729</td><td>R$ 3.645,00</td></tr>
                                 <tr class="gold-row"><td>Nível 10</td><td>59.049</td><td>R$ 295.245,00</td></tr>
                             </tbody>
                         </table>
@@ -180,19 +193,23 @@
                     <p>Ao ser ativado, o membro ganha acesso ao seu painel para monitorar a rede e acompanhar as ativações descendentes. O projeto é sustentável porque organiza o fluxo de doações voluntárias de forma inteligente.</p>
                 </div>
 
+                <div class="rule-section">
+                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"Ninguém cresce sozinho. O suporte mútuo é a base da nossa rede."</p>
+                </div>
+
             </div>
             <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceito todos os termos</button>
         </div>
     </div>
 
     <script>
-        // Função para Ativar o botão
+        // Função que ativa o cadastro e troca de tela
         function ativarAgora() {
             const nome = document.getElementById('nome_usuario').value;
             const pix = document.getElementById('pix_usuario').value;
 
             if(nome && pix) {
-                // Salva que o usuário já pediu ativação
+                // Guarda o status para o site não "esquecer" ao recarregar
                 localStorage.setItem('projeto_galdino_status', 'pendente');
                 mostrarTelaEspera();
             } else {
@@ -200,19 +217,26 @@
             }
         }
 
-        // Função para trocar a tela
+        // Função para mostrar a tela de espera
         function mostrarTelaEspera() {
             document.getElementById('main-content').classList.add('hidden-screen');
             document.getElementById('waiting-screen').classList.remove('hidden-screen');
         }
 
-        // Verifica se o usuário já tem o status ao carregar a página
+        // Função para LIMPAR a memória e voltar ao cadastro (Para você testar)
+        function limparESair() {
+            localStorage.removeItem('projeto_galdino_status');
+            window.location.reload();
+        }
+
+        // Verifica o status assim que a página abre
         window.onload = function() {
             if(localStorage.getItem('projeto_galdino_status') === 'pendente') {
                 mostrarTelaEspera();
             }
         };
 
+        // Função de Copiar Pix
         function copyText(val) {
             const el = document.createElement('textarea');
             el.value = val; document.body.appendChild(el); el.select();
@@ -221,6 +245,7 @@
             toast.className = "show"; setTimeout(() => { toast.className = ""; }, 3000);
         }
 
+        // Controle do Modal
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }
     </script>

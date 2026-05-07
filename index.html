@@ -58,6 +58,7 @@
             border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column;
         }
         .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+        
         .rule-section { margin-bottom: 25px; }
         .rule-header { 
             color: var(--gold); font-weight: 900; text-transform: uppercase; 
@@ -69,6 +70,7 @@
         table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
         td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; font-family: monospace; }
+        .gold-row { color: var(--gold) !important; font-weight: bold; background: rgba(212, 175, 55, 0.05); }
     </style>
 </head>
 <body>
@@ -81,30 +83,30 @@
             <p class="text-[8px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-1 italic">Protocolo Elite - Sistema de Suporte</p>
         </header>
 
-        <div class="pix-card" onclick="copyText('+554196142602')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 01 - Master</p>
-            <div class="flex justify-between items-center"><p class="font-black italic text-sm uppercase">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
+        <div class="pix-card" onclick="copyText('04036277375')">
+            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 01 - Master</p>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
-        <div class="pix-card" onclick="copyText('+554196142602')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 02 - Suporte</p>
-            <div class="flex justify-between items-center"><p class="font-black italic text-sm uppercase">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
+        <div class="pix-card" onclick="copyText('04036277375')">
+            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 02 - Suporte</p>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
-        <div class="pix-card" onclick="copyText('+554196142602')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 03 - Fundador</p>
-            <div class="flex justify-between items-center"><p class="font-black italic text-sm uppercase">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
+        <div class="pix-card" onclick="copyText('04036277375')">
+            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 03 - Fundador</p>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-6 italic">1. Enviar Comprovantes</h3>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
             <label class="solid-gold-btn mb-3"><span>Selecionar Comprovante 01</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn mb-3"><span>Selecionar Comprovante 02</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Selecionar Comprovante 03</span><input type="file" class="hidden"></label>
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
+            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
             <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
         </div>
     </div>
@@ -114,22 +116,22 @@
     <div id="modal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
-                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Estatuto e Detalhamento Técnico</span>
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Estatuto e Funcionamento Detalhado</span>
                 <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
             </div>
             <div class="modal-content">
                 
                 <div class="rule-section">
-                    <span class="rule-header">1. O Gatilho de Ativação</span>
-                    <p>O Projeto é ativado com 3 doações diretas de R$ 5,00 (Total R$ 15,00). Após anexar os comprovantes, o seu link de divulgação inteligente com rastreio de ID é liberado em até 24h pela auditoria.</p>
+                    <span class="rule-header">1. O Gatilho de Ativação Único</span>
+                    <p>Para entrar no sistema, o membro realiza 3 doações diretas de R$ 5,00. O custo total de adesão é de R$ 15,00. Após o envio dos arquivos de comprovante, a auditoria manual valida a posição em até 24 horas para liberar o link de divulgação.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">2. Matriz Forçada 3x10</span>
-                    <p>Cada membro possui apenas 3 diretos no primeiro nível. O crescimento acontece em 10 níveis de profundidade, gerando benefícios conforme a rede se expande.</p>
+                    <span class="rule-header">2. Estrutura da Matriz 3x10</span>
+                    <p>O sistema organiza os participantes em 10 níveis. No primeiro nível, você possui apenas 3 vagas diretas. Todo o crescimento excedente gera transbordo para a sua rede descendente.</p>
                     <div class="table-container">
                         <table>
-                            <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos</th></tr></thead>
+                            <thead><tr><th>Nível</th><th>Membros</th><th>Potencial de Ganho</th></tr></thead>
                             <tbody>
                                 <tr><td>Nível 1</td><td>3</td><td>R$ 15,00</td></tr>
                                 <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
@@ -142,22 +144,22 @@
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">3. Sistema de Derramamento</span>
-                    <p>Ao preencher seus 3 primeiros membros, o sistema aloca novos convidados automaticamente abaixo da sua rede que ainda tenha vagas (Transbordo), acelerando o resultado de todos.</p>
+                    <span class="rule-header">3. O Poder do Derramamento</span>
+                    <p>O sistema utiliza derramamento inteligente. Se um líder direto já preencheu suas 3 vagas, o próximo convidado dele será alocado automaticamente abaixo de um membro da rede que ainda tenha espaço, ajudando a base a crescer.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">4. Segurança e Integridade</span>
-                    <p>O sistema rastreia CPF e IP. O envio de comprovantes falsos ou duplicados resulta em banimento imediato e irreversível para proteger a conta bancária dos membros honestos.</p>
+                    <span class="rule-header">4. Fluxo Direto (P2P via Pix)</span>
+                    <p>O sistema não retém valores. As doações são feitas no modelo Pessoa para Pessoa (P2P), direto para a conta Pix do recebedor, garantindo liquidez imediata sem necessidade de pedidos de saque.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">5. Fluxo Direto (P2P)</span>
-                    <p>As doações são feitas de pessoa para pessoa via Pix. O dinheiro não passa pelo administrador, garantindo liquidez imediata direto na sua conta.</p>
+                    <span class="rule-header">5. Auditoria e Segurança</span>
+                    <p>Rastreamos IP e CPF para evitar fraudes. O envio de arquivos falsos ou duplicados gera banimento imediato da rede para proteger a integridade financeira do grupo.</p>
                 </div>
 
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceito e Desejo Prosseguir</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceito os Termos</button>
         </div>
     </div>
 

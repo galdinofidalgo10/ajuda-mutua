@@ -14,9 +14,7 @@
         .pix-card {
             background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
-            transition: all 0.2s;
         }
-        .pix-card:active { background: rgba(212, 175, 55, 0.1); }
 
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
@@ -36,19 +34,19 @@
             z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
-        /* Toast Dourado - Único feedback visível */
+        /* Toast Dourado - Centralizado e Elegante */
         #toast {
             visibility: hidden; min-width: 250px; 
             background: linear-gradient(135deg, #b8860b, #d4af37);
             color: #000; text-align: center; border-radius: 50px; padding: 16px; 
-            position: fixed; z-index: 2000; left: 50%; bottom: 50px; 
+            position: fixed; z-index: 2000; left: 50%; bottom: 100px; 
             transform: translateX(-50%); font-weight: 900; text-transform: uppercase; 
             font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
 
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 50px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 50px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 100px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 100px; opacity: 1;} to {bottom: 0; opacity: 0;} }
 
         /* Modal Regras */
         .modal-overlay {
@@ -99,8 +97,8 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
+            <input type="text" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
             <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Meu Protocolo</button>
         </div>
     </div>
@@ -115,9 +113,9 @@
             </div>
             <div class="modal-content">
                 <p class="text-white font-black mb-2 uppercase">1. O Sistema</p>
-                <p class="mb-4">Economia colaborativa em 10 níveis. Sua ativação libera o seu **Painel e Link Único**.</p>
+                <p class="mb-4">Economia colaborativa baseada em 10 níveis.</p>
                 
-                <p class="text-white font-black mb-2 uppercase">2. Tabela de Níveis Detalhada</p>
+                <p class="text-white font-black mb-2 uppercase">2. Projeção de Ganhos</p>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -137,36 +135,27 @@
                         </tbody>
                     </table>
                 </div>
-
-                <p class="text-white font-black mb-2 uppercase">3. Cláusula de Reciprocidade</p>
-                <p class="mb-4 italic border-l-2 border-yellow-500 pl-3 text-slate-400">O sucesso da rede depende da honestidade e do esforço coletivo. Ao entrar, compromete-se com a integridade da rede.</p>
-
-                <p class="text-red-500 font-black mb-2 uppercase">4. Segurança</p>
-                <p class="text-slate-400">Comprovantes falsos causam banimento imediato e irreversível.</p>
+                <p class="text-red-500 font-black mb-2 uppercase">3. Segurança</p>
+                <p>Comprovantes falsos causam banimento imediato.</p>
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[10px]">Li e Concordo</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[10px]">Entendido</button>
         </div>
     </div>
 
     <script>
-        // Função de cópia otimizada para evitar feedback indesejado do sistema
-        async function copyText(val) {
-            try {
-                await navigator.clipboard.writeText(val);
-            } catch (err) {
-                // Fallback silencioso caso o clipboard API falhe
-                const el = document.createElement('textarea');
-                el.value = val;
-                el.setAttribute('readonly', '');
-                el.style.position = 'absolute';
-                el.style.left = '-9999px';
-                document.body.appendChild(el);
-                el.select();
-                document.execCommand('copy');
-                document.body.removeChild(el);
-            }
+        function copyText(val) {
+            // Método do input invisível (mais limpo no Android)
+            const el = document.createElement('textarea');
+            el.value = val;
+            el.setAttribute('readonly', '');
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
 
-            // Exibe apenas o Toast dourado
+            // Mostra apenas o Toast Dourado
             const toast = document.getElementById("toast");
             toast.className = "show";
             setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);

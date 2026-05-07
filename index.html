@@ -21,13 +21,29 @@
         .hidden-screen { display: none; }
         .float-rules { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; z-index: 100; cursor: pointer; border: 2px solid #fff; }
         
-        /* Tabela Admin */
+        /* --- NOTIFICAÇÃO DOURADA (TOAST) --- */
+        #custom-toast {
+            visibility: hidden; min-width: 250px; 
+            background: linear-gradient(135deg, #b8860b, #fde047);
+            color: #000; text-align: center; border-radius: 50px; padding: 12px;
+            position: fixed; z-index: 9999; left: 50%; top: 30px; 
+            transform: translateX(-50%); font-weight: 900; font-size: 12px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            border: 2px solid #fff;
+        }
+        #custom-toast.show { visibility: visible; animation: slideDown 0.5s, fadeOut 0.5s 2.5s; }
+        
+        @keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 30px; opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
         table { width: 100%; border-collapse: collapse; font-size: 10px; margin-top: 15px; }
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; }
         td { border-bottom: 1px solid #1e293b; padding: 10px; }
     </style>
 </head>
 <body>
+
+    <div id="custom-toast">Mensagem Aqui</div>
 
     <div id="cadastro-screen" class="max-w-md mx-auto p-6">
         <header class="text-center mb-10 pt-4">
@@ -36,18 +52,27 @@
         </header>
 
         <div class="space-y-3">
-            <div class="pix-card" onclick="alert('Chave Copiada')"><p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 01</p><div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div></div>
-            <div class="pix-card" onclick="alert('Chave Copiada')"><p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 02</p><div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div></div>
-            <div class="pix-card" onclick="alert('Chave Copiada')"><p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 03</p><div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div></div>
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 01 - MASTER</p>
+                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
+            </div>
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 02 - SUPORTE</p>
+                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
+            </div>
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 03 - FUNDADOR</p>
+                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
+            </div>
         </div>
 
         <div class="mt-8 space-y-3 text-center">
-            <p class="text-[10px] text-yellow-600 font-black uppercase">Anexar Comprovantes</p>
+            <p class="text-[10px] text-yellow-600 font-black uppercase italic">Anexar Comprovantes</p>
             <label class="solid-gold-btn"><span>Pix 01</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Pix 02</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Pix 03</span><input type="file" class="hidden"></label>
-            <input type="text" id="nome_user" placeholder="SEU NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs mt-4">
-            <button onclick="ativar()" class="solid-gold-btn h-[70px] mt-4">Ativar Agora</button>
+            <input type="text" id="nome_user" placeholder="SEU NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs mt-4 outline-none focus:border-yellow-500">
+            <button onclick="ativar()" class="solid-gold-btn h-[70px] mt-4 shadow-2xl">Ativar Agora</button>
         </div>
     </div>
 
@@ -62,56 +87,76 @@
             <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Rede</p><p class="text-lg font-black text-yellow-500">0/3</p></div>
         </div>
 
-        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-6">
+        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-6 text-center">
             <p class="text-[10px] font-black text-yellow-500 mb-2">LINK DE CONVITE</p>
-            <p class="text-[9px] text-slate-500 italic">Seu link será liberado após a conferência dos 3 Pix.</p>
+            <p class="text-[9px] text-slate-500 italic">Aguardando confirmação manual dos 3 Pix.</p>
         </div>
 
-        <footer class="text-center space-y-4">
-            <button onclick="logout()" class="text-[9px] text-slate-600 uppercase underline">Sair</button>
+        <footer class="text-center space-y-6">
+            <button onclick="logout()" class="text-[9px] text-slate-600 uppercase underline">Sair do Sistema</button>
             <br>
-            <button onclick="acessoAdm()" class="text-[8px] text-slate-800 uppercase">Acesso Administrativo</button>
+            <button onclick="acessoAdm()" class="text-[8px] text-slate-800 uppercase tracking-[0.2em]">Acesso Administrativo</button>
         </footer>
     </div>
 
     <div id="admin-screen" class="max-w-md mx-auto p-6 hidden-screen">
-        <h2 class="text-xl font-black text-yellow-500 mb-6 uppercase italic">Gestão de Ativações</h2>
+        <h2 class="text-xl font-black text-yellow-500 mb-6 uppercase italic">Administração</h2>
         <div class="bg-slate-900 rounded-xl overflow-hidden border border-yellow-500/20">
             <table>
                 <thead><tr><th>Usuário</th><th>Status</th><th>Ação</th></tr></thead>
                 <tbody id="admin-list">
                     <tr>
-                        <td>Membro Exemplo</td>
-                        <td class="text-orange-500">Pendente</td>
-                        <td><button onclick="alert('Ativado!')" class="bg-green-600 text-[9px] font-bold px-2 py-1 rounded">Liberar</button></td>
+                        <td>Membro de Teste</td>
+                        <td class="text-orange-500 font-bold">Pendente</td>
+                        <td><button onclick="showToast('Membro Ativado com Sucesso!')" class="bg-green-600 text-[9px] font-bold px-2 py-1 rounded">Liberar</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <button onclick="window.location.reload()" class="w-full mt-8 solid-gold-btn">Voltar ao Painel</button>
+        <button onclick="window.location.reload()" class="w-full mt-8 solid-gold-btn">Voltar</button>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
 
     <div id="modal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="p-5 border-b border-yellow-500/20 text-yellow-500 font-black text-[10px]">REGULAMENTO ELITE</div>
-            <div class="modal-content text-[11px] p-6 space-y-4">
-                <p><strong>1. Ativação:</strong> Envio de 3 Pix de R$ 5,00.</p>
-                <p><strong>2. Matriz:</strong> 3x10 com transbordo automático.</p>
-                <p><strong>3. Auditoria:</strong> Prazo de 24h para liberação do link.</p>
-                <p><strong>4. Ganhos:</strong> Recebimento direto na sua conta Pix.</p>
+            <div class="p-5 border-b border-yellow-500/20 text-yellow-500 font-black text-[10px] italic">ESTATUTO DO PROJETO</div>
+            <div class="modal-content p-6 space-y-4">
+                <p><strong>1. Ativação:</strong> Envio obrigatório de 3 Pix de R$ 5,00.</p>
+                <p><strong>2. Auditoria:</strong> Validação humana em até 24h.</p>
+                <p><strong>3. Transbordo:</strong> Sistema de derramamento na matriz 3x10.</p>
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-4 text-black font-black uppercase text-[10px]">Entendido</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Li e Concordo</button>
         </div>
     </div>
 
     <script>
+        // FUNÇÃO PARA MOSTRAR A NOTIFICAÇÃO DOURADA
+        function showToast(msg) {
+            const toast = document.getElementById("custom-toast");
+            toast.innerText = msg;
+            toast.className = "show";
+            setTimeout(() => { toast.className = ""; }, 3000);
+        }
+
+        function copyPix(chave) {
+            const el = document.createElement('textarea');
+            el.value = chave; document.body.appendChild(el); el.select();
+            document.execCommand('copy'); document.body.removeChild(el);
+            showToast("CHAVE PIX COPIADA COM SUCESSO!");
+        }
+
         function ativar() {
             const n = document.getElementById('nome_user').value;
-            if(n) { localStorage.setItem('user', n); render(); }
-            else { alert("Digite seu nome."); }
+            if(n) { 
+                localStorage.setItem('user', n); 
+                showToast("DADOS ENVIADOS! AGUARDE ATIVAÇÃO.");
+                setTimeout(render, 1500);
+            } else { 
+                showToast("POR FAVOR, DIGITE SEU NOME."); 
+            }
         }
+
         function render() {
             const u = localStorage.getItem('user');
             if(u) {
@@ -120,13 +165,17 @@
                 document.getElementById('display-nome').innerText = u;
             }
         }
+
         function acessoAdm() {
-            const senha = prompt("Digite a senha administrativa:");
-            if(senha === "123") { // Altere sua senha aqui
+            const senha = prompt("SENHA ADM:");
+            if(senha === "123") {
                 document.getElementById('office-screen').classList.add('hidden-screen');
                 document.getElementById('admin-screen').classList.remove('hidden-screen');
-            } else { alert("Senha incorreta!"); }
+            } else { 
+                showToast("SENHA INCORRETA!"); 
+            }
         }
+
         function logout() { localStorage.clear(); window.location.reload(); }
         function openModal() { document.getElementById('modal').style.display = 'flex'; }
         function closeModal() { document.getElementById('modal').style.display = 'none'; }

@@ -3,149 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Projeto Ajuda Mútua | Protocolo Elite</title>
+    <title>Ajuda Mútua | Protocolo Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
-        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; margin: 0; }
+        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
         
-        /* Cards e Botões */
-        .pix-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer; }
-        .solid-gold-btn { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #b8860b, #fde047); color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase; height: 55px; border-radius: 12px; cursor: pointer; width: 100%; border: none; }
-        .stat-box { background: #0f172a; border-radius: 12px; padding: 15px; border-left: 3px solid var(--gold); }
-        
-        /* Input Estilizado */
-        .input-elite { w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs outline-none; width: 100%; color: white; margin-bottom: 12px; }
-        .input-elite:focus { border-color: var(--gold); }
-
-        /* Notificação Dourada */
-        #custom-toast {
-            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047);
-            color: #000; text-align: center; border-radius: 50px; padding: 14px;
-            position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
-            font-weight: 900; font-size: 11px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); border: 2px solid #fff;
+        /* Efeito de Vidro nos Cards */
+        .glass-card { 
+            background: rgba(15, 23, 42, 0.6); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1); 
+            border-radius: 20px; 
         }
-        #custom-toast.show { visibility: visible; animation: slideDown 0.5s, fadeOut 0.5s 2.5s; }
-        
-        @keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 30px; opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        .hidden-screen { display: none; }
-        .float-rules { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; z-index: 100; cursor: pointer; border: 2px solid #fff; }
-        
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; z-index: 1000; align-items: center; justify-content: center; padding: 15px; }
-        .modal-box { background: #0f172a; border: 2px solid var(--gold); border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column; }
+        /* Botões com Degradê Suave */
+        .btn-gold { 
+            background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); 
+            color: #000; font-weight: 900; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+        }
+        .btn-gold:active { transform: scale(0.98); opacity: 0.9; }
+
+        /* Inputs Profissionais (Sem bordas brancas grossas) */
+        .input-field {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 18px;
+            border-radius: 12px;
+            color: white;
+            font-size: 13px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .input-field:focus {
+            border-color: var(--gold);
+            background: rgba(30, 41, 59, 0.8);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+        .input-field::placeholder { color: rgba(255,255,255,0.3); font-style: italic; }
+
+        /* Toast Dourado */
+        #toast {
+            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047);
+            color: #000; text-align: center; border-radius: 50px; padding: 15px;
+            position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
+            font-weight: 900; font-size: 11px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        #toast.show { visibility: visible; animation: slideDown 0.5s; }
+        @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
     </style>
 </head>
-<body>
+<body class="p-6">
 
-    <div id="custom-toast">Mensagem</div>
+    <div id="toast">Notificação</div>
 
-    <div id="cadastro-screen" class="max-w-md mx-auto p-6">
+    <div id="cadastro-screen" class="max-w-md mx-auto">
         <header class="text-center mb-10 pt-4">
             <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
-            <p class="text-[8px] font-bold text-slate-600 tracking-[0.4em] uppercase italic">Protocolo Elite</p>
+            <p class="text-[9px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
-        <div class="space-y-3">
-            <div class="pix-card" onclick="copyPix('04036277375')">
-                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 01 - MASTER</p>
-                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
+        <div class="space-y-3 mb-8">
+            <div onclick="copy('04036277375')" class="glass-card p-5 cursor-pointer active:bg-slate-800">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 01 - MASTER</p>
+                        <h3 class="font-black italic text-sm tracking-tight">Galdino Pereira Fidalgo</h3>
+                    </div>
+                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                </div>
             </div>
-            <div class="pix-card" onclick="copyPix('04036277375')">
-                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 02 - SUPORTE</p>
-                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
             </div>
-            <div class="pix-card" onclick="copyPix('04036277375')">
-                <p class="text-[8px] text-yellow-500 font-black mb-1">NÍVEL 03 - FUNDADOR</p>
-                <div class="flex justify-between font-black text-sm"><span>Galdino Fidalgo</span><span>R$ 5,00</span></div>
-            </div>
-        </div>
 
-        <div class="mt-8 space-y-3 text-center">
-            <p class="text-[10px] text-yellow-600 font-black uppercase italic">Anexar Comprovantes</p>
-            <label class="solid-gold-btn"><span>Pix 01</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Pix 02</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Pix 03</span><input type="file" class="hidden"></label>
+        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30 shadow-2xl">
+            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6 tracking-widest">Validar sua Entrada</h2>
             
-            <p class="text-[10px] text-yellow-600 font-black uppercase italic mt-6">Seus Dados de Recebimento</p>
-            <input type="text" id="nome_user" placeholder="SEU NOME COMPLETO" class="input-elite">
-            <input type="text" id="pix_user" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-elite">
-            
-            <button onclick="ativar()" class="solid-gold-btn h-[70px] mt-4 shadow-2xl">Ativar Agora</button>
+            <div class="space-y-4">
+                <div class="grid grid-cols-3 gap-2">
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
+                        PIX 01 <input type="file" class="hidden">
+                    </label>
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
+                        PIX 02 <input type="file" class="hidden">
+                    </label>
+                    <label class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] text-center px-1">
+                        PIX 03 <input type="file" class="hidden">
+                    </label>
+                </div>
+
+                <div class="pt-4 space-y-3">
+                    <p class="text-[8px] text-slate-500 font-bold uppercase ml-1">Seus Dados de Cadastro</p>
+                    <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field">
+                    <input type="text" id="pix" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-field">
+                </div>
+
+                <button onclick="check()" class="btn-gold w-full h-16 rounded-xl text-sm shadow-inner mt-4">
+                    Ativar Agora
+                </button>
+            </div>
         </div>
     </div>
-
-    <div id="office-screen" class="max-w-md mx-auto p-6 hidden-screen">
-        <header class="flex justify-between items-center mb-6 pt-4">
-            <div><p class="text-[10px] text-slate-500 font-bold uppercase">Membro Elite</p><h2 id="display-nome" class="text-xl font-black italic text-yellow-500"></h2></div>
-            <span class="bg-orange-500/20 text-orange-500 text-[8px] font-black px-3 py-1 rounded-full border border-orange-500/30">AUDITORIA</span>
-        </header>
-
-        <div class="grid grid-cols-2 gap-3 mb-6 text-center">
-            <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Saldo</p><p class="text-lg font-black">R$ 0,00</p></div>
-            <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Rede</p><p class="text-lg font-black text-yellow-500">0/3</p></div>
-        </div>
-
-        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800 mb-6 text-center">
-            <p class="text-[10px] font-black text-yellow-500 mb-2 uppercase">Link de Convite</p>
-            <p class="text-[9px] text-slate-500 italic">Bloqueado: Aguardando conferência dos 3 comprovantes.</p>
-        </div>
-
-        <footer class="text-center pt-10">
-            <button onclick="logout()" class="text-[9px] text-slate-600 uppercase underline">Sair do Painel</button>
-            <br><br>
-            <button onclick="acessoAdm()" class="text-[8px] text-slate-900 uppercase">Acesso Administrativo</button>
-        </footer>
-    </div>
-
-    <div class="float-rules" onclick="openModal()">Regras</div>
 
     <script>
-        function showToast(msg) {
-            const toast = document.getElementById("custom-toast");
-            toast.innerText = msg; toast.className = "show";
-            setTimeout(() => { toast.className = ""; }, 3000);
+        function showT(m) {
+            const t = document.getElementById("toast");
+            t.innerText = m; t.className = "show";
+            setTimeout(() => { t.className = ""; }, 3000);
         }
 
-        function copyPix(chave) {
-            const el = document.createElement('textarea'); el.value = chave; document.body.appendChild(el);
-            el.select(); document.execCommand('copy'); document.body.removeChild(el);
-            showToast("CHAVE PIX COPIADA!");
+        function copy(v) {
+            navigator.clipboard.writeText(v);
+            showT("CHAVE COPIADA!");
         }
 
-        function ativar() {
-            const n = document.getElementById('nome_user').value;
-            const p = document.getElementById('pix_user').value;
-            if(n && p) { 
-                localStorage.setItem('user', n); 
-                showToast("DADOS ENVIADOS COM SUCESSO!");
-                setTimeout(render, 1500);
-            } else { 
-                showToast("PREENCHA NOME E CHAVE PIX!"); 
+        function check() {
+            const n = document.getElementById('nome').value;
+            const p = document.getElementById('pix').value;
+            if(n && p) {
+                showT("DADOS ENVIADOS! AGUARDE AUDITORIA.");
+            } else {
+                showT("PREENCHA TODOS OS CAMPOS!");
             }
         }
-
-        function render() {
-            const u = localStorage.getItem('user');
-            if(u) {
-                document.getElementById('cadastro-screen').classList.add('hidden-screen');
-                document.getElementById('office-screen').classList.remove('hidden-screen');
-                document.getElementById('display-nome').innerText = u;
-            }
-        }
-
-        function acessoAdm() {
-            const senha = prompt("SENHA:");
-            if(senha === "123") {
-                showToast("ACESSO AUTORIZADO");
-                // Aqui abriria a tela de admin que fizemos antes
-            } else { showToast("SENHA INCORRETA!"); }
-        }
-
-        function logout() { localStorage.clear(); window.location.reload(); }
-        window.onload = render;
     </script>
 </body>
 </html>

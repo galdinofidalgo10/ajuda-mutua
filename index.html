@@ -7,45 +7,67 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --gold-light: #fde047; }
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
         .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
-        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 12px; color: white; outline: none; }
-        #toast { visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047); color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
+        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
+        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
+        #toast { visibility: hidden; min-width: 280px; background: #fde047; color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
     </style>
 </head>
-<body class="p-6">
-    <div id="toast">Notificação</div>
+<body class="p-4">
+    <div id="toast"></div>
 
-    <div id="cadastro-screen" class="max-w-md mx-auto">
-        <header class="text-center mb-8 pt-4">
-            <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
-            <p class="text-[9px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
+    <div class="max-w-md mx-auto">
+        <header class="text-center mb-6 pt-4">
+            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
+            <p class="text-[8px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
-        <div class="space-y-3 mb-8">
-            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:scale-95 transition-transform">
+        <div class="space-y-3 mb-6">
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:scale-95 transition-transform border-l-4 border-l-yellow-500">
                 <div class="flex justify-between items-center">
-                    <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 01</p><h3 class="font-black text-xs">Galdino Pereira Fidalgo</h3></div>
+                    <div>
+                        <p class="text-[7px] text-yellow-500 font-black uppercase">Nível 01</p>
+                        <h3 class="font-black text-xs uppercase text-white">Galdino Pereira Fidalgo</h3>
+                    </div>
                     <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
                 </div>
             </div>
+
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:scale-95 transition-transform border-l-4 border-l-yellow-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-[7px] text-yellow-500 font-black uppercase">Nível 02</p>
+                        <h3 class="font-black text-xs uppercase text-white">Galdino Pereira Fidalgo</h3>
+                    </div>
+                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                </div>
             </div>
 
-        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30 shadow-2xl">
-            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6 tracking-widest">Validar sua Entrada</h2>
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer active:scale-95 transition-transform border-l-4 border-l-yellow-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-[7px] text-yellow-500 font-black uppercase">Nível 03</p>
+                        <h3 class="font-black text-xs uppercase text-white">Galdino Pereira Fidalgo</h3>
+                    </div>
+                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
+            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center cursor-pointer">PIX 01<input type="file" id="file1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center cursor-pointer">PIX 02<input type="file" id="file2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center cursor-pointer">PIX 03<input type="file" id="file3" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
                 </div>
-                <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field text-xs">
+                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
                 <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
-                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm mt-4 active:scale-95">Ativar Agora</button>
+                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95">Ativar Agora</button>
             </div>
         </div>
     </div>
@@ -55,7 +77,7 @@
 
     <script>
         const firebaseConfig = {
-            apiKey: "COLE_SUA_CHAVE_AQUI", 
+            apiKey: "AIzaSyCZIP0M0M8FqC_LAtI9I36e_IIn_V-C4m4",
             authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
             databaseURL: "https://ajuda-mutua-7d99a-default-rtdb.firebaseio.com",
             projectId: "ajuda-mutua-7d99a",
@@ -71,42 +93,32 @@
         async function ativar() {
             const n = document.getElementById('nome').value;
             const p = document.getElementById('pix_user').value;
-            const inputs = [document.getElementById('file1'), document.getElementById('file2'), document.getElementById('file3')];
+            const inputs = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
             
-            if(!n || !p) return showT("PREENCHA TUDO!");
+            if(!n || !p) return showT("PREENCHA NOME E PIX!");
             
-            let temFoto = false;
-            inputs.forEach(i => { if(i.files[0]) temFoto = true; });
-            if(!temFoto) return showT("ANEXE OS COMPROVANTES!");
-
-            showT("PROCESSANDO FOTOS...");
-
-            const toBase64 = file => new Promise((res, rej) => {
+            let fotos = [];
+            const toBase64 = file => new Promise((res) => {
                 const r = new FileReader();
                 r.readAsDataURL(file);
                 r.onload = () => res(r.result);
-                r.onerror = e => rej(e);
             });
 
+            showT("PROCESSANDO... AGUARDE.");
+
             try {
-                let fotos = [];
-                for (let input of inputs) {
-                    if (input.files[0]) {
-                        const b64 = await toBase64(input.files[0]);
-                        fotos.push(b64);
-                    }
+                for (let i of inputs) {
+                    if (i.files[0]) fotos.push(await toBase64(i.files[0]));
                 }
+                if(fotos.length < 3) return showT("ANEXE OS 3 COMPROVANTES!");
 
                 database.ref('solicitacoes/').push({
                     nome: n, pix: p, comprovantes: fotos, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
                 }).then(() => { 
                     showT("ENVIADO COM SUCESSO!");
-                    document.getElementById('nome').value = "";
-                    document.getElementById('pix_user').value = "";
+                    document.getElementById('nome').value = ""; document.getElementById('pix_user').value = "";
                 });
-            } catch (e) {
-                showT("ERRO AO PROCESSAR");
-            }
+            } catch (e) { showT("ERRO NO ENVIO."); }
         }
     </script>
 </body>

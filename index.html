@@ -19,7 +19,6 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* Estilização Cards */
         .pix-card {
             background: rgba(30, 41, 59, 0.4); 
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -35,7 +34,6 @@
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
-        /* Botão Flutuante Regras */
         .float-rules {
             position: fixed !important; bottom: 30px !important; right: 20px !important;
             width: 70px !important; height: 70px !important; border-radius: 50% !important;
@@ -46,7 +44,6 @@
             z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
-        /* TOAST NO TOPO */
         #toast {
             visibility: hidden; min-width: 280px; 
             background: linear-gradient(135deg, #b8860b, #d4af37);
@@ -61,7 +58,6 @@
         @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
         @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
-        /* Modal Regras Expandido */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             backdrop-filter: blur(15px); display: none; z-index: 1000;
@@ -84,7 +80,7 @@
         table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
         td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; font-family: monospace; }
-        .gold-row { color: var(--gold) !important; font-weight: bold; }
+        .gold-row { color: var(--gold) !important; font-weight: bold; background: rgba(212, 175, 55, 0.05); }
     </style>
 </head>
 <body>
@@ -137,14 +133,14 @@
                 
                 <div class="rule-section">
                     <span class="rule-header">1. Dinâmica de Ajuda Mútua</span>
-                    <p>Sistema baseado em doações voluntárias. A ativação requer 3 doações de R$ 5,00 para os níveis superiores.</p>
+                    <p>O Protocolo é ativado com 3 doações diretas de R$ 5,00 (Total R$ 15,00). Cada novo membro que entra na sua rede também doará R$ 5,00 para você conforme o nível alcançado.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">2. Matriz de Ganhos Nível a Nível</span>
+                    <span class="rule-header">2. Matriz de Ganhos (R$ 5,00 por membro)</span>
                     <div class="table-container">
                         <table>
-                            <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos Totais</th></tr></thead>
+                            <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos (R$ 5/cada)</th></tr></thead>
                             <tbody>
                                 <tr><td>Nível 1</td><td>5</td><td>R$ 25,00</td></tr>
                                 <tr><td>Nível 2</td><td>25</td><td>R$ 125,00</td></tr>
@@ -163,17 +159,12 @@
 
                 <div class="rule-section">
                     <span class="rule-header">3. Painel Administrativo Elite</span>
-                    <p>Acesso ao Escritório Virtual para monitorar sua rede, verificar comprovantes e acompanhar saldo em tempo real.</p>
+                    <p>Controle total da sua rede, visualização de comprovantes recebidos e link de divulgação único pós-ativação.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">4. Link de Divulgação</span>
-                    <p>Link com tecnologia de rastreio por ID. Novos membros são alocados automaticamente na sua matriz.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">5. Segurança</span>
-                    <p>Prazo de auditoria de 24h. Comprovantes falsos geram <strong>banimento imediato e irreversível</strong>.</p>
+                    <span class="rule-header">4. Segurança Anti-Fraude</span>
+                    <p>Comprovantes passam por auditoria humana. Tentativas de falsificação resultam em banimento imediato da rede.</p>
                 </div>
 
             </div>

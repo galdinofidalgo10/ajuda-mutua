@@ -22,7 +22,7 @@
         }
         .pix-card:active { transform: scale(0.98); border-color: var(--gold); }
 
-        /* BOTÃO DOURADO TODO PREENCHIDO (Solid Gold) */
+        /* BOTÃO DOURADO TODO PREENCHIDO */
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
@@ -30,12 +30,35 @@
             height: 60px; border-radius: 12px; cursor: pointer;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 12px; border: none; width: 100%;
-            letter-spacing: 1px;
-            text-align: center;
+            letter-spacing: 1px; text-align: center;
         }
-        .solid-gold-btn:active { transform: scale(0.97); filter: brightness(1.1); }
+        .solid-gold-btn:active { transform: scale(0.97); }
 
-        /* Notificação Superior de Ajuda Mútua */
+        /* Botão Flutuante Regras */
+        .float-rules {
+            position: fixed; bottom: 25px; right: 25px;
+            width: 65px; height: 65px; border-radius: 50%;
+            background: linear-gradient(135deg, #b8860b, var(--gold));
+            color: #000; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 10px; text-transform: uppercase;
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.4); z-index: 1000; cursor: pointer;
+        }
+
+        /* Modal de Regras */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px); display: none; z-index: 2000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-box {
+            background: #0f172a; border: 1px solid var(--gold);
+            border-radius: 24px; max-width: 380px; width: 100%; overflow: hidden;
+        }
+        .modal-scroll {
+            max-height: 60vh; overflow-y: auto; padding: 25px; color: #94a3b8; font-size: 12px;
+        }
+
+        /* Notificação Superior */
         #custom-notify {
             display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             background: #0f172a; border: 1px solid var(--gold); border-radius: 50px;
@@ -45,7 +68,7 @@
         .input-premium {
             background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b;
             padding: 20px; border-radius: 15px; width: 100%; margin-bottom: 15px;
-            outline: none; color: #fff; font-size: 14px;
+            outline: none; color: #fff;
         }
     </style>
 </head>
@@ -59,9 +82,7 @@
 
     <div class="max-w-md mx-auto">
         <header class="text-center mb-10 pt-6">
-            <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">
-                Fila de Ativação
-            </h1>
+            <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Fila de Ativação</h1>
             <p class="text-[9px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-2 italic">Protocolo de Alta Performance</p>
         </header>
 
@@ -75,7 +96,6 @@
                     <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
                 </div>
             </div>
-
             <div class="pix-card" onclick="copyPix('04036277375')">
                 <div class="flex justify-between items-center">
                     <div>
@@ -85,7 +105,6 @@
                     <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
                 </div>
             </div>
-
             <div class="pix-card" onclick="copyPix('04036277375')">
                 <div class="flex justify-between items-center">
                     <div>
@@ -99,38 +118,41 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</h3>
-            
-            <label class="solid-gold-btn">
-                <span>Enviar Comprovante</span>
-                <input type="file" style="display: none;">
-            </label>
-
-            <label class="solid-gold-btn">
-                <span>Enviar Comprovante</span>
-                <input type="file" style="display: none;">
-            </label>
-
-            <label class="solid-gold-btn">
-                <span>Enviar Comprovante</span>
-                <input type="file" style="display: none;">
-            </label>
+            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
         </div>
 
-        <div class="mt-12 mb-16">
+        <div class="mt-12 mb-20">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
             <input type="text" placeholder="NOME COMPLETO" class="input-premium">
             <input type="text" placeholder="SUA CHAVE PIX" class="input-premium">
-            
-            <button class="solid-gold-btn mt-4 text-[13px] h-[70px]">
-                Ativar Meu Protocolo
-            </button>
+            <button class="solid-gold-btn mt-4 h-[70px]">Ativar Meu Protocolo</button>
         </div>
 
         <footer class="text-center py-8 opacity-20 border-t border-slate-900">
-            <p class="text-[9px] font-black uppercase tracking-[0.5em]">
-                © 2026 AJUDA MÚTUA • Direitos Reservados
-            </p>
+            <p class="text-[9px] font-black uppercase tracking-[0.5em]">© 2026 AJUDA MÚTUA • Direitos Reservados</p>
         </footer>
+    </div>
+
+    <div class="float-rules" onclick="toggleModal(true)">Regras</div>
+
+    <div id="modal-rules" class="modal-overlay" onclick="toggleModal(false)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Manual do Protocolo</span>
+                <button onclick="toggleModal(false)" class="text-white opacity-50 text-2xl">&times;</button>
+            </div>
+            <div class="modal-scroll italic leading-relaxed">
+                <p class="text-white font-bold mb-4 border-l-2 border-yellow-500 pl-2">Diretrizes de Ajuda Mútua:</p>
+                <p class="mb-4">1. Realize o Pix de R$ 5,00 para cada um dos níveis listados acima.</p>
+                <p class="mb-4">2. Envie os comprovantes originais clicando nos botões dourados.</p>
+                <p class="mb-4">3. Após o envio, preencha seus dados de recebimento.</p>
+                <p class="mb-4">4. Sua conta será ativada assim que o sistema validar os IDs de transação.</p>
+                <p>5. Lembre-se: Honestidade gera prosperidade na rede.</p>
+            </div>
+            <button onclick="toggleModal(false)" class="w-full bg-yellow-500 p-4 text-black font-black uppercase text-[10px]">Entendido</button>
+        </div>
     </div>
 
     <script>
@@ -140,6 +162,9 @@
                 notify.style.display = 'block';
                 setTimeout(() => { notify.style.display = 'none'; }, 2500);
             });
+        }
+        function toggleModal(show) {
+            document.getElementById('modal-rules').style.display = show ? 'flex' : 'none';
         }
     </script>
 </body>

@@ -3,150 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajuda Mútua - Níveis Premium</title>
+    <title>Ajuda Mútua - Protocolo de Alavancagem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { 
             background-color: #05070a; 
             color: #e2e8f0; 
-            font-family: sans-serif; 
+            font-family: 'Inter', sans-serif; 
             margin: 0;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
+
         .gold-text { color: #d4af37; font-style: italic; }
         .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
-        .card { background-color: rgba(15, 23, 42, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .card { background-color: rgba(15, 23, 42, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); transition: all 0.3s; }
+        .card:active { transform: scale(0.98); background-color: rgba(212, 175, 55, 0.1); }
         
-        header {
-            flex-shrink: 0;
-            z-index: 40;
-            background-color: #05070a;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        header { flex-shrink: 0; z-index: 40; background-color: #05070a; border-bottom: 1px solid rgba(212, 175, 55, 0.1); }
+        main { flex-grow: 1; overflow-y: auto; padding: 15px; }
+        footer { flex-shrink: 0; padding: 12px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .btn-regras { 
+            position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; border-radius: 50px; 
+            font-weight: 900; font-size: 11px; text-transform: uppercase; z-index: 50; 
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
 
-        main {
-            flex-grow: 1;
-            overflow-y: auto;
-            padding: 20px;
+        .regras-scroll {
+            max-height: 280px; overflow-y: auto; padding-right: 12px;
+            scrollbar-width: thin; scrollbar-color: #d4af37 #0f172a;
         }
 
-        footer {
-            flex-shrink: 0;
-            background-color: #05070a;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            text-align: center;
-        }
+        .pulse-gold { animation: pulse 2s infinite; }
+        @keyframes pulse { 70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
 
-        .btn-regras {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-weight: 900;
-            font-size: 12px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            z-index: 50;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-
-        .pulse-gold {
-            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        /* Toast de aviso "Copiado" */
+        #toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: #d4af37; color: #000; padding: 8px 20px; border-radius: 20px;
+            font-size: 12px; font-weight: bold; opacity: 0; transition: opacity 0.3s; z-index: 1000;
         }
     </style>
 </head>
 <body>
 
-    <header class="p-6 shadow-2xl">
+    <div id="toast">Pix Copiado!</div>
+
+    <header class="p-4 shadow-2xl">
         <div class="max-w-md mx-auto text-center">
-            <h1 class="text-xl font-bold gold-text mb-4 uppercase tracking-widest">Ajuda Mútua</h1>
-            <div class="card p-5 rounded-2xl border-yellow-500/40">
-                <p class="text-[10px] uppercase opacity-50 mb-1 font-bold">Fila de Recebimento:</p>
-                <p class="text-lg font-bold gold-text">Galdino Pereira Fidalgo</p>
-                <p class="text-xs text-slate-400 font-mono italic underline">Envie R$ 5,00 p/ cada nível abaixo</p>
+            <h1 class="text-xl font-bold gold-text uppercase tracking-[0.3em] mb-2">Fila de Ativação</h1>
+            <p class="text-[9px] text-slate-500 uppercase mb-4 tracking-widest">Toque no card para copiar o Pix</p>
+            
+            <div class="space-y-2">
+                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left">
+                        <p class="text-[8px] gold-text font-bold uppercase tracking-widest">Nível 1 - Direto</p>
+                        <p class="text-sm font-bold text-white">Galdino Fidalgo</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p class="text-[8px] text-slate-500 uppercase italic">Valor: R$ 5,00</p>
+                    </div>
+                </div>
+                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left">
+                        <p class="text-[8px] gold-text font-bold uppercase tracking-widest">Nível 2 - Indireto</p>
+                        <p class="text-sm font-bold text-white">Galdino Fidalgo</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p class="text-[8px] text-slate-500 uppercase italic">Valor: R$ 5,00</p>
+                    </div>
+                </div>
+                <div onclick="copiarPix('04036277375')" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
+                    <div class="text-left">
+                        <p class="text-[8px] gold-text font-bold uppercase tracking-widest">Nível 3 - Raiz</p>
+                        <p class="text-sm font-bold text-white">Galdino Fidalgo</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[10px] font-mono text-slate-300">04036277375</p>
+                        <p class="text-[8px] text-slate-500 uppercase italic">Valor: R$ 5,00</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <main>
-        <div class="max-w-md mx-auto space-y-8 pb-10">
-            
+    <main id="main-content">
+        <div class="max-w-md mx-auto space-y-8 pb-20">
             <div class="space-y-4">
-                <h3 class="text-center text-[10px] gold-text uppercase font-bold tracking-widest">Envio de Comprovantes (3 Etapas)</h3>
-                <div class="grid grid-cols-3 gap-2">
-                    <label class="gold-bg py-3 rounded-lg text-[10px] font-bold text-center cursor-pointer">PIX 1<input type="file" class="hidden"></label>
-                    <label class="gold-bg py-3 rounded-lg text-[10px] font-bold text-center cursor-pointer">PIX 2<input type="file" class="hidden"></label>
-                    <label class="gold-bg py-3 rounded-lg text-[10px] font-bold text-center cursor-pointer">PIX 3<input type="file" class="hidden"></label>
+                <p class="text-center text-[10px] gold-text uppercase font-bold tracking-[0.2em]">Painel de Comprovantes</p>
+                <div class="grid grid-cols-1 gap-3">
+                    <label class="bg-slate-900/50 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block">
+                        <span id="label-pix1">📄 ANEXAR COMPROVANTE 01</span>
+                        <input type="file" id="pix1" class="hidden" accept="image/*" onchange="updateLabel('label-pix1')">
+                    </label>
+                    <label class="bg-slate-900/50 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block">
+                        <span id="label-pix2">📄 ANEXAR COMPROVANTE 02</span>
+                        <input type="file" id="pix2" class="hidden" accept="image/*" onchange="updateLabel('label-pix2')">
+                    </label>
+                    <label class="bg-slate-900/50 border border-slate-800 py-4 rounded-2xl text-[10px] font-bold text-center cursor-pointer block">
+                        <span id="label-pix3">📄 ANEXAR COMPROVANTE 03</span>
+                        <input type="file" id="pix3" class="hidden" accept="image/*" onchange="updateLabel('label-pix3')">
+                    </label>
                 </div>
             </div>
 
-            <div id="form-cadastro" class="space-y-4 text-center">
-                <h2 class="text-xs font-bold gold-text uppercase tracking-widest">Finalizar Meu Cadastro</h2>
-                <div class="space-y-3">
-                    <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-slate-900/50 border border-slate-800 rounded-xl text-sm text-white outline-none">
-                    <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900/50 border border-slate-800 rounded-xl text-sm text-white outline-none">
-                    <button class="w-full border border-yellow-600 py-4 rounded-xl gold-text font-bold text-xs uppercase hover:bg-yellow-600/10 transition-colors">
-                        Solicitar Liberação do Link
-                    </button>
-                </div>
+            <div class="space-y-4 pt-4 border-t border-slate-800 text-center">
+                <h2 class="text-[10px] font-bold gold-text uppercase tracking-widest">Identificação do Proponente</h2>
+                <input type="text" id="nome" placeholder="Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm outline-none focus:border-yellow-600">
+                <input type="text" id="chave" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm outline-none focus:border-yellow-600">
+                <button onclick="enviarProtocolo()" class="w-full gold-bg py-4 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg">Finalizar Solicitação</button>
+            </div>
+        </div>
+
+        <div id="tela-espera" class="hidden fixed inset-0 bg-[#05070a] z-50 flex-col items-center justify-center p-8 text-center space-y-6">
+            <div class="w-16 h-16 border-4 border-yellow-600 border-t-transparent rounded-full animate-spin"></div>
+            <h2 class="gold-text text-xl font-black uppercase italic">Validando...</h2>
+            <div class="card p-6 rounded-2xl">
+                <p class="text-xs text-slate-300">Aguardando confirmação do Mestre Raiz.</p>
             </div>
         </div>
     </main>
 
-    <footer>
-        <p class="text-[10px] text-slate-500 uppercase tracking-widest">
-            &copy; 2026 Ajuda Mútua - Sistema de Níveis
-        </p>
-    </footer>
+    <footer><p class="text-[9px] text-slate-600 uppercase font-bold tracking-widest">&copy; 2026 Ajuda Mútua - Galdino Fidalgo</p></footer>
 
-    <div onclick="toggleAjuda()" class="btn-regras gold-bg pulse-gold animate-bounce">
-        REGRAS
-    </div>
+    <div onclick="toggleModal()" class="btn-regras gold-bg pulse-gold animate-bounce">REGRAS</div>
 
-    <div id="modal-ajuda" class="fixed inset-0 bg-black/95 hidden items-center justify-center p-6 z-[100]">
-        <div class="card p-8 rounded-3xl max-w-sm w-full border border-yellow-500/50 relative overflow-y-auto max-h-[90vh]">
-            <button onclick="toggleAjuda()" class="absolute top-4 right-5 text-3xl text-slate-500">&times;</button>
-            <h3 class="gold-text font-bold text-xl mb-4 text-center italic uppercase">Regras e Níveis</h3>
-            
-            <div class="text-left text-xs space-y-4 text-slate-300">
-                <div class="p-3 border border-yellow-600/30 rounded-lg bg-yellow-600/5">
-                    <p class="gold-text font-bold uppercase mb-1">A Regra dos 3:</p>
-                    <p>Para ativar seu link, você deve realizar <strong>3 doações de R$ 5,00</strong> para os mestres indicados no topo. O seu link só será liberado após a confirmação dos 3 pagamentos.</p>
-                </div>
-
-                <div class="space-y-3">
-                    <p class="gold-text font-bold uppercase underline text-center">Como funcionam os Níveis:</p>
-                    
-                    <p><strong>Nível 1 (Seus Convidados):</strong> Você convida 3 pessoas. Cada uma lhe paga R$ 5,00 diretamente. <br><span class="gold-text">Total: R$ 15,00</span></p>
-                    
-                    <p><strong>Nível 2 (Convidados deles):</strong> As 3 pessoas que você trouxe convidam mais 3 cada (9 pessoas). Essas 9 pessoas também lhe pagam R$ 5,00 cada.</p>
-                    
-                    <p><strong>Nível 3 (Alavancagem):</strong> Quando a rede cresce, você passa a receber de toda a estrutura abaixo de você conforme as ativações ocorrem.</p>
-                </div>
-
-                <p class="bg-slate-800 p-2 rounded italic text-[10px]">Importante: O link de convite é pessoal e intransferível. A honestidade garante o ganho de todos.</p>
+    <div id="modal-regras" class="fixed inset-0 bg-black/95 hidden items-center justify-center p-6 z-[100]">
+        <div class="card p-8 rounded-3xl max-w-sm w-full border border-yellow-500/50 relative">
+            <button onclick="toggleModal()" class="absolute top-4 right-5 text-3xl text-slate-500">&times;</button>
+            <h3 class="gold-text font-black text-xl mb-6 text-center uppercase italic">Estatuto de Governança</h3>
+            <div class="regras-scroll text-[10px] space-y-4 text-slate-400 text-justify">
+                <p><strong class="text-white">1. NATUREZA:</strong> Doação P2P amparada pelo Código Civil.</p>
+                <p><strong class="text-white">2. ATIVAÇÃO:</strong> Exige 3 doações de R$ 5,00 para liberação do link.</p>
+                <p><strong class="text-white">3. MATRIZ:</strong> Ganhos em 3 níveis (3, 9 e 27 pessoas).</p>
+                <p><strong class="text-white">4. SEGURANÇA:</strong> Dados protegidos e exibidos apenas para sua rede.</p>
+                <p><strong class="text-white">5. ÉTICA:</strong> Proibido aliciamento de outras redes.</p>
+                <p><strong class="text-white">6. FRAUDE:</strong> Comprovante falso gera banimento imediato.</p>
+                <p><strong class="text-white">7. RESPONSABILIDADE:</strong> O sistema não retém valores.</p>
+                <p><strong class="text-white">8. TREINAMENTO:</strong> Ajude seus 3 convidados diretos.</p>
+                <p class="text-center gold-text font-bold py-2 border-y border-yellow-600/20">Protocolo v2.0 - 2026.05</p>
             </div>
-            
-            <button onclick="toggleAjuda()" class="mt-6 w-full gold-bg py-3 rounded-xl font-bold text-sm uppercase">ENTENDI E VOU COMEÇAR</button>
+            <button onclick="toggleModal()" class="mt-8 w-full gold-bg py-3 rounded-xl font-black text-xs uppercase tracking-widest">Entendi</button>
         </div>
     </div>
 
     <script>
-        function toggleAjuda() {
-            const modal = document.getElementById('modal-ajuda');
-            modal.classList.toggle('hidden');
-            modal.classList.toggle('flex');
+        function copiarPix(chave) {
+            navigator.clipboard.writeText(chave).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.opacity = '1';
+                setTimeout(() => { toast.style.opacity = '0'; }, 2000);
+            });
+        }
+
+        function updateLabel(id) {
+            document.getElementById(id).innerText = "✅ PIX ANEXADO";
+            document.getElementById(id).style.color = "#d4af37";
+        }
+
+        function toggleModal() {
+            const m = document.getElementById('modal-regras');
+            m.classList.toggle('hidden'); m.classList.toggle('flex');
+        }
+
+        function enviarProtocolo() {
+            const p1 = document.getElementById('pix1').files.length;
+            const p2 = document.getElementById('pix2').files.length;
+            const p3 = document.getElementById('pix3').files.length;
+            const n = document.getElementById('nome').value;
+            if(p1 && p2 && p3 && n) {
+                document.getElementById('tela-espera').classList.remove('hidden');
+                document.getElementById('tela-espera').classList.add('flex');
+            } else {
+                alert("Anexe os 3 comprovantes e seu nome!");
+            }
         }
     </script>
 </body>

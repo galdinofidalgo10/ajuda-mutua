@@ -6,62 +6,114 @@
     <title>Ajuda Mútua - Protocolo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Removi as travas de overflow. Agora o site rola normal. */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
         body { 
             background-color: #05070a; 
             color: #e2e8f0; 
-            font-family: sans-serif; 
+            font-family: 'Inter', sans-serif; 
             margin: 0;
             padding: 20px;
+            padding-bottom: 100px; /* Espaço para o botão não cobrir o conteúdo */
         }
-        .gold-text { color: #d4af37; font-weight: bold; }
+
+        .gold-text { color: #d4af37; font-style: italic; }
         .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
+        
         .card { 
             background-color: rgba(15, 23, 42, 0.9); 
             border: 1px solid rgba(212, 175, 55, 0.2); 
-            margin-bottom: 10px;
+            border-left: 4px solid #d4af37;
+            margin-bottom: 12px;
             padding: 15px;
             border-radius: 12px;
+            transition: transform 0.2s;
+        }
+        .card:active { transform: scale(0.98); }
+
+        /* BOTÃO FLUTUANTE DE REGRAS */
+        .btn-regras {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 15px rgba(212, 175, 55, 0.3);
+            z-index: 999;
+            cursor: pointer;
+        }
+
+        #toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: #d4af37; color: #000; padding: 8px 20px; border-radius: 30px;
+            font-size: 11px; font-weight: 900; opacity: 0; transition: opacity 0.3s; z-index: 1000;
         }
     </style>
 </head>
 <body>
 
+    <div id="toast">Chave Pix Copiada!</div>
+
     <div class="max-w-md mx-auto">
         <header class="text-center mb-8">
-            <h1 class="text-2xl font-black gold-text uppercase italic">Fila de Ativação</h1>
-            <p class="text-xs text-slate-500 uppercase">Toque para copiar o Pix</p>
+            <h1 class="text-2xl font-black gold-text uppercase tracking-widest italic">Fila de Ativação</h1>
+            <p class="text-[9px] text-slate-500 font-bold uppercase mt-2">Toque nos cards para copiar o Pix</p>
         </header>
 
         <div id="lista-mestres">
-            <p class="text-center animate-pulse">Conectando ao Banco de Dados...</p>
+            <p class="text-center text-xs animate-pulse text-slate-500">Sincronizando com o protocolo...</p>
         </div>
 
-        <div class="mt-10 space-y-6">
-            <div class="border-t border-slate-800 pt-6">
-                <p class="text-center text-xs gold-text uppercase mb-4">Anexar Comprovantes</p>
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs">
+        <div class="mt-10 space-y-8">
+            <div class="space-y-4 border-t border-slate-800 pt-8">
+                <p class="text-center text-[10px] gold-text uppercase font-black tracking-widest">1. Envie os Comprovantes</p>
+                <div class="grid grid-cols-1 gap-3">
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block uppercase italic">
+                        📄 Comprovante Nível 1
+                        <input type="file" class="hidden">
+                    </label>
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block uppercase italic">
+                        📄 Comprovante Nível 2
+                        <input type="file" class="hidden">
+                    </label>
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block uppercase italic">
+                        📄 Comprovante Nível 3
+                        <input type="file" class="hidden">
+                    </label>
+                </div>
             </div>
 
-            <div class="border-t border-slate-800 pt-6">
-                <input type="text" placeholder="Seu Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm mb-3">
-                <input type="text" placeholder="Seu Pix para Receber" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm mb-4">
-                <button class="w-full gold-bg py-5 rounded-2xl font-black uppercase">Ativar Meu Protocolo</button>
+            <div class="space-y-4 border-t border-slate-800 pt-8">
+                <p class="text-center text-[10px] gold-text uppercase font-black tracking-widest">2. Seus Dados de Recebimento</p>
+                <input type="text" placeholder="Seu Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600 transition-all">
+                <input type="text" placeholder="Sua Chave Pix Principal" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white outline-none focus:border-yellow-600 transition-all">
+                <button class="w-full gold-bg py-5 rounded-2xl text-[11px] font-black uppercase italic shadow-lg">Ativar Meu Protocolo</button>
             </div>
         </div>
 
-        <footer class="mt-10 pb-10 text-center border-t border-slate-800 pt-6">
-            <p class="text-[10px] text-slate-500 uppercase">© 2026 PROTOCOLO GALDINO FIDALGO</p>
-        </footer client>
+        <footer class="mt-16 mb-10 text-center border-t border-slate-900 pt-8">
+            <p class="text-[9px] text-slate-600 uppercase font-black tracking-[0.3em]">
+                © 2026 PROTOCOLO DE ALAVANCAGEM
+            </p>
+            <p class="text-[10px] gold-text uppercase font-bold mt-1 tracking-widest">
+                Galdino Fidalgo
+            </p>
+        </footer>
     </div>
+
+    <div onclick="mostrarRegras()" class="btn-regras gold-bg italic">Regras</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
-        // Suas credenciais reais extraídas do seu print
         const firebaseConfig = {
             apiKey: "AIzaSyCZipVpWjOMtULxM5ZjJG_Ky",
             authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
@@ -74,42 +126,61 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function carregarDados() {
-            try {
-                // Buscando o documento "mestre" na sua coleção "usuarios"
-                const docRef = doc(db, "usuarios", "mestre");
-                const snap = await getDoc(docRef);
+        window.mostrarRegras = () => {
+            alert("REGRAS DO PROTOCOLO:\n\n1. Realize uma transferência de R$ 5,00 para cada um dos 3 níveis acima.\n2. Tire print de cada comprovante.\n3. Anexe os 3 arquivos no formulário abaixo.\n4. Preencha seus dados corretamente para começar a receber.");
+        };
 
+        window.copiar = (txt) => {
+            navigator.clipboard.writeText(txt);
+            const t = document.getElementById('toast');
+            t.style.opacity = '1';
+            setTimeout(() => t.style.opacity = '0', 2000);
+        };
+
+        async function carregar() {
+            try {
+                const snap = await getDoc(doc(db, "usuarios", "mestre"));
                 if (snap.exists()) {
                     const d = snap.data();
-                    const lista = document.getElementById('lista-mestres');
-                    
-                    // Monta a lista de mestres na tela
-                    lista.innerHTML = `
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Pix Copiado!')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[10px] gold-text">NÍVEL 1</p><p class="font-bold">${d.nome}</p></div>
-                            <p class="text-xs font-mono text-slate-400">${d.pix}</p>
+                    const nome = d.nome || "Galdino Pereira Fidalgo";
+                    const pix = d.pix || "04036277375";
+
+                    document.getElementById('lista-mestres').innerHTML = `
+                        <div onclick="copiar('${pix}')" class="card flex justify-between items-center cursor-pointer">
+                            <div class="text-left leading-tight">
+                                <p class="text-[7px] gold-text font-black uppercase">Nível 1 - Mestre Direto</p>
+                                <p class="text-xs font-bold text-white italic">${nome}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[9px] font-mono text-slate-400">${pix}</p>
+                                <p class="text-[8px] text-slate-500 font-bold uppercase italic">R$ 5,00</p>
+                            </div>
                         </div>
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Pix Copiado!')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[10px] gold-text">NÍVEL 2</p><p class="font-bold">Sistema de Apoio</p></div>
-                            <p class="text-xs font-mono text-slate-400">${d.pix}</p>
+                        <div onclick="copiar('${pix}')" class="card flex justify-between items-center cursor-pointer">
+                            <div class="text-left leading-tight">
+                                <p class="text-[7px] gold-text font-black uppercase">Nível 2 - Mestre Indireto</p>
+                                <p class="text-xs font-bold text-white italic">Suporte Sistema</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[9px] font-mono text-slate-400">${pix}</p>
+                                <p class="text-[8px] text-slate-500 font-bold uppercase italic">R$ 5,00</p>
+                            </div>
                         </div>
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Pix Copiado!')" class="card flex justify-between items-center cursor-pointer">
-                            <div><p class="text-[10px] gold-text">NÍVEL 3</p><p class="font-bold">${d.nome} (Raiz)</p></div>
-                            <p class="text-xs font-mono text-slate-400">${d.pix}</p>
+                        <div onclick="copiar('${pix}')" class="card flex justify-between items-center cursor-pointer">
+                            <div class="text-left leading-tight">
+                                <p class="text-[7px] gold-text font-black uppercase">Nível 3 - Mestre Raiz</p>
+                                <p class="text-xs font-bold text-white italic">${nome}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[9px] font-mono text-slate-400">${pix}</p>
+                                <p class="text-[8px] text-slate-500 font-bold uppercase italic">R$ 5,00</p>
+                            </div>
                         </div>
                     `;
-                } else {
-                    document.getElementById('lista-mestres').innerText = "Erro: Documento 'mestre' não encontrado no banco.";
                 }
-            } catch (error) {
-                document.getElementById('lista-mestres').innerText = "Erro de Conexão. Verifique a internet.";
-                console.error(error);
-            }
+            } catch (e) { console.error(e); }
         }
-
-        window.onload = carregarDados;
+        window.onload = carregar;
     </script>
 </body>
 </html>
-

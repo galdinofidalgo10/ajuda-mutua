@@ -3,141 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajuda Mútua | Protocolo Elite</title>
+    <title>Protocolo Ajuda Mútua</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { 
-            background: radial-gradient(circle at top, #0f172a 0%, #020617 100%); 
+            background: #020617; 
             color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh;
         }
 
-        /* Glassmorphism nos Cards */
-        .premium-card {
+        /* Estilo dos Cards de Usuário */
+        .user-card {
             background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.3s;
         }
-        .premium-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+        .user-card:active { transform: scale(0.98); border-color: var(--gold); }
 
-        /* Botão Dourado de Upload (Substitui o padrão do navegador) */
-        .gold-upload-btn {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+        /* BOTÕES DOURADOS REAIS (Substituem o "Escolher Arquivo") */
+        .gold-btn {
+            display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
             color: #000; font-weight: 900; font-size: 11px; text-transform: uppercase;
-            padding: 18px; border-radius: 15px; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-            transition: 0.3s; margin-bottom: 12px; border: none;
-        }
-        .gold-upload-btn:active { transform: scale(0.96); }
-
-        /* Notificação Ajuda Mútua */
-        #custom-notify {
-            display: none; position: fixed; top: 25px; left: 50%; transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px);
-            border: 1px solid var(--gold); border-radius: 50px; padding: 12px 30px;
-            z-index: 9999; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            animation: slideDown 0.5s ease forwards;
+            padding: 18px; border-radius: 12px; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            margin-bottom: 12px; border: none; width: 100%;
         }
 
-        @keyframes slideDown { from { top: -100px; opacity: 0; } to { top: 25px; opacity: 1; } }
+        /* NOTIFICAÇÃO INTERNA (Substitui o alert cinza do Chrome) */
+        #custom-alert {
+            display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: #0f172a; border: 1px solid var(--gold); border-radius: 50px;
+            padding: 12px 25px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .input-dark {
+            background: #0f172a; border: 1px solid #1e293b;
+            padding: 18px; border-radius: 12px; width: 100%; margin-bottom: 15px;
+            outline: none; color: #fff;
+        }
     </style>
 </head>
-<body class="py-12 px-6">
+<body class="p-6">
 
-    <div id="custom-notify">
-        <div class="flex items-center gap-3">
-            <span style="color: var(--gold); font-weight: 900;">✦</span>
-            <span id="notify-text" class="text-[11px] font-bold text-white tracking-widest uppercase italic">AJUDA MÚTUA: PIX COPIADO</span>
-        </div>
+    <div id="custom-alert">
+        <span style="color: var(--gold); font-weight: 900; font-size: 11px; letter-spacing: 1px;">
+            AJUDA MÚTUA: PIX COPIADO!
+        </span>
     </div>
 
-    <div class="max-w-md mx-auto">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-black italic tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-b from-yellow-100 to-yellow-600">
-                Fila de Ativação
-            </h1>
-            <p class="text-[9px] font-black text-slate-500 tracking-[0.4em] uppercase mt-3 italic">Protocolo de Alta Performance</p>
-        </header>
+    <div class="max-w-md mx-auto text-center">
+        <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter mb-10">
+            Fila de Ativação
+        </h1>
 
-        <div id="lista-mestres" class="space-y-4">
+        <div id="pix-list">
+            <div class="user-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center text-left">
+                    <div>
+                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 01 - Master</p>
+                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                    </div>
+                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                </div>
             </div>
 
-        <section class="mt-14">
-            <p class="text-center text-[10px] text-yellow-500 font-black uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</p>
+            <div class="user-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center text-left">
+                    <div>
+                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 02 - Suporte</p>
+                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                    </div>
+                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                </div>
+            </div>
+
+            <div class="user-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center text-left">
+                    <div>
+                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 03 - Fundador</p>
+                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                    </div>
+                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-10">
+            <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</p>
             
-            <label class="gold-upload-btn">
+            <label class="gold-btn">
                 <span>📄 Enviar Comprovante Nível 01</span>
-                <input type="file" class="hidden">
+                <input type="file" style="display: none;">
             </label>
-            
-            <label class="gold-upload-btn">
+
+            <label class="gold-btn">
                 <span>📄 Enviar Comprovante Nível 02</span>
-                <input type="file" class="hidden">
+                <input type="file" style="display: none;">
             </label>
-            
-            <label class="gold-upload-btn">
+
+            <label class="gold-btn">
                 <span>📄 Enviar Comprovante Nível 03</span>
-                <input type="file" class="hidden">
+                <input type="file" style="display: none;">
             </label>
-        </section>
+        </div>
 
-        <section class="mt-12">
-            <p class="text-center text-[10px] text-yellow-500 font-black uppercase tracking-widest mb-6 italic">2. Cadastro de Recebimento</p>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full p-5 bg-slate-900/80 border border-slate-800 rounded-2xl text-sm mb-4 outline-none focus:border-yellow-600 transition-all">
-            <input type="text" placeholder="SUA CHAVE PIX" class="w-full p-5 bg-slate-900/80 border border-slate-800 rounded-2xl text-sm mb-8 outline-none focus:border-yellow-600 transition-all">
+        <div class="mt-10">
+            <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-6 italic">2. Cadastro de Recebimento</p>
+            <input type="text" placeholder="NOME COMPLETO" class="input-dark">
+            <input type="text" placeholder="SUA CHAVE PIX" class="input-dark">
             
-            <button class="w-full bg-gradient-to-r from-yellow-600 to-yellow-400 p-6 rounded-2xl text-black font-black uppercase italic tracking-widest shadow-[0_15px_40px_rgba(212,175,55,0.3)] active:scale-95 transition-all">
-                ATIVAR MEU PROTOCOLO
+            <button class="gold-btn py-6 text-sm" style="margin-top: 10px;">
+                Ativar Meu Protocolo
             </button>
-        </section>
+        </div>
 
-        <footer class="mt-20 text-center border-t border-slate-900 pt-10">
-            <p class="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 italic">
-                © 2026 <span class="text-yellow-500">AJUDA MÚTUA</span> • DIREITOS RESERVADOS
-            </p>
+        <footer class="mt-16 text-[9px] font-black text-slate-700 uppercase tracking-widest">
+            © 2026 AJUDA MÚTUA • Todos os direitos reservados
         </footer>
     </div>
 
     <script>
-        // Nome e Chave Pix configurados nas 3 áreas
-        const mestreNome = "Galdino Pereira Fidalgo";
-        const mestrePix = "04036277375";
-
-        function notify() {
-            const banner = document.getElementById('custom-notify');
-            banner.style.display = 'block';
-            setTimeout(() => { banner.style.display = 'none'; }, 3000);
-        }
-
-        function copyPix() {
-            navigator.clipboard.writeText(mestrePix).then(() => {
-                notify();
+        function copyPix(key) {
+            navigator.clipboard.writeText(key).then(() => {
+                const alertBox = document.getElementById('custom-alert');
+                alertBox.style.display = 'block';
+                setTimeout(() => { alertBox.style.display = 'none'; }, 2500);
             });
         }
-
-        function createCards() {
-            const niveis = ["Nível 01 - Master", "Nível 02 - Suporte", "Nível 03 - Fundador"];
-            const container = document.getElementById('lista-mestres');
-            
-            container.innerHTML = niveis.map(lvl => `
-                <div onclick="copyPix()" class="premium-card p-6 flex justify-between items-center cursor-pointer">
-                    <div>
-                        <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">${lvl}</p>
-                        <p class="text-sm font-black italic text-white">${mestreNome.toUpperCase()}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-[10px] font-mono text-slate-500 mb-1">${mestrePix}</p>
-                        <p class="text-[9px] text-yellow-500 font-bold italic tracking-tighter">R$ 5,00</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        window.onload = createCards;
     </script>
 </body>
 </html>

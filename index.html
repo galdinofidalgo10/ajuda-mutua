@@ -71,13 +71,15 @@
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
         td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; font-family: monospace; }
         .gold-row { color: var(--gold) !important; font-weight: bold; background: rgba(212, 175, 55, 0.05); }
+
+        .hidden-screen { display: none; }
     </style>
 </head>
 <body>
 
     <div id="toast">Chave Pix Copiada!</div>
 
-    <div class="max-w-md mx-auto p-6">
+    <div id="main-content" class="max-w-md mx-auto p-6">
         <header class="text-center mb-10 pt-4">
             <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Projeto Ajuda Mútua</h1>
             <p class="text-[8px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-1 italic">Protocolo Elite - Sistema de Suporte</p>
@@ -105,10 +107,25 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
+            <input type="text" id="nome_usuario" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <input type="text" id="pix_usuario" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <button onclick="ativarAgora()" class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
         </div>
+    </div>
+
+    <div id="waiting-screen" class="max-w-md mx-auto p-6 hidden-screen text-center pt-20">
+        <div class="mb-6 p-4 bg-orange-500/20 border border-orange-500 rounded-2xl">
+            <p class="text-orange-500 font-black uppercase text-[10px] animate-pulse italic">Status: Aguardando Auditoria</p>
+        </div>
+        <h2 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter mb-4">Aguarde a Ativação</h2>
+        <p class="text-slate-300 text-xs leading-relaxed px-4">
+            Seus dados e comprovantes foram recebidos com sucesso.
+            <br><br>
+            Nossa auditoria está validando os seus pagamentos. Este processo leva no máximo <b>24 horas</b>.
+            <br><br>
+            Assim que seu perfil for ativado, seu <b>ID de Divulgação</b> e acesso à rede 3x10 serão liberados automaticamente nesta página.
+        </p>
+        <button onclick="window.location.reload()" class="mt-10 text-yellow-500 font-black text-[10px] uppercase underline tracking-widest">Atualizar Status</button>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
@@ -137,11 +154,6 @@
                                 <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
                                 <tr><td>Nível 3</td><td>27</td><td>R$ 135,00</td></tr>
                                 <tr><td>Nível 4</td><td>81</td><td>R$ 405,00</td></tr>
-                                <tr><td>Nível 5</td><td>243</td><td>R$ 1.215,00</td></tr>
-                                <tr><td>Nível 6</td><td>729</td><td>R$ 3.645,00</td></tr>
-                                <tr><td>Nível 7</td><td>2.187</td><td>R$ 10.935,00</td></tr>
-                                <tr><td>Nível 8</td><td>6.561</td><td>R$ 32.805,00</td></tr>
-                                <tr><td>Nível 9</td><td>19.683</td><td>R$ 98.415,00</td></tr>
                                 <tr class="gold-row"><td>Nível 10</td><td>59.049</td><td>R$ 295.245,00</td></tr>
                             </tbody>
                         </table>
@@ -150,26 +162,22 @@
 
                 <div class="rule-section">
                     <span class="rule-header">3. O Poder do Derramamento (Transbordo)</span>
-                    <p>Como cada membro só pode ter 3 diretos, novos convidados "derramam" automaticamente para as vagas vazias dos níveis abaixo. Isso ajuda quem tem mais dificuldade em convidar a começar a receber doações, criando um ciclo de ajuda mútua real.</p>
+                    <p>Como cada membro só pode ter 3 diretos, novos convidados "derramam" automaticamente para as vagas vazias dos níveis abaixo. Isso ajuda quem tem mais dificuldade em convidar a começar a receber doações.</p>
                 </div>
 
                 <div class="rule-section">
                     <span class="rule-header">4. Fluxo de Dinheiro Direto (P2P via Pix)</span>
-                    <p>O sistema não retém dinheiro. As doações são feitas no modelo Pessoa para Pessoa (P2P), enviadas diretamente para a conta Pix do recebedor. Isso garante liquidez imediata: o dinheiro cai direto na sua conta sem intermediários.</p>
+                    <p>O sistema não retém dinheiro. As doações são feitas no modelo Pessoa para Pessoa (P2P), enviadas diretamente para a conta Pix do recebedor. Isso garante liquidez imediata.</p>
                 </div>
 
                 <div class="rule-section">
                     <span class="rule-header">5. Auditoria de Segurança e Banimento</span>
-                    <p>O sistema rastreia o IP e o CPF de cada usuário. Existe tolerância zero para fraudes: o envio de comprovantes falsos, editados ou repetidos resultará no bloqueio imediato e permanente do cadastro para proteger o grupo.</p>
+                    <p>O sistema rastreia o IP e o CPF de cada usuário. Existe tolerância zero para fraudes: o envio de comprovantes falsos resultará no bloqueio imediato do cadastro.</p>
                 </div>
 
                 <div class="rule-section">
                     <span class="rule-header">6. Escritório Virtual e Sustentabilidade</span>
-                    <p>Ao ser ativado, o membro ganha acesso ao seu painel para monitorar a rede, verificar saldos e acompanhar as ativações descendentes. O projeto é sustentável porque organiza o fluxo de doações voluntárias de forma inteligente e transparente.</p>
-                </div>
-
-                <div class="rule-section">
-                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"Ninguém cresce sozinho. O suporte mútuo é a base da nossa rede."</p>
+                    <p>Ao ser ativado, o membro ganha acesso ao seu painel para monitorar a rede e acompanhar as ativações descendentes. O projeto é sustentável porque organiza o fluxo de doações voluntárias de forma inteligente.</p>
                 </div>
 
             </div>
@@ -178,6 +186,33 @@
     </div>
 
     <script>
+        // Função para Ativar o botão
+        function ativarAgora() {
+            const nome = document.getElementById('nome_usuario').value;
+            const pix = document.getElementById('pix_usuario').value;
+
+            if(nome && pix) {
+                // Salva que o usuário já pediu ativação
+                localStorage.setItem('projeto_galdino_status', 'pendente');
+                mostrarTelaEspera();
+            } else {
+                alert("Por favor, preencha seu nome e sua chave Pix.");
+            }
+        }
+
+        // Função para trocar a tela
+        function mostrarTelaEspera() {
+            document.getElementById('main-content').classList.add('hidden-screen');
+            document.getElementById('waiting-screen').classList.remove('hidden-screen');
+        }
+
+        // Verifica se o usuário já tem o status ao carregar a página
+        window.onload = function() {
+            if(localStorage.getItem('projeto_galdino_status') === 'pendente') {
+                mostrarTelaEspera();
+            }
+        };
+
         function copyText(val) {
             const el = document.createElement('textarea');
             el.value = val; document.body.appendChild(el); el.select();
@@ -185,6 +220,7 @@
             const toast = document.getElementById("toast");
             toast.className = "show"; setTimeout(() => { toast.className = ""; }, 3000);
         }
+
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }
     </script>

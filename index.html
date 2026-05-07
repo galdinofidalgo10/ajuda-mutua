@@ -19,6 +19,7 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
+        /* Estilização Cards */
         .pix-card {
             background: rgba(30, 41, 59, 0.4); 
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -34,6 +35,7 @@
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
+        /* Botão Flutuante Regras */
         .float-rules {
             position: fixed !important; bottom: 30px !important; right: 20px !important;
             width: 70px !important; height: 70px !important; border-radius: 50% !important;
@@ -44,6 +46,7 @@
             z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
+        /* TOAST NO TOPO */
         #toast {
             visibility: hidden; min-width: 280px; 
             background: linear-gradient(135deg, #b8860b, #d4af37);
@@ -58,6 +61,7 @@
         @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
         @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
+        /* Modal Regras Expandido */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             backdrop-filter: blur(15px); display: none; z-index: 1000;
@@ -107,14 +111,14 @@
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Envio de Comprovantes</h3>
-            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 01</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 02</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Comprovante Nível 03</span><input type="file" class="hidden"></label>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
+            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante 01</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante 02</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn"><span>Enviar Comprovante 03</span><input type="file" class="hidden"></label>
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro de Membro</h3>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
             <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
             <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
             <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Meu Protocolo Elite</button>
@@ -142,16 +146,16 @@
                         <table>
                             <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos (R$ 5/cada)</th></tr></thead>
                             <tbody>
-                                <tr><td>Nível 1</td><td>5</td><td>R$ 25,00</td></tr>
-                                <tr><td>Nível 2</td><td>25</td><td>R$ 125,00</td></tr>
-                                <tr><td>Nível 3</td><td>125</td><td>R$ 625,00</td></tr>
-                                <tr><td>Nível 4</td><td>625</td><td>R$ 3.125,00</td></tr>
-                                <tr><td>Nível 5</td><td>3.125</td><td>R$ 15.625,00</td></tr>
-                                <tr><td>Nível 6</td><td>15.625</td><td>R$ 78.125,00</td></tr>
-                                <tr><td>Nível 7</td><td>78.125</td><td>R$ 390.625,00</td></tr>
-                                <tr><td>Nível 8</td><td>390.625</td><td>R$ 1.953.125,00</td></tr>
-                                <tr><td>Nível 9</td><td>1.953.125</td><td>R$ 9.765.625,00</td></tr>
-                                <tr class="gold-row"><td>Nível 10</td><td>9.765.625</td><td>R$ 48.828.125,00</td></tr>
+                                <tr><td>Nível 1</td><td>3</td><td>R$ 15,00</td></tr>
+                                <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
+                                <tr><td>Nível 3</td><td>27</td><td>R$ 135,00</td></tr>
+                                <tr><td>Nível 4</td><td>81</td><td>R$ 405,00</td></tr>
+                                <tr><td>Nível 5</td><td>243</td><td>R$ 1.215,00</td></tr>
+                                <tr><td>Nível 6</td><td>729</td><td>R$ 3.645,00</td></tr>
+                                <tr><td>Nível 7</td><td>2.187</td><td>R$ 10.935,00</td></tr>
+                                <tr><td>Nível 8</td><td>6.561</td><td>R$ 32.805,00</td></tr>
+                                <tr><td>Nível 9</td><td>19.683</td><td>R$ 98.415,00</td></tr>
+                                <tr class="gold-row"><td>Nível 10</td><td>59.049</td><td>R$ 295.245,00</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -159,16 +163,25 @@
 
                 <div class="rule-section">
                     <span class="rule-header">3. Painel Administrativo Elite</span>
-                    <p>Controle total da sua rede, visualização de comprovantes recebidos e link de divulgação único pós-ativação.</p>
+                    <p>Após a ativação, você terá acesso a um Escritório Virtual exclusivo. Nele, poderá monitorar sua rede, verificar comprovantes recebidos e acompanhar seu saldo em tempo real.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">4. Segurança Anti-Fraude</span>
-                    <p>Comprovantes passam por auditoria humana. Tentativas de falsificação resultam em banimento imediato da rede.</p>
+                    <span class="rule-header">4. Link de Divulgação Inteligente</span>
+                    <p>Seu link único utiliza tecnologia de rastreio por ID. Ele garante que novos membros sejam alocados na sua matriz, respeitando a ordem de derramamento para maximizar seus ganhos.</p>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">5. Segurança e Compliance</span>
+                    <p>O prazo de auditoria dos comprovantes é de 24h. O envio de arquivos falsos ou duplicados acarretará no <strong>bloqueio imediato do CPF e IP</strong> de forma irreversível.</p>
+                </div>
+
+                <div class="rule-section">
+                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"A integridade gera riqueza. Siga o protocolo e colha os frutos da rede."</p>
                 </div>
 
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px]">Aceitar Termos e Ativar</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceitar Termos e Ativar</button>
         </div>
     </div>
 

@@ -16,14 +16,13 @@
             display: flex;
             flex-direction: column;
             height: 100vh;
-            overflow: hidden; /* Trava o scroll do fundo */
+            overflow: hidden;
         }
 
         .gold-text { color: #d4af37; font-style: italic; }
         .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
         .card { background-color: rgba(15, 23, 42, 0.9); border: 1px solid rgba(212, 175, 55, 0.2); transition: all 0.2s; }
         
-        /* TOPO FIXO */
         header { 
             flex-shrink: 0; 
             z-index: 50; 
@@ -32,16 +31,15 @@
             padding: 15px 10px;
         }
 
-        /* CONTEÚDO CENTRAL COM SCROLL */
         main { 
             flex-grow: 1; 
             overflow-y: auto; 
             padding: 20px 15px;
-            scrollbar-width: none; /* Esconde scroll no Firefox */
+            padding-bottom: 100px;
+            scrollbar-width: none;
         }
-        main::-webkit-scrollbar { display: none; } /* Esconde scroll no Chrome/Safari */
+        main::-webkit-scrollbar { display: none; }
 
-        /* RODAPÉ FIXO */
         footer { 
             flex-shrink: 0; 
             padding: 12px; 
@@ -55,12 +53,6 @@
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             background: #d4af37; color: #000; padding: 8px 20px; border-radius: 30px;
             font-size: 11px; font-weight: 900; opacity: 0; transition: opacity 0.3s; z-index: 1000;
-        }
-
-        .btn-regras { 
-            position: fixed; bottom: 80px; right: 20px; padding: 10px 18px; border-radius: 50px; 
-            font-weight: 900; font-size: 10px; text-transform: uppercase; z-index: 60; 
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
         }
     </style>
 </head>
@@ -76,22 +68,22 @@
             <div class="space-y-2">
                 <div id="card1" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
                     <div class="text-left">
-                        <p class="text-[7px] gold-text font-black uppercase">Nível 1 - Mestre Direto</p>
-                        <p id="mestre1-nome" class="text-xs font-bold text-white italic text-center">Carregando...</p>
+                        <p class="text-[7px] gold-text font-black uppercase">Nível 1 - Direto</p>
+                        <p id="mestre1-nome" class="text-xs font-bold text-white italic">Carregando...</p>
                     </div>
                     <p id="mestre1-pix" class="text-[9px] font-mono text-slate-400">...</p>
                 </div>
                 <div id="card2" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
                     <div class="text-left">
-                        <p class="text-[7px] gold-text font-black uppercase">Nível 2 - Mestre Indireto</p>
-                        <p id="mestre2-nome" class="text-xs font-bold text-white italic text-center">Carregando...</p>
+                        <p class="text-[7px] gold-text font-black uppercase">Nível 2 - Indireto</p>
+                        <p id="mestre2-nome" class="text-xs font-bold text-white italic">Carregando...</p>
                     </div>
                     <p id="mestre2-pix" class="text-[9px] font-mono text-slate-400">...</p>
                 </div>
                 <div id="card3" class="card p-3 rounded-xl flex justify-between items-center border-l-4 border-yellow-600 cursor-pointer">
                     <div class="text-left">
-                        <p class="text-[7px] gold-text font-black uppercase">Nível 3 - Mestre Raiz</p>
-                        <p id="mestre3-nome" class="text-xs font-bold text-white italic text-center">Carregando...</p>
+                        <p class="text-[7px] gold-text font-black uppercase">Nível 3 - Raiz</p>
+                        <p id="mestre3-nome" class="text-xs font-bold text-white italic">Carregando...</p>
                     </div>
                     <p id="mestre3-pix" class="text-[9px] font-mono text-slate-400">...</p>
                 </div>
@@ -102,51 +94,39 @@
     <main>
         <div class="max-w-md mx-auto space-y-6">
             <div class="space-y-3">
-                <p class="text-center text-[10px] gold-text uppercase font-black tracking-widest">1. Anexe os Comprovantes</p>
+                <p class="text-center text-[10px] gold-text uppercase font-black tracking-widest italic">1. Anexe os Comprovantes</p>
                 <div class="grid grid-cols-1 gap-2">
-                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">
-                        📄 COMPROVANTE NÍVEL 1
-                        <input type="file" class="hidden">
-                    </label>
-                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">
-                        📄 COMPROVANTE NÍVEL 2
-                        <input type="file" class="hidden">
-                    </label>
-                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">
-                        📄 COMPROVANTE NÍVEL 3
-                        <input type="file" class="hidden">
-                    </label>
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">📄 COMPROVANTE 01 <input type="file" class="hidden"></label>
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">📄 COMPROVANTE 02 <input type="file" class="hidden"></label>
+                    <label class="bg-slate-900 border border-slate-800 py-4 rounded-xl text-[10px] font-bold text-center cursor-pointer block">📄 COMPROVANTE 03 <input type="file" class="hidden"></label>
                 </div>
             </div>
-
             <div class="space-y-3 border-t border-slate-800 pt-5">
-                <p class="text-center text-[10px] gold-text uppercase font-black tracking-widest">2. Seus Dados de Recebimento</p>
-                <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm outline-none text-white">
-                <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm outline-none text-white">
-                <button class="w-full gold-bg py-5 rounded-2xl text-[11px] font-black uppercase italic shadow-xl">Ativar Meu Protocolo</button>
+                <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white">
+                <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 border border-slate-800 rounded-xl text-sm text-white">
+                <button class="w-full gold-bg py-5 rounded-2xl text-[11px] font-black uppercase italic">Ativar Protocolo</button>
             </div>
         </div>
     </main>
 
     <footer>
-        <p class="text-[9px] text-slate-500 uppercase font-black tracking-widest text-center">
-            © 2026 PROTOCOLO DE ALAVANCAGEM <span class="gold-text">GALDINO FIDALGO</span>
+        <p class="text-[9px] text-slate-500 uppercase font-black tracking-widest">
+            © 2026 PROTOCOLO <span class="gold-text italic">GALDINO FIDALGO</span>
         </p>
     </footer>
-
-    <div onclick="alert('Regras: Doe R$ 5,00 para cada nível e anexe os prints.')" class="btn-regras gold-bg font-bold">REGRAS</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
+        // Credenciais do seu print
         const firebaseConfig = {
-            apiKey: "SUA_API_KEY",
-            authDomain: "ajuda-mutua-f0962.firebaseapp.com",
-            projectId: "ajuda-mutua-f0962",
-            storageBucket: "ajuda-mutua-f0962.appspot.com",
-            messagingSenderId: "SEU_SENDER_ID",
-            appId: "SEU_APP_ID"
+            apiKey: "AIzaSyCZipVpWjOMtULxM5ZjJG_Ky",
+            authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
+            projectId: "ajuda-mutua-7d99a",
+            storageBucket: "ajuda-mutua-7d99a.appspot.com",
+            messagingSenderId: "1070775313117",
+            appId: "1:1070775313117:web:fa8095ff0e"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -160,34 +140,21 @@
             setTimeout(() => t.style.opacity = '0', 2000);
         };
 
-        async function carregarFila() {
+        async function carregar() {
             try {
-                // Forçando o carregamento do documento "mestre" que vimos no seu console
                 const snap = await getDoc(doc(db, "usuarios", "mestre"));
-                
                 if (snap.exists()) {
                     const d = snap.data();
-                    // Nível 1 e Nível 3 estão usando os dados do Galdino conforme o banco
-                    document.getElementById('mestre1-nome').innerText = d.nome;
-                    document.getElementById('mestre1-pix').innerText = d.pix;
-                    document.getElementById('card1').onclick = () => copiar(d.pix);
+                    const nome = d.nome || "Galdino Pereira Fidalgo";
+                    const pix = d.pix || "04036277375";
 
-                    document.getElementById('mestre3-nome').innerText = d.nome;
-                    document.getElementById('mestre3-pix').innerText = d.pix;
-                    document.getElementById('card3').onclick = () => copiar(d.pix);
-                    
-                    // Nível 2 (Pode ser o id_pai do mestre ou sistema)
-                    document.getElementById('mestre2-nome').innerText = "Suporte Sistema";
-                    document.getElementById('mestre2-pix').innerText = d.pix;
-                    document.getElementById('card2').onclick = () => copiar(d.pix);
+                    document.querySelectorAll('[id$="-nome"]').forEach(el => el.innerText = nome);
+                    document.querySelectorAll('[id$="-pix"]').forEach(el => el.innerText = pix);
+                    document.querySelectorAll('[id^="card"]').forEach(el => el.onclick = () => copiar(pix));
                 }
-            } catch (e) {
-                console.error("Erro ao buscar no Firebase:", e);
-            }
+            } catch (e) { console.error(e); }
         }
-
-        window.onload = carregarFila;
+        window.onload = carregar;
     </script>
 </body>
 </html>
-

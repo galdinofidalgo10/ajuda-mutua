@@ -9,13 +9,39 @@
         body { background-color: #05070a; color: #e2e8f0; font-family: sans-serif; }
         .gold-text { color: #d4af37; font-style: italic; }
         .gold-bg { background: linear-gradient(135deg, #d4af37 0%, #f2d06b 100%); color: #000; }
+        
+        /* DESIGN ORIGINAL */
         .card { background-color: #0f172a; border: 1px solid #1e293b; transition: all 0.2s; }
         
-        /* Botão Flutuante */
+        /* BOTÃO FLUTUANTE DE REGRAS */
         .btn-regras {
-            position: fixed; bottom: 30px; right: 20px; width: 60px; height: 60px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: 900; text-transform: uppercase; z-index: 1000;
+            position: fixed; 
+            bottom: 30px; 
+            right: 20px; 
+            width: 60px; 
+            height: 60px;
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 10px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .input-original {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            text-align: left;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -31,20 +57,17 @@
             <p class="text-center animate-pulse text-slate-600">Carregando...</p>
         </div>
 
-        <div class="mt-10 space-y-6">
-            <div>
-                <p class="text-center text-[10px] gold-text uppercase font-black mb-4">1. Anexe os Comprovantes</p>
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs mb-2">
-                <input type="file" class="w-full bg-slate-900 p-4 rounded-xl text-xs">
-            </div>
+        <div class="mt-10">
+            <p class="text-center text-[10px] gold-text uppercase font-black mb-4">Anexar Comprovantes</p>
+            <button class="input-original">📄 COMPROVANTE 01</button>
+            <button class="input-original">📄 COMPROVANTE 02</button>
+            <button class="input-original">📄 COMPROVANTE 03</button>
+        </div>
 
-            <div class="border-t border-slate-800 pt-6">
-                <p class="text-center text-[10px] gold-text uppercase font-black mb-4">2. Dados de Recebimento</p>
-                <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-slate-900 rounded-xl text-sm mb-3">
-                <input type="text" placeholder="Sua Chave Pix" class="w-full p-4 bg-slate-900 rounded-xl text-sm mb-4">
-                <button class="w-full gold-bg py-5 rounded-2xl font-black uppercase italic">Ativar Meu Protocolo</button>
-            </div>
+        <div class="mt-10 border-t border-slate-800 pt-6">
+            <input type="text" placeholder="Nome Completo" class="w-full p-4 bg-[#0f172a] border border-[#1e293b] rounded-xl text-sm mb-3 outline-none">
+            <input type="text" placeholder="Seu Pix para Receber" class="w-full p-4 bg-[#0f172a] border border-[#1e293b] rounded-xl text-sm mb-4 outline-none">
+            <button class="w-full gold-bg py-5 rounded-2xl font-black uppercase italic">Ativar Meu Protocolo</button>
         </div>
 
         <footer class="mt-20 mb-10 text-center border-t border-slate-900 pt-8">
@@ -54,7 +77,7 @@
         </footer>
     </div>
 
-    <div onclick="alert('REGRAS:\n1. Doe R$ 5,00 para cada mestre.\n2. Anexe os prints.\n3. Ative seu cadastro.')" class="btn-regras gold-bg italic">Regras</div>
+    <div onclick="alert('REGRAS:\n1. Envie R$ 5,00 para cada nível.\n2. Anexe os comprovantes.\n3. Preencha seus dados e ative.')" class="btn-regras gold-bg italic">Regras</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
@@ -77,18 +100,21 @@
                 const snap = await getDoc(doc(db, "usuarios", "mestre"));
                 if (snap.exists()) {
                     const d = snap.data();
+                    const n = d.nome || "Galdino Pereira Fidalgo";
+                    const p = d.pix || "04036277375";
+
                     document.getElementById('lista-mestres').innerHTML = `
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
-                            <div><p class="text-[8px] gold-text uppercase">Nível 1</p><p class="text-sm font-bold italic">${d.nome}</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
+                        <div onclick="navigator.clipboard.writeText('${p}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                            <div><p class="text-[8px] gold-text uppercase">Nível 1</p><p class="text-sm font-bold italic">${n}</p></div>
+                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
                         </div>
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                        <div onclick="navigator.clipboard.writeText('${p}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
                             <div><p class="text-[8px] gold-text uppercase">Nível 2</p><p class="text-sm font-bold italic">Suporte Sistema</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
+                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
                         </div>
-                        <div onclick="navigator.clipboard.writeText('${d.pix}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
-                            <div><p class="text-[8px] gold-text uppercase">Nível 3</p><p class="text-sm font-bold italic">${d.nome}</p></div>
-                            <p class="text-[10px] font-mono text-slate-400">${d.pix}</p>
+                        <div onclick="navigator.clipboard.writeText('${p}'); alert('Copiado!')" class="card p-4 rounded-xl flex justify-between items-center cursor-pointer border-l-4 border-yellow-600">
+                            <div><p class="text-[8px] gold-text uppercase">Nível 3</p><p class="text-sm font-bold italic">${n}</p></div>
+                            <p class="text-[10px] font-mono text-slate-400">${p}</p>
                         </div>
                     `;
                 }
@@ -98,3 +124,4 @@
     </script>
 </body>
 </html>
+

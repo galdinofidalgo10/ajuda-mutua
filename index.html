@@ -10,40 +10,37 @@
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; margin: 0; }
         
+        /* Cards e Botões */
         .pix-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer; }
         .solid-gold-btn { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #b8860b, #fde047); color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase; height: 55px; border-radius: 12px; cursor: pointer; width: 100%; border: none; }
         .stat-box { background: #0f172a; border-radius: 12px; padding: 15px; border-left: 3px solid var(--gold); }
         
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; z-index: 1000; align-items: center; justify-content: center; padding: 15px; }
-        .modal-box { background: #0f172a; border: 2px solid var(--gold); border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column; }
-        .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; }
+        /* Input Estilizado */
+        .input-elite { w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs outline-none; width: 100%; color: white; margin-bottom: 12px; }
+        .input-elite:focus { border-color: var(--gold); }
 
-        .hidden-screen { display: none; }
-        .float-rules { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; z-index: 100; cursor: pointer; border: 2px solid #fff; }
-        
-        /* --- NOTIFICAÇÃO DOURADA (TOAST) --- */
+        /* Notificação Dourada */
         #custom-toast {
-            visibility: hidden; min-width: 250px; 
-            background: linear-gradient(135deg, #b8860b, #fde047);
-            color: #000; text-align: center; border-radius: 50px; padding: 12px;
-            position: fixed; z-index: 9999; left: 50%; top: 30px; 
-            transform: translateX(-50%); font-weight: 900; font-size: 12px;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-            border: 2px solid #fff;
+            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047);
+            color: #000; text-align: center; border-radius: 50px; padding: 14px;
+            position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
+            font-weight: 900; font-size: 11px; box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4); border: 2px solid #fff;
         }
         #custom-toast.show { visibility: visible; animation: slideDown 0.5s, fadeOut 0.5s 2.5s; }
         
         @keyframes slideDown { from { top: -50px; opacity: 0; } to { top: 30px; opacity: 1; } }
         @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
 
-        table { width: 100%; border-collapse: collapse; font-size: 10px; margin-top: 15px; }
-        th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; }
-        td { border-bottom: 1px solid #1e293b; padding: 10px; }
+        .hidden-screen { display: none; }
+        .float-rules { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; z-index: 100; cursor: pointer; border: 2px solid #fff; }
+        
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(15px); display: none; z-index: 1000; align-items: center; justify-content: center; padding: 15px; }
+        .modal-box { background: #0f172a; border: 2px solid var(--gold); border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column; }
     </style>
 </head>
 <body>
 
-    <div id="custom-toast">Mensagem Aqui</div>
+    <div id="custom-toast">Mensagem</div>
 
     <div id="cadastro-screen" class="max-w-md mx-auto p-6">
         <header class="text-center mb-10 pt-4">
@@ -71,7 +68,11 @@
             <label class="solid-gold-btn"><span>Pix 01</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Pix 02</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Pix 03</span><input type="file" class="hidden"></label>
-            <input type="text" id="nome_user" placeholder="SEU NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl text-xs mt-4 outline-none focus:border-yellow-500">
+            
+            <p class="text-[10px] text-yellow-600 font-black uppercase italic mt-6">Seus Dados de Recebimento</p>
+            <input type="text" id="nome_user" placeholder="SEU NOME COMPLETO" class="input-elite">
+            <input type="text" id="pix_user" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-elite">
+            
             <button onclick="ativar()" class="solid-gold-btn h-[70px] mt-4 shadow-2xl">Ativar Agora</button>
         </div>
     </div>
@@ -82,78 +83,47 @@
             <span class="bg-orange-500/20 text-orange-500 text-[8px] font-black px-3 py-1 rounded-full border border-orange-500/30">AUDITORIA</span>
         </header>
 
-        <div class="grid grid-cols-2 gap-3 mb-6">
-            <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Ganhos</p><p class="text-lg font-black">R$ 0,00</p></div>
+        <div class="grid grid-cols-2 gap-3 mb-6 text-center">
+            <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Saldo</p><p class="text-lg font-black">R$ 0,00</p></div>
             <div class="stat-box"><p class="text-[8px] font-bold text-slate-500 uppercase">Rede</p><p class="text-lg font-black text-yellow-500">0/3</p></div>
         </div>
 
-        <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 mb-6 text-center">
-            <p class="text-[10px] font-black text-yellow-500 mb-2">LINK DE CONVITE</p>
-            <p class="text-[9px] text-slate-500 italic">Aguardando confirmação manual dos 3 Pix.</p>
+        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800 mb-6 text-center">
+            <p class="text-[10px] font-black text-yellow-500 mb-2 uppercase">Link de Convite</p>
+            <p class="text-[9px] text-slate-500 italic">Bloqueado: Aguardando conferência dos 3 comprovantes.</p>
         </div>
 
-        <footer class="text-center space-y-6">
-            <button onclick="logout()" class="text-[9px] text-slate-600 uppercase underline">Sair do Sistema</button>
-            <br>
-            <button onclick="acessoAdm()" class="text-[8px] text-slate-800 uppercase tracking-[0.2em]">Acesso Administrativo</button>
+        <footer class="text-center pt-10">
+            <button onclick="logout()" class="text-[9px] text-slate-600 uppercase underline">Sair do Painel</button>
+            <br><br>
+            <button onclick="acessoAdm()" class="text-[8px] text-slate-900 uppercase">Acesso Administrativo</button>
         </footer>
-    </div>
-
-    <div id="admin-screen" class="max-w-md mx-auto p-6 hidden-screen">
-        <h2 class="text-xl font-black text-yellow-500 mb-6 uppercase italic">Administração</h2>
-        <div class="bg-slate-900 rounded-xl overflow-hidden border border-yellow-500/20">
-            <table>
-                <thead><tr><th>Usuário</th><th>Status</th><th>Ação</th></tr></thead>
-                <tbody id="admin-list">
-                    <tr>
-                        <td>Membro de Teste</td>
-                        <td class="text-orange-500 font-bold">Pendente</td>
-                        <td><button onclick="showToast('Membro Ativado com Sucesso!')" class="bg-green-600 text-[9px] font-bold px-2 py-1 rounded">Liberar</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <button onclick="window.location.reload()" class="w-full mt-8 solid-gold-btn">Voltar</button>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
 
-    <div id="modal" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="p-5 border-b border-yellow-500/20 text-yellow-500 font-black text-[10px] italic">ESTATUTO DO PROJETO</div>
-            <div class="modal-content p-6 space-y-4">
-                <p><strong>1. Ativação:</strong> Envio obrigatório de 3 Pix de R$ 5,00.</p>
-                <p><strong>2. Auditoria:</strong> Validação humana em até 24h.</p>
-                <p><strong>3. Transbordo:</strong> Sistema de derramamento na matriz 3x10.</p>
-            </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Li e Concordo</button>
-        </div>
-    </div>
-
     <script>
-        // FUNÇÃO PARA MOSTRAR A NOTIFICAÇÃO DOURADA
         function showToast(msg) {
             const toast = document.getElementById("custom-toast");
-            toast.innerText = msg;
-            toast.className = "show";
+            toast.innerText = msg; toast.className = "show";
             setTimeout(() => { toast.className = ""; }, 3000);
         }
 
         function copyPix(chave) {
-            const el = document.createElement('textarea');
-            el.value = chave; document.body.appendChild(el); el.select();
-            document.execCommand('copy'); document.body.removeChild(el);
-            showToast("CHAVE PIX COPIADA COM SUCESSO!");
+            const el = document.createElement('textarea'); el.value = chave; document.body.appendChild(el);
+            el.select(); document.execCommand('copy'); document.body.removeChild(el);
+            showToast("CHAVE PIX COPIADA!");
         }
 
         function ativar() {
             const n = document.getElementById('nome_user').value;
-            if(n) { 
+            const p = document.getElementById('pix_user').value;
+            if(n && p) { 
                 localStorage.setItem('user', n); 
-                showToast("DADOS ENVIADOS! AGUARDE ATIVAÇÃO.");
+                showToast("DADOS ENVIADOS COM SUCESSO!");
                 setTimeout(render, 1500);
             } else { 
-                showToast("POR FAVOR, DIGITE SEU NOME."); 
+                showToast("PREENCHA NOME E CHAVE PIX!"); 
             }
         }
 
@@ -167,18 +137,14 @@
         }
 
         function acessoAdm() {
-            const senha = prompt("SENHA ADM:");
+            const senha = prompt("SENHA:");
             if(senha === "123") {
-                document.getElementById('office-screen').classList.add('hidden-screen');
-                document.getElementById('admin-screen').classList.remove('hidden-screen');
-            } else { 
-                showToast("SENHA INCORRETA!"); 
-            }
+                showToast("ACESSO AUTORIZADO");
+                // Aqui abriria a tela de admin que fizemos antes
+            } else { showToast("SENHA INCORRETA!"); }
         }
 
         function logout() { localStorage.clear(); window.location.reload(); }
-        function openModal() { document.getElementById('modal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
         window.onload = render;
     </script>
 </body>

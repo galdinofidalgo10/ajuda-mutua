@@ -16,37 +16,23 @@
         .pix-card {
             background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
-            transition: transform 0.1s;
         }
-        .pix-card:active { transform: scale(0.98); background: rgba(212, 175, 55, 0.1); }
 
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
             color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase;
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
+            text-decoration: none;
         }
 
         .float-rules {
-            position: fixed !important; bottom: 30px !important; right: 20px !important;
-            width: 70px !important; height: 70px !important; border-radius: 50% !important;
-            background: linear-gradient(135deg, #b8860b, var(--gold)) !important;
-            color: #000 !important; display: flex !important; align-items: center !important; 
-            justify-content: center !important; font-weight: 900 !important; font-size: 10px !important; 
-            text-transform: uppercase !important; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6) !important; 
-            z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
+            position: fixed; bottom: 30px; right: 20px; width: 70px; height: 70px; border-radius: 50%;
+            background: linear-gradient(135deg, #b8860b, var(--gold));
+            color: #000; display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 10px; text-transform: uppercase;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6); z-index: 999; cursor: pointer;
         }
-
-        #toast {
-            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #d4af37);
-            color: #000; text-align: center; border-radius: 50px; padding: 16px; 
-            position: fixed; z-index: 9999; left: 50%; top: 40px; transform: translateX(-50%); 
-            font-weight: 900; font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-        }
-        #toast.show { visibility: visible; animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s; }
-
-        @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
-        @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
@@ -58,136 +44,112 @@
             border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column;
         }
         .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
-        
-        .rule-section { margin-bottom: 25px; }
-        .rule-header { 
-            color: var(--gold); font-weight: 900; text-transform: uppercase; 
-            font-size: 11px; display: block; border-left: 4px solid var(--gold); 
-            padding-left: 12px; margin-bottom: 10px; background: rgba(212, 175, 55, 0.05); padding-top: 5px; padding-bottom: 5px;
-        }
+        .rule-header { color: var(--gold); font-weight: 900; text-transform: uppercase; border-left: 4px solid var(--gold); padding-left: 12px; margin-bottom: 10px; display: block; }
 
-        .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
-        table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
-        th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
-        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; font-family: monospace; }
-        .gold-row { color: var(--gold) !important; font-weight: bold; background: rgba(212, 175, 55, 0.05); }
+        #main-content.hidden { display: none; }
+        #waiting-screen { display: none; }
+        #waiting-screen.active { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 50px; }
     </style>
 </head>
 <body>
 
-    <div id="toast">Chave Pix Copiada!</div>
-
-    <div class="max-w-md mx-auto p-6">
+    <div id="main-content" class="max-w-md mx-auto p-6">
         <header class="text-center mb-10 pt-4">
             <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">Projeto Ajuda Mútua</h1>
-            <p class="text-[8px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-1 italic">Sistema de Suporte Colaborativo</p>
+            <p class="text-[8px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-1 italic">Protocolo Elite - 3x10</p>
         </header>
 
         <div class="pix-card" onclick="copyText('04036277375')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 01 - Master</p>
-            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
+            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 01 - Master</p>
+            <div class="flex justify-between items-center"><p class="font-black italic text-sm">GALDINO PEREIRA FIDALGO</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
         </div>
         <div class="pix-card" onclick="copyText('04036277375')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 02 - Suporte</p>
-            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
+            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 02 - Suporte</p>
+            <div class="flex justify-between items-center"><p class="font-black italic text-sm">GALDINO PEREIRA FIDALGO</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
         </div>
         <div class="pix-card" onclick="copyText('04036277375')">
-            <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 03 - Fundador</p>
-            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
+            <p class="text-[8px] text-yellow-500 font-black uppercase mb-1">Nível 03 - Fundador</p>
+            <div class="flex justify-between items-center"><p class="font-black italic text-sm">GALDINO PEREIRA FIDALGO</p><p class="text-yellow-500 font-black text-xs">R$ 5,00</p></div>
         </div>
 
-        <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
-            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 01</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 02</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Comprovante Nível 03</span><input type="file" class="hidden"></label>
+        <div class="mt-10">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-6 italic">1. Envie os Comprovantes no WhatsApp</h3>
+            <a href="https://wa.me/5598912345678?text=Olá! Segue o comprovante do Nível 01" target="_blank" class="solid-gold-btn mb-3">Enviar Comprovante 01</a>
+            <a href="https://wa.me/5598912345678?text=Olá! Segue o comprovante do Nível 02" target="_blank" class="solid-gold-btn mb-3">Enviar Comprovante 02</a>
+            <a href="https://wa.me/5598912345678?text=Olá! Segue o comprovante do Nível 03" target="_blank" class="solid-gold-btn">Enviar Comprovante 03</a>
         </div>
 
-        <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
-            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Protocolo Agora</button>
+        <div class="mt-10">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-6 italic">2. Cadastro Final</h3>
+            <input type="text" id="userName" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
+            <input type="text" id="userPix" placeholder="SUA CHAVE PIX" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
+            <button onclick="ativarProtocolo()" class="solid-gold-btn h-[75px] shadow-2xl">Ativar Agora</button>
         </div>
+    </div>
+
+    <div id="waiting-screen" class="max-w-md mx-auto p-6">
+        <header class="text-center mb-10 pt-4">
+            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Escritório Virtual</h1>
+            <div class="mt-4 bg-orange-500/20 border border-orange-500 p-2 rounded-lg">
+                <p class="text-orange-500 font-black text-[10px] uppercase animate-pulse">Status: Aguardando Auditoria</p>
+            </div>
+        </header>
+
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl text-center">
+            <p class="text-slate-300 text-xs leading-relaxed">
+                Olá! Seus dados e comprovantes foram enviados para análise. 
+                <br><br>
+                Nosso sistema está verificando as transações Pix. Este processo leva no máximo **24 horas**.
+                <br><br>
+                <span class="text-yellow-500 font-bold">O que acontece agora?</span><br>
+                Assim que aprovado, o seu **ID de Divulgação** aparecerá nesta tela e você poderá começar a receber doações da sua rede.
+            </p>
+        </div>
+
+        <div class="mt-8 opacity-50 pointer-events-none">
+            <p class="text-[10px] font-black uppercase text-slate-500 mb-4">Seu Link de Divulgação</p>
+            <div class="bg-slate-800 p-4 rounded-xl border border-dashed border-slate-700 text-slate-600 text-xs">
+                Link bloqueado até ativação...
+            </div>
+        </div>
+
+        <button onclick="window.location.reload()" class="mt-10 text-yellow-500 font-black text-[10px] uppercase underline">Atualizar Status</button>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
 
-    <div id="modal" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
-                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Estatuto e Funcionamento do Projeto</span>
-                <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
-            </div>
-            <div class="modal-content">
-                
-                <div class="rule-section">
-                    <span class="rule-header">1. O Gatilho de Ativação Único</span>
-                    <p>Para entrar no sistema e validar sua posição, você realiza 3 doações diretas de R$ 5,00 para os membros da sua linha ascendente que aparecem nos cards da página principal. Isso totaliza um custo de adesão único de R$ 15,00. Assim que os seus 3 comprovantes forem anexados e validados pela nossa auditoria manual em até 24 horas, o seu ID de divulgação inteligente será liberado.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">2. Estrutura da Matriz Forçada (3x10)</span>
-                    <p>O sistema organiza os participantes em uma matriz de 10 níveis de profundidade. O número "3" indica que você só pode ter 3 pessoas diretamente ligadas ao seu primeiro nível. Todo o crescimento além disso gera benefícios para a sua rede através do preenchimento automático de vagas vazias conforme a tabela abaixo:</p>
-                    <div class="table-container">
-                        <table>
-                            <thead><tr><th>Nível</th><th>Membros</th><th>Potencial de Ganho</th></tr></thead>
-                            <tbody>
-                                <tr><td>Nível 1</td><td>3</td><td>R$ 15,00</td></tr>
-                                <tr><td>Nível 2</td><td>9</td><td>R$ 45,00</td></tr>
-                                <tr><td>Nível 3</td><td>27</td><td>R$ 135,00</td></tr>
-                                <tr><td>Nível 4</td><td>81</td><td>R$ 405,00</td></tr>
-                                <tr><td>Nível 5</td><td>243</td><td>R$ 1.215,00</td></tr>
-                                <tr><td>Nível 6</td><td>729</td><td>R$ 3.645,00</td></tr>
-                                <tr><td>Nível 7</td><td>2.187</td><td>R$ 10.935,00</td></tr>
-                                <tr><td>Nível 8</td><td>6.561</td><td>R$ 32.805,00</td></tr>
-                                <tr><td>Nível 9</td><td>19.683</td><td>R$ 98.415,00</td></tr>
-                                <tr class="gold-row"><td>Nível 10</td><td>59.049</td><td>R$ 295.245,00</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">3. O Poder do Derramamento (Transbordo)</span>
-                    <p>Este é o grande motor do Projeto Ajuda Mútua. Como cada membro só pode ter 3 diretos, se você ou o seu líder convidarem uma 4ª pessoa, o sistema a aloca automaticamente abaixo de um membro da sua rede que ainda tenha vagas disponíveis. Isso ajuda quem tem mais dificuldade em convidar a começar a receber doações, criando um ciclo onde os líderes ajudam a base a crescer mais rápido.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">4. Fluxo de Dinheiro Direto (P2P via Pix)</span>
-                    <p>O sistema não funciona como banco e não retém o dinheiro dos participantes. Todas as doações são realizadas no modelo Pessoa para Pessoa (P2P), enviadas diretamente para a chave Pix do membro recebedor. Isso garante liquidez imediata: o dinheiro cai direto na sua conta bancária sem a necessidade de solicitar "saques" na plataforma.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">5. Auditoria de Segurança e Banimento</span>
-                    <p>Para garantir a honestidade da rede, o sistema rastreia o IP e o CPF de cada usuário. Existe tolerância zero para fraudes: o envio de comprovantes falsos, editados ou repetidos resultará no bloqueio imediato e permanente do seu cadastro. O prazo de conferência de 24 horas garante que quem doou realmente receba a sua ativação e quem recebeu valide a transação.</p>
-                </div>
-
-                <div class="rule-section">
-                    <span class="rule-header">6. Escritório Virtual e Sustentabilidade</span>
-                    <p>Ao ser ativado, você ganha acesso a um Escritório Virtual completo onde poderá monitorar o crescimento da sua matriz, gerir sua rede descendente e validar os comprovantes que receber. O projeto é sustentável porque não depende de rendimentos fixos, mas sim do fluxo de doações voluntárias entre membros dentro de uma estrutura organizada.</p>
-                </div>
-
-                <div class="rule-section">
-                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"Ninguém cresce sozinho. O Protocolo Elite organiza a rede; a sua integridade garante a prosperidade."</p>
-                </div>
-
-            </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceito os Termos e Desejo Ativar</button>
-        </div>
-    </div>
-
     <script>
-        function copyText(val) {
-            const el = document.createElement('textarea');
-            el.value = val; el.setAttribute('readonly', ''); el.style.position = 'fixed';
-            el.style.left = '-9999px'; document.body.appendChild(el);
-            el.select(); document.execCommand('copy'); document.body.removeChild(el);
-            const toast = document.getElementById("toast");
-            toast.className = "show"; setTimeout(() => { toast.className = ""; }, 3000);
+        // Função para ativar e salvar no navegador
+        function ativarProtocolo() {
+            const nome = document.getElementById('userName').value;
+            const pix = document.getElementById('userPix').value;
+
+            if(nome && pix) {
+                localStorage.setItem('projeto_ativo', 'pendente');
+                checkStatus();
+            } else {
+                alert("Por favor, preencha seu nome e sua chave Pix.");
+            }
         }
+
+        // Função que verifica se o usuário já se cadastrou
+        function checkStatus() {
+            if(localStorage.getItem('projeto_ativo') === 'pendente') {
+                document.getElementById('main-content').classList.add('hidden');
+                document.getElementById('waiting-screen').classList.add('active');
+            }
+        }
+
+        function copyText(val) {
+            navigator.clipboard.writeText(val);
+            alert("Chave Pix Copiada!");
+        }
+
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }
+
+        // Inicia checando o status
+        checkStatus();
     </script>
 </body>
 </html>

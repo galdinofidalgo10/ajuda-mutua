@@ -18,7 +18,6 @@
 </head>
 <body class="p-4">
     <div id="toast"></div>
-
     <div class="max-w-md mx-auto">
         <header class="text-center mb-6 pt-4">
             <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
@@ -30,13 +29,14 @@
         <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
-                <div class="grid grid-cols-3 gap-2">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
                 </div>
                 <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
                 <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
+                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
                 <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
             </div>
         </div>
@@ -44,7 +44,6 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCZIP0M0M8FqC_LAtI9I36e_IIn_V-C4m4",
@@ -57,7 +56,6 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        // LÓGICA DE INDICAÇÃO VIA URL
         const params = new URLSearchParams(window.location.search);
         const recebedores = [
             { n: params.get('n1') || "Galdino Pereira Fidalgo", p: params.get('p1') || "04036277375" },
@@ -68,19 +66,17 @@
         const container = document.getElementById('container-pix');
         recebedores.forEach((r, i) => {
             container.innerHTML += `
-                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 transition-transform cursor-pointer">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-[7px] text-yellow-500 font-black uppercase tracking-widest">Nível 0${i+1} - Recebedor</p>
-                            <h3 class="font-black text-xs uppercase text-white">${r.n}</h3>
-                        </div>
+                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer">
+                    <div class="flex justify-between items-center text-white">
+                        <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
+                        <h3 class="font-black text-xs uppercase">${r.n}</h3></div>
                         <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
                     </div>
                 </div>`;
         });
 
         function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copy(v) { navigator.clipboard.writeText(v); showT("CHAVE PIX COPIADA!"); }
+        function copy(v) { navigator.clipboard.writeText(v); showT("PIX COPIADO!"); }
 
         const processImg = file => new Promise((resolve) => {
             const reader = new FileReader();
@@ -104,29 +100,21 @@
         async function ativar() {
             const n = document.getElementById('nome').value;
             const p = document.getElementById('pix_user').value;
+            const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
             const inputs = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
             
-            if(!n || !p) return showT("PREENCHA NOME E PIX!");
+            if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
             
             let fotos = [];
-            showT("PROCESSANDO... AGUARDE.");
-
+            showT("ENVIANDO...");
             try {
-                for (const input of inputs) {
-                    if (input.files[0]) {
-                        const b64 = await processImg(input.files[0]);
-                        fotos.push(b64);
-                    }
-                }
-                if(fotos.length < 3) return showT("ANEXE OS 3 COMPROVANTES!");
-
+                for (const input of inputs) { if (input.files[0]) { fotos.push(await processImg(input.files[0])); } }
+                if(fotos.length < 3) return showT("ANEXE AS 3 FOTOS!");
                 database.ref('solicitacoes/').push({
-                    nome: n, pix: p, comprovantes: fotos, data: new Date().toLocaleString('pt-BR'), status: 'pendente', indicado_por: recebedores[0].n
-                }).then(() => { 
-                    showT("ENVIADO COM SUCESSO!");
-                    document.getElementById('nome').value = ""; document.getElementById('pix_user').value = "";
-                });
-            } catch (e) { showT("ERRO AO PROCESSAR FOTOS."); }
+                    nome: n, pix: p, whatsapp: w, comprovantes: fotos, 
+                    indicado_por: recebedores[0].n, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
+                }).then(() => { showT("ENVIADO! AGUARDE APROVAÇÃO."); });
+            } catch (e) { showT("ERRO NO ENVIO."); }
         }
     </script>
 </body>

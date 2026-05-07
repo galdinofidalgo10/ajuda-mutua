@@ -9,47 +9,15 @@
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
-        
-        .glass-card { 
-            background: rgba(15, 23, 42, 0.6); 
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.1); 
-            border-radius: 20px; 
-        }
-
-        .btn-gold { 
-            background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); 
-            color: #000; font-weight: 900; text-transform: uppercase;
-            letter-spacing: 1px; transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
-        }
-
-        .input-field {
-            width: 100%; background: rgba(30, 41, 59, 0.5);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 18px; border-radius: 12px; color: white;
-            font-size: 13px; outline: none;
-        }
-
-        #toast {
-            visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047);
-            color: #000; text-align: center; border-radius: 50px; padding: 15px;
-            position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
-            font-weight: 900; font-size: 11px; border: 2px solid #fff;
-        }
+        .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
+        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3); }
+        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 18px; border-radius: 12px; color: white; outline: none; }
+        #toast { visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047); color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
-
-        .hidden-screen { display: none; }
-        
-        /* Tabela Administrativa */
-        table { width: 100%; border-collapse: collapse; font-size: 11px; color: #cbd5e1; }
-        th { text-align: left; padding: 12px; background: #1e293b; color: var(--gold); }
-        td { padding: 12px; border-bottom: 1px solid #1e293b; }
     </style>
 </head>
-<body class="p-6 pb-24">
-
+<body class="p-6">
     <div id="toast">Notificação</div>
 
     <div id="cadastro-screen" class="max-w-md mx-auto">
@@ -59,19 +27,19 @@
         </header>
 
         <div class="space-y-3 mb-8">
-            <div onclick="copy('04036277375')" class="glass-card p-4">
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer">
                 <div class="flex justify-between items-center">
                     <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 01</p><h3 class="font-black text-xs">Galdino Pereira Fidalgo</h3></div>
                     <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
                 </div>
             </div>
-            <div onclick="copy('04036277375')" class="glass-card p-4">
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer">
                 <div class="flex justify-between items-center">
                     <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 02</p><h3 class="font-black text-xs">Galdino Pereira Fidalgo</h3></div>
                     <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
                 </div>
             </div>
-            <div onclick="copy('04036277375')" class="glass-card p-4">
+            <div onclick="copy('04036277375')" class="glass-card p-4 cursor-pointer">
                 <div class="flex justify-between items-center">
                     <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 03</p><h3 class="font-black text-xs">Galdino Pereira Fidalgo</h3></div>
                     <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
@@ -79,67 +47,48 @@
             </div>
         </div>
 
-        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
-            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6">Validar sua Entrada</h2>
+        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30 shadow-2xl">
+            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px]">PIX 01<input type="file" class="hidden"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px]">PIX 02<input type="file" class="hidden"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px]">PIX 03<input type="file" class="hidden"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center">PIX 01<input type="file" class="hidden"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center">PIX 02<input type="file" class="hidden"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] text-center">PIX 03<input type="file" class="hidden"></label>
                 </div>
-                <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field">
-                <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field">
-                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm">Ativar Agora</button>
+                <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field text-xs">
+                <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
+                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm mt-4">Ativar Agora</button>
             </div>
         </div>
     </div>
 
-    <div id="admin-screen" class="max-w-md mx-auto hidden-screen">
-        <h2 class="text-xl font-black text-yellow-500 mb-6 uppercase italic">Painel do Gestor</h2>
-        <div class="glass-card overflow-hidden">
-            <table>
-                <thead><tr><th>Usuário</th><th>Status</th><th>Ação</th></tr></thead>
-                <tbody>
-                    <tr>
-                        <td>Aguardando...</td>
-                        <td class="text-orange-500">Pendente</td>
-                        <td><button class="bg-green-600 px-2 py-1 rounded text-[10px] font-bold">OK</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <button onclick="location.reload()" class="btn-gold w-full h-12 rounded-xl mt-6">Sair do Admin</button>
-    </div>
-
-    <div class="fixed bottom-0 left-0 w-full p-4 flex justify-center bg-slate-950/80 backdrop-blur">
-        <button onclick="acessoAdm()" class="text-[9px] font-black text-slate-700 uppercase tracking-[0.3em] border border-slate-800 px-6 py-2 rounded-full">
-            Acesso Administrativo
-        </button>
-    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
     <script>
-        function showT(m) {
-            const t = document.getElementById("toast");
-            t.innerText = m; t.className = "show";
-            setTimeout(() => { t.className = ""; }, 3000);
-        }
-        function copy(v) {
-            navigator.clipboard.writeText(v);
-            showT("CHAVE COPIADA!");
-        }
+        const firebaseConfig = {
+            apiKey: "AIzaSyCZIP...", // Substitua pela sua chave completa
+            authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
+            databaseURL: "https://ajuda-mutua-7d99a-default-rtdb.firebaseio.com",
+            projectId: "ajuda-mutua-7d99a",
+            storageBucket: "ajuda-mutua-7d99a.appspot.com",
+            messagingSenderId: "1070775313117",
+            appId: "1:1070775313117:web:fa90f5f0cb519ab38b1d34"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
+        function copy(v) { navigator.clipboard.writeText(v); showT("CHAVE COPIADA!"); }
+
         function ativar() {
             const n = document.getElementById('nome').value;
             const p = document.getElementById('pix_user').value;
-            if(n && p) { showT("ENVIADO! AGUARDE ATIVAÇÃO."); }
-            else { showT("PREENCHA NOME E PIX!"); }
-        }
-        function acessoAdm() {
-            const s = prompt("SENHA DO GESTOR:");
-            if(s === "123") {
-                document.getElementById('cadastro-screen').classList.add('hidden-screen');
-                document.getElementById('admin-screen').classList.remove('hidden-screen');
-                showT("BEM-VINDO, GALDINO!");
-            } else { showT("ACESSO NEGADO!"); }
+            if(n && p) {
+                database.ref('solicitacoes/').push({
+                    nome: n, pix: p, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
+                }).then(() => { showT("DADOS ENVIADOS! AGUARDE ATIVAÇÃO."); });
+            } else { showT("PREENCHA TODOS OS CAMPOS!"); }
         }
     </script>
 </body>

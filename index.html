@@ -69,7 +69,7 @@
         }
         .modal-box {
             background: #0f172a; border: 2px solid var(--gold);
-            border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column;
+            border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column;
         }
         .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
         
@@ -83,7 +83,8 @@
         .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
-        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; }
+        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; font-family: monospace; }
+        .gold-row { color: var(--gold) !important; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -136,19 +137,25 @@
                 
                 <div class="rule-section">
                     <span class="rule-header">1. Dinâmica de Ajuda Mútua</span>
-                    <p>O Protocolo é um ecossistema de doações voluntárias diretas. A ativação ocorre mediante o repasse de R$ 5,00 para os 3 níveis superiores da sua fila de entrada.</p>
+                    <p>Sistema baseado em doações voluntárias. A ativação requer 3 doações de R$ 5,00 para os níveis superiores.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">2. Tabela de Projeção (Matriz 5x10)</span>
+                    <span class="rule-header">2. Matriz de Ganhos Nível a Nível</span>
                     <div class="table-container">
                         <table>
                             <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos Totais</th></tr></thead>
                             <tbody>
-                                <tr><td>01</td><td>5</td><td>R$ 25,00</td></tr>
-                                <tr><td>02 ao 05</td><td>3.125</td><td>R$ 15.625,00</td></tr>
-                                <tr><td>06 ao 08</td><td>390.625</td><td>R$ 1.953.125,00</td></tr>
-                                <tr><td>09 ao 10</td><td>9.765.625</td><td>R$ 48.828.125,00</td></tr>
+                                <tr><td>Nível 1</td><td>5</td><td>R$ 25,00</td></tr>
+                                <tr><td>Nível 2</td><td>25</td><td>R$ 125,00</td></tr>
+                                <tr><td>Nível 3</td><td>125</td><td>R$ 625,00</td></tr>
+                                <tr><td>Nível 4</td><td>625</td><td>R$ 3.125,00</td></tr>
+                                <tr><td>Nível 5</td><td>3.125</td><td>R$ 15.625,00</td></tr>
+                                <tr><td>Nível 6</td><td>15.625</td><td>R$ 78.125,00</td></tr>
+                                <tr><td>Nível 7</td><td>78.125</td><td>R$ 390.625,00</td></tr>
+                                <tr><td>Nível 8</td><td>390.625</td><td>R$ 1.953.125,00</td></tr>
+                                <tr><td>Nível 9</td><td>1.953.125</td><td>R$ 9.765.625,00</td></tr>
+                                <tr class="gold-row"><td>Nível 10</td><td>9.765.625</td><td>R$ 48.828.125,00</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -156,21 +163,17 @@
 
                 <div class="rule-section">
                     <span class="rule-header">3. Painel Administrativo Elite</span>
-                    <p>Após a ativação, você terá acesso a um Escritório Virtual exclusivo. Nele, você poderá monitorar sua rede, verificar comprovantes recebidos e acompanhar seu saldo em tempo real.</p>
+                    <p>Acesso ao Escritório Virtual para monitorar sua rede, verificar comprovantes e acompanhar saldo em tempo real.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">4. Link de Divulgação Inteligente</span>
-                    <p>Seu link único utiliza tecnologia de rastreio por ID. Ele garante que novos membros sejam alocados na sua matriz, respeitando a ordem de derramamento para maximizar seus ganhos.</p>
+                    <span class="rule-header">4. Link de Divulgação</span>
+                    <p>Link com tecnologia de rastreio por ID. Novos membros são alocados automaticamente na sua matriz.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">5. Segurança e Compliance</span>
-                    <p>O prazo de auditoria dos comprovantes é de 24h. O envio de arquivos falsos ou duplicados acarretará no <strong>bloqueio imediato do CPF e IP</strong> de forma irreversível.</p>
-                </div>
-
-                <div class="rule-section">
-                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"A integridade gera riqueza. Siga o protocolo e colha os frutos da rede."</p>
+                    <span class="rule-header">5. Segurança</span>
+                    <p>Prazo de auditoria de 24h. Comprovantes falsos geram <strong>banimento imediato e irreversível</strong>.</p>
                 </div>
 
             </div>

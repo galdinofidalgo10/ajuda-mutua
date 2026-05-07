@@ -13,6 +13,7 @@
             min-height: 100vh; margin: 0; padding-bottom: 50px; overflow-x: hidden; 
         }
 
+        /* Estilização Geral */
         .pix-card {
             background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
@@ -25,24 +26,48 @@
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
-        /* Estilo Painel de Controle */
         .stat-box {
             background: #0f172a; border-radius: 12px; padding: 15px; border-left: 3px solid var(--gold);
         }
 
+        /* Botão Flutuante */
         .float-rules {
-            position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;
-            background: var(--gold); color: #000; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-weight: 900; font-size: 10px;
-            z-index: 100; cursor: pointer; border: 2px solid #fff;
+            position: fixed; bottom: 20px; right: 20px; width: 65px; height: 65px;
+            background: linear-gradient(135deg, #b8860b, var(--gold)); color: #000; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-weight: 900; font-size: 10px; z-index: 100; cursor: pointer; border: 2px solid #fff;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
         }
+
+        /* Modal do Regulamento */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px); display: none; z-index: 1000;
+            align-items: center; justify-content: center; padding: 15px;
+        }
+        .modal-box {
+            background: #0f172a; border: 2px solid var(--gold);
+            border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column;
+        }
+        .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+        
+        .rule-header { 
+            color: var(--gold); font-weight: 900; text-transform: uppercase; 
+            font-size: 11px; display: block; border-left: 4px solid var(--gold); 
+            padding-left: 12px; margin-bottom: 10px; background: rgba(212, 175, 55, 0.05); padding: 5px 12px;
+        }
+
+        .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; }
+        th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; }
+        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; }
 
         .hidden-screen { display: none; }
         
         #toast {
             visibility: hidden; min-width: 250px; background: var(--gold);
             color: #000; text-align: center; border-radius: 50px; padding: 10px;
-            position: fixed; z-index: 999; left: 50%; top: 30px; transform: translateX(-50%);
+            position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%);
             font-weight: 900;
         }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
@@ -73,90 +98,118 @@
         </div>
 
         <div class="mt-10">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-4 italic">Enviar Comprovantes</h3>
-            <label class="solid-gold-btn mb-3"><span>Comprovante 01</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-3"><span>Comprovante 02</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-6"><span>Comprovante 03</span><input type="file" class="hidden"></label>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-4 italic">1. Enviar Comprovantes</h3>
+            <label class="solid-gold-btn mb-3"><span>Selecionar Comprovante 01</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Selecionar Comprovante 02</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-10"><span>Selecionar Comprovante 03</span><input type="file" class="hidden"></label>
 
-            <input type="text" id="nome" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white text-xs">
-            <input type="text" id="pix" placeholder="CHAVE PIX" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-6 text-white text-xs">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase mb-4 italic">2. Seus Dados</h3>
+            <input type="text" id="nome" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white text-xs outline-none focus:border-yellow-500">
+            <input type="text" id="pix" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-6 text-white text-xs outline-none focus:border-yellow-500">
             <button onclick="ativar()" class="solid-gold-btn h-[70px] shadow-2xl">Ativar Agora</button>
         </div>
     </div>
 
     <div id="office-screen" class="max-w-md mx-auto p-6 hidden-screen">
-        <header class="flex justify-between items-center mb-8">
+        <header class="flex justify-between items-center mb-8 pt-4">
             <div>
                 <p class="text-[10px] text-slate-500 font-bold uppercase">Bem-vindo(a),</p>
-                <h2 id="user-display-name" class="text-xl font-black italic text-yellow-500 uppercase">MEMBRO ELITE</h2>
+                <h2 id="user-display-name" class="text-xl font-black italic text-yellow-500 uppercase tracking-tighter">MEMBRO</h2>
             </div>
-            <div class="text-right">
-                <span class="bg-orange-500/20 text-orange-500 text-[8px] font-black px-3 py-1 rounded-full uppercase animate-pulse">Pendente</span>
-            </div>
+            <span class="bg-orange-500/20 text-orange-500 text-[8px] font-black px-3 py-1 rounded-full uppercase animate-pulse border border-orange-500/30">Pendente</span>
         </header>
 
-        <div class="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl mb-8">
-            <p class="text-center text-xs text-slate-400 leading-relaxed italic">
-                "Sua ativação está sendo processada por nossa auditoria manual. <br>
-                <b>Tempo restante estimado: 23:54:12</b>"
+        <div class="bg-slate-900/80 border border-yellow-500/20 p-5 rounded-2xl mb-8 text-center">
+            <p class="text-xs text-slate-300 leading-relaxed italic">
+                "Sua ativação está em <b>Auditoria Manual</b>. <br>
+                Aguarde a validação dos comprovantes em até 24h."
             </p>
         </div>
 
         <div class="grid grid-cols-2 gap-4 mb-8">
             <div class="stat-box">
-                <p class="text-[8px] font-bold text-slate-500 uppercase">Meu Saldo</p>
+                <p class="text-[8px] font-bold text-slate-500 uppercase">Ganhos Totais</p>
                 <p class="text-lg font-black text-white">R$ 0,00</p>
             </div>
             <div class="stat-box">
-                <p class="text-[8px] font-bold text-slate-500 uppercase">Matriz 3x10</p>
-                <p class="text-lg font-black text-white">Nível 1</p>
+                <p class="text-[8px] font-bold text-slate-500 uppercase">Rede 3x10</p>
+                <p class="text-lg font-black text-white">Nível 0</p>
             </div>
         </div>
 
-        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl mb-8 text-center opacity-50">
-            <p class="text-[10px] font-bold text-yellow-500 uppercase mb-2">Seu Link de Convite</p>
-            <p class="text-[9px] text-slate-500 mb-4">Aguardando Aprovação dos Comprovantes...</p>
-            <button class="bg-slate-800 w-full py-3 rounded-lg text-slate-600 font-black text-[10px] uppercase cursor-not-allowed">Copiar Link</button>
-        </div>
-
-        <h3 class="text-[10px] font-black text-slate-500 uppercase mb-4 tracking-widest">Minha Rede Ativa</h3>
-        <div class="space-y-2">
-            <div class="flex justify-between text-[10px] bg-slate-900 p-3 rounded-lg border border-slate-800">
-                <span class="text-slate-400">Nível 1 (0/3 Membros)</span>
-                <span class="text-yellow-500 font-bold italic">R$ 0,00</span>
+        <h3 class="text-[10px] font-black text-slate-500 uppercase mb-4 tracking-widest">Painel da Matriz</h3>
+        <div class="space-y-2 mb-10">
+            <div class="flex justify-between text-[10px] bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Nível 1 (Vagas: 3)</span>
+                <span class="text-yellow-500 font-bold">Bloqueado</span>
             </div>
-            <div class="flex justify-between text-[10px] bg-slate-900 p-3 rounded-lg border border-slate-800">
-                <span class="text-slate-400">Nível 2 (0/9 Membros)</span>
-                <span class="text-yellow-500 font-bold italic">R$ 0,00</span>
+            <div class="flex justify-between text-[10px] bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <span class="text-slate-400">Nível 2 (Vagas: 9)</span>
+                <span class="text-yellow-500 font-bold">Bloqueado</span>
             </div>
         </div>
 
-        <button onclick="logout()" class="w-full mt-12 text-[9px] font-bold text-slate-600 uppercase tracking-widest">Sair do Painel</button>
+        <button onclick="logout()" class="w-full text-[9px] font-bold text-slate-600 uppercase tracking-widest underline">Sair / Novo Cadastro</button>
     </div>
 
     <div class="float-rules" onclick="openModal()">Regras</div>
 
+    <div id="modal" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Estatuto do Projeto</span>
+                <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="rule-section mb-6">
+                    <span class="rule-header">1. Ativação</span>
+                    <p>O ingresso ocorre mediante 3 doações de R$ 5,00 (Total R$ 15,00) para a linha ascendente. O link de convite é liberado após auditoria.</p>
+                </div>
+                <div class="rule-section mb-6">
+                    <span class="rule-header">2. Matriz 3x10</span>
+                    <p>Cada membro pode ter 3 diretos. O excedente gera transbordo para os níveis abaixo.</p>
+                    <div class="table-container">
+                        <table>
+                            <tr><th>Nível</th><th>Membros</th><th>Ganhos</th></tr>
+                            <tr><td>1</td><td>3</td><td>R$ 15</td></tr>
+                            <tr><td>2</td><td>9</td><td>R$ 45</td></tr>
+                            <tr class="text-yellow-500 font-bold"><td>10</td><td>59.049</td><td>R$ 295.245</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="rule-section mb-6">
+                    <span class="rule-header">3. Transbordo</span>
+                    <p>Novos membros são alocados automaticamente nas vagas vazias da rede, garantindo preenchimento coletivo.</p>
+                </div>
+                <div class="rule-section mb-6">
+                    <span class="rule-header">4. Pagamentos P2P</span>
+                    <p>Doações diretas entre membros via Pix. O sistema não retém valores.</p>
+                </div>
+                <div class="rule-section">
+                    <span class="rule-header">5. Segurança</span>
+                    <p>Comprovantes falsos geram banimento imediato e permanente do CPF e IP.</p>
+                </div>
+            </div>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Entendi e Aceito</button>
+        </div>
+    </div>
+
     <script>
         function ativar() {
-            const nome = document.getElementById('nome').value;
-            const pix = document.getElementById('pix').value;
-            if(nome && pix) {
+            const n = document.getElementById('nome').value;
+            const p = document.getElementById('pix').value;
+            if(n && p) {
                 localStorage.setItem('mutua_status', 'pendente');
-                localStorage.setItem('mutua_nome', nome);
-                renderizar();
-            } else {
-                alert("Preencha todos os campos.");
-            }
+                localStorage.setItem('mutua_nome', n);
+                render();
+            } else { alert("Preencha seu Nome e Pix."); }
         }
 
-        function renderizar() {
+        function render() {
             if(localStorage.getItem('mutua_status') === 'pendente') {
                 document.getElementById('cadastro-screen').classList.add('hidden-screen');
                 document.getElementById('office-screen').classList.remove('hidden-screen');
                 document.getElementById('user-display-name').innerText = localStorage.getItem('mutua_nome');
-            } else {
-                document.getElementById('cadastro-screen').classList.remove('hidden-screen');
-                document.getElementById('office-screen').classList.add('hidden-screen');
             }
         }
 
@@ -170,12 +223,13 @@
             el.value = val; document.body.appendChild(el); el.select();
             document.execCommand('copy'); document.body.removeChild(el);
             const t = document.getElementById("toast"); t.className = "show";
-            setTimeout(() => { t.className = ""; }, 2000);
+            setTimeout(() => { t.className = ""; }, 2500);
         }
 
-        function openModal(){ alert("Aqui abre o regulamento completo que você já tem!"); }
+        function openModal(){ document.getElementById('modal').style.display = 'flex'; }
+        function closeModal(){ document.getElementById('modal').style.display = 'none'; }
 
-        window.onload = renderizar;
+        window.onload = render;
     </script>
 </body>
 </html>

@@ -3,137 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo Ajuda Mútua</title>
+    <title>Ajuda Mútua | Protocolo Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
         body { 
             background: #020617; 
-            color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh;
+            color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; margin: 0;
         }
 
-        /* Estilo dos Cards de Usuário */
-        .user-card {
+        /* Painéis de Pix */
+        .pix-card {
             background: rgba(30, 41, 59, 0.4);
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: 0.3s;
+            border-radius: 15px; padding: 20px; margin-bottom: 12px;
+            cursor: pointer; transition: 0.3s;
         }
-        .user-card:active { transform: scale(0.98); border-color: var(--gold); }
+        .pix-card:active { transform: scale(0.98); border-color: var(--gold); }
 
-        /* BOTÕES DOURADOS REAIS (Substituem o "Escolher Arquivo") */
-        .gold-btn {
+        /* BOTÃO DOURADO TODO PREENCHIDO (Solid Gold) */
+        .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
-            color: #000; font-weight: 900; font-size: 11px; text-transform: uppercase;
-            padding: 18px; border-radius: 12px; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            color: #000; font-weight: 900; font-size: 12px; text-transform: uppercase;
+            height: 60px; border-radius: 12px; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             margin-bottom: 12px; border: none; width: 100%;
+            letter-spacing: 1px;
+            text-align: center;
         }
+        .solid-gold-btn:active { transform: scale(0.97); filter: brightness(1.1); }
 
-        /* NOTIFICAÇÃO INTERNA (Substitui o alert cinza do Chrome) */
-        #custom-alert {
+        /* Notificação Superior de Ajuda Mútua */
+        #custom-notify {
             display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
             background: #0f172a; border: 1px solid var(--gold); border-radius: 50px;
-            padding: 12px 25px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            padding: 12px 30px; z-index: 10000; box-shadow: 0 15px 40px rgba(0,0,0,0.9);
         }
 
-        .input-dark {
-            background: #0f172a; border: 1px solid #1e293b;
-            padding: 18px; border-radius: 12px; width: 100%; margin-bottom: 15px;
-            outline: none; color: #fff;
+        .input-premium {
+            background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b;
+            padding: 20px; border-radius: 15px; width: 100%; margin-bottom: 15px;
+            outline: none; color: #fff; font-size: 14px;
         }
     </style>
 </head>
 <body class="p-6">
 
-    <div id="custom-alert">
-        <span style="color: var(--gold); font-weight: 900; font-size: 11px; letter-spacing: 1px;">
-            AJUDA MÚTUA: PIX COPIADO!
+    <div id="custom-notify">
+        <span style="color: var(--gold); font-weight: 900; font-size: 11px; letter-spacing: 2px; text-transform: uppercase;">
+            Ajuda Mútua: Pix Copiado!
         </span>
     </div>
 
-    <div class="max-w-md mx-auto text-center">
-        <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter mb-10">
-            Fila de Ativação
-        </h1>
+    <div class="max-w-md mx-auto">
+        <header class="text-center mb-10 pt-6">
+            <h1 class="text-4xl font-black italic text-yellow-500 uppercase tracking-tighter">
+                Fila de Ativação
+            </h1>
+            <p class="text-[9px] font-bold text-slate-600 tracking-[0.4em] uppercase mt-2 italic">Protocolo de Alta Performance</p>
+        </header>
 
-        <div id="pix-list">
-            <div class="user-card" onclick="copyPix('04036277375')">
-                <div class="flex justify-between items-center text-left">
+        <div id="area-pix">
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 01 - Master</p>
-                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                        <p class="text-[9px] text-yellow-500 font-black uppercase italic mb-1">Nível 01 - Master</p>
+                        <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
                     </div>
-                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                    <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
                 </div>
             </div>
 
-            <div class="user-card" onclick="copyPix('04036277375')">
-                <div class="flex justify-between items-center text-left">
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 02 - Suporte</p>
-                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                        <p class="text-[9px] text-yellow-500 font-black uppercase italic mb-1">Nível 02 - Suporte</p>
+                        <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
                     </div>
-                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                    <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
                 </div>
             </div>
 
-            <div class="user-card" onclick="copyPix('04036277375')">
-                <div class="flex justify-between items-center text-left">
+            <div class="pix-card" onclick="copyPix('04036277375')">
+                <div class="flex justify-between items-center">
                     <div>
-                        <p class="text-[9px] text-yellow-500 font-bold uppercase italic">Nível 03 - Fundador</p>
-                        <p class="font-black italic uppercase">Galdino Pereira Fidalgo</p>
+                        <p class="text-[9px] text-yellow-500 font-black uppercase italic mb-1">Nível 03 - Fundador</p>
+                        <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
                     </div>
-                    <p class="text-yellow-500 font-bold italic">R$ 5,00</p>
+                    <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
                 </div>
             </div>
         </div>
 
-        <div class="mt-10">
-            <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</p>
+        <div class="mt-12">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</h3>
             
-            <label class="gold-btn">
-                <span>📄 Enviar Comprovante Nível 01</span>
+            <label class="solid-gold-btn">
+                <span>Enviar Comprovante</span>
                 <input type="file" style="display: none;">
             </label>
 
-            <label class="gold-btn">
-                <span>📄 Enviar Comprovante Nível 02</span>
+            <label class="solid-gold-btn">
+                <span>Enviar Comprovante</span>
                 <input type="file" style="display: none;">
             </label>
 
-            <label class="gold-btn">
-                <span>📄 Enviar Comprovante Nível 03</span>
+            <label class="solid-gold-btn">
+                <span>Enviar Comprovante</span>
                 <input type="file" style="display: none;">
             </label>
         </div>
 
-        <div class="mt-10">
-            <p class="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-6 italic">2. Cadastro de Recebimento</p>
-            <input type="text" placeholder="NOME COMPLETO" class="input-dark">
-            <input type="text" placeholder="SUA CHAVE PIX" class="input-dark">
+        <div class="mt-12 mb-16">
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
+            <input type="text" placeholder="NOME COMPLETO" class="input-premium">
+            <input type="text" placeholder="SUA CHAVE PIX" class="input-premium">
             
-            <button class="gold-btn py-6 text-sm" style="margin-top: 10px;">
+            <button class="solid-gold-btn mt-4 text-[13px] h-[70px]">
                 Ativar Meu Protocolo
             </button>
         </div>
 
-        <footer class="mt-16 text-[9px] font-black text-slate-700 uppercase tracking-widest">
-            © 2026 AJUDA MÚTUA • Todos os direitos reservados
+        <footer class="text-center py-8 opacity-20 border-t border-slate-900">
+            <p class="text-[9px] font-black uppercase tracking-[0.5em]">
+                © 2026 AJUDA MÚTUA • Direitos Reservados
+            </p>
         </footer>
     </div>
 
     <script>
-        function copyPix(key) {
-            navigator.clipboard.writeText(key).then(() => {
-                const alertBox = document.getElementById('custom-alert');
-                alertBox.style.display = 'block';
-                setTimeout(() => { alertBox.style.display = 'none'; }, 2500);
+        function copyPix(chave) {
+            navigator.clipboard.writeText(chave).then(() => {
+                const notify = document.getElementById('custom-notify');
+                notify.style.display = 'block';
+                setTimeout(() => { notify.style.display = 'none'; }, 2500);
             });
         }
     </script>

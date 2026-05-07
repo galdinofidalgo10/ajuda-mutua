@@ -19,7 +19,6 @@
             -webkit-tap-highlight-color: transparent; 
         }
 
-        /* Estilização Cards */
         .pix-card {
             background: rgba(30, 41, 59, 0.4); 
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -35,7 +34,6 @@
             height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
-        /* Botão Flutuante Regras */
         .float-rules {
             position: fixed !important; bottom: 30px !important; right: 20px !important;
             width: 70px !important; height: 70px !important; border-radius: 50% !important;
@@ -46,7 +44,6 @@
             z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
-        /* TOAST NO TOPO */
         #toast {
             visibility: hidden; min-width: 280px; 
             background: linear-gradient(135deg, #b8860b, #d4af37);
@@ -61,7 +58,6 @@
         @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
         @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
-        /* Modal Regras */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             backdrop-filter: blur(15px); display: none; z-index: 1000;
@@ -130,18 +126,28 @@
     <div id="modal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
-                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Manual de Operação Elite</span>
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Termos e Condições do Projeto</span>
                 <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
             </div>
             <div class="modal-content">
                 
                 <div class="rule-section">
-                    <span class="rule-header">1. Dinâmica de Ajuda Mútua</span>
-                    <p>O Projeto é ativado com 3 doações diretas de R$ 5,00 (Total R$ 15,00). Cada novo membro que entra na sua rede também doará R$ 5,00 para você conforme o nível alcançado.</p>
+                    <span class="rule-header">1. Natureza do Projeto</span>
+                    <p>O Projeto Ajuda Mútua é uma iniciativa baseada na economia colaborativa e doações voluntárias entre membros. Não se trata de investimento financeiro, pirâmide ou promessa de rendimento fixo. O sucesso depende exclusivamente da expansão da rede através do esforço coletivo.</p>
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">2. Matriz de Ganhos (R$ 5,00 por membro)</span>
+                    <span class="rule-header">2. Critérios de Ativação</span>
+                    <p>Para se tornar um membro ativo e receber o seu ID de divulgação, é obrigatório:</p>
+                    <ul class="list-disc ml-4 mt-2">
+                        <li>Realizar 3 doações de R$ 5,00 (Total R$ 15,00) para os líderes indicados nos cards superiores.</li>
+                        <li>Anexar os 3 comprovantes originais de transação PIX.</li>
+                        <li>Aguardar a auditoria manual que ocorre em até 24 horas úteis.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">3. Matriz de Ganhos 3x10 (Corrigida)</span>
                     <div class="table-container">
                         <table>
                             <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos (R$ 5/cada)</th></tr></thead>
@@ -162,12 +168,31 @@
                 </div>
 
                 <div class="rule-section">
-                    <span class="rule-header">3. Funcionamento do Sistema</span>
-                    <p>Após validar os seus comprovantes, o seu ID será libertado para divulgação. O sistema utiliza derramamento inteligente para ajudar no crescimento da sua rede.</p>
+                    <span class="rule-header">4. Sistema de Derramamento Inteligente</span>
+                    <p>Diferente de sistemas comuns, o nosso utiliza o **Derramamento de Cima para Baixo**. Se o seu líder direto já preencheu os 3 membros do Nível 1 dele, o próximo convidado dele cairá automaticamente na sua rede se você tiver vagas. Isso garante que ninguém fique parado e todos cresçam juntos.</p>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">5. Ética e Conduta</span>
+                    <p>É terminantemente proibido:</p>
+                    <ul class="list-disc ml-4 mt-2">
+                        <li>Utilizar comprovantes falsos ou de terceiros (Banimento imediato do CPF).</li>
+                        <li>Criar múltiplas contas para si mesmo sem intenção de expansão.</li>
+                        <li>Divulgar o projeto com promessas mentirosas de "ganho sem fazer nada".</li>
+                    </ul>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">6. Sustentabilidade e Transparência</span>
+                    <p>O Projeto não retém dinheiro dos membros. Todas as doações são feitas de pessoa para pessoa via PIX. O sistema apenas organiza a fila e garante que as doações cheguem aos endereços corretos conforme o nível de cada membro.</p>
+                </div>
+
+                <div class="rule-section">
+                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"A união é o segredo da prosperidade. Siga o protocolo, ajude a sua rede e os resultados virão naturalmente."</p>
                 </div>
 
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Aceitar Termos e Ativar</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] w-full">Eu li, aceito e quero ativar</button>
         </div>
     </div>
 

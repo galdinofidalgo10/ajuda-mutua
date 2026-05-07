@@ -14,7 +14,7 @@
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
-            color: #000 !important; font-weight: 900; font-size: 12px; text-transform: uppercase;
+            color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase;
             height: 60px; border-radius: 12px; cursor: pointer;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); margin-bottom: 12px; border: none; width: 100%;
             letter-spacing: 1px; text-align: center;
@@ -31,7 +31,7 @@
             z-index: 999999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
-        /* Modal Regras Detalhado */
+        /* Modal Regras */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             backdrop-filter: blur(15px); display: none; z-index: 1000000;
@@ -39,13 +39,16 @@
         }
         .modal-box {
             background: #0f172a; border: 2px solid var(--gold);
-            border-radius: 20px; max-width: 450px; width: 100%; height: 85vh; display: flex; flex-direction: column;
+            border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column;
         }
-        .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+        .modal-content { flex: 1; overflow-y: auto; padding: 20px; font-size: 11px; color: #cbd5e1; line-height: 1.5; }
         
-        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10px; background: rgba(30, 41, 59, 0.5); border-radius: 10px; overflow: hidden; }
-        th { background: #1e293b; color: var(--gold); padding: 12px 10px; text-align: left; text-transform: uppercase; }
-        td { border-bottom: 1px solid #1e293b; padding: 10px; color: #fff; }
+        /* TABELA DETALHADA */
+        .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 9px; white-space: nowrap; }
+        th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
+        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; }
+        tr:nth-child(even) { background: rgba(30, 41, 59, 0.3); }
 
         .pix-card {
             background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
@@ -75,7 +78,7 @@
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Verificação de Aportes</h3>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
             <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
@@ -83,8 +86,8 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500">
+            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
+            <input type="text" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
             <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Meu Protocolo</button>
         </div>
     </div>
@@ -94,40 +97,54 @@
     <div id="modal" class="modal-overlay" onclick="closeModal()">
         <div class="modal-box" onclick="event.stopPropagation()">
             <div class="p-5 border-b border-yellow-500/20 flex justify-between items-center">
-                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Manual de Operação Elite</span>
+                <span class="text-yellow-500 font-black uppercase text-[10px] italic">Manual do Protocolo Elite</span>
                 <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
             </div>
             <div class="modal-content">
-                <p class="text-white font-black mb-2 uppercase">1. O Princípio</p>
-                <p class="mb-4">Economia colaborativa baseada em 10 níveis. A ativação libera o seu **Link de Divulgação** e o seu **Painel de Gestão**.</p>
+                <p class="text-white font-black mb-2 uppercase">1. O Sistema</p>
+                <p class="mb-4">Ao ativar seu protocolo, você libera seu **Painel Administrativo** e seu **Link Único** para receber aportes em 10 níveis.</p>
                 
-                <p class="text-white font-black mb-2 uppercase">2. Projeção de Ganhos (R$ 5,00 por nível)</p>
-                <table>
-                    <thead><tr><th>Nível</th><th>Membros (Ref. 5x5)</th><th>Ganhos Totais</th></tr></thead>
-                    <tbody>
-                        <tr><td>01 (Diretos)</td><td>5</td><td>R$ 25,00</td></tr>
-                        <tr><td>02 ao 04</td><td>625</td><td>R$ 3.125,00</td></tr>
-                        <tr><td>05 ao 07</td><td>78.125</td><td>R$ 390.625,00</td></tr>
-                        <tr><td>08 ao 10</td><td>9.765.625</td><td>R$ 48.828.125,00</td></tr>
-                    </tbody>
-                </table>
-                <p class="text-[9px] mb-4 text-yellow-600">*A projeção acima é uma simulação matemática de crescimento da rede.</p>
+                <p class="text-white font-black mb-2 uppercase">2. Projeção de Ganhos Detalhada</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nível</th>
+                                <th>Tipo de Ganho</th>
+                                <th>Membros</th>
+                                <th>Ganho Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>01</td><td>Indicações Diretas</td><td>5 pessoas</td><td>R$ 25,00</td></tr>
+                            <tr><td>02</td><td>Indicação Indireta</td><td>25 pessoas</td><td>R$ 125,00</td></tr>
+                            <tr><td>03</td><td>Indicação Indireta</td><td>125 pessoas</td><td>R$ 625,00</td></tr>
+                            <tr><td>04</td><td>Indicação Indireta</td><td>625 pessoas</td><td>R$ 3.125,00</td></tr>
+                            <tr><td>05</td><td>Indicação Indireta</td><td>3.125 pessoas</td><td>R$ 15.625,00</td></tr>
+                            <tr><td>06</td><td>Indicação Indireta</td><td>15.625 pessoas</td><td>R$ 78.125,00</td></tr>
+                            <tr><td>07</td><td>Indicação Indireta</td><td>78.125 pessoas</td><td>R$ 390.625,00</td></tr>
+                            <tr><td>08</td><td>Indicação Indireta</td><td>390.625 pessoas</td><td>R$ 1.953.125,00</td></tr>
+                            <tr><td>09</td><td>Indicação Indireta</td><td>1.953.125 pessoas</td><td>R$ 9.765.625,00</td></tr>
+                            <tr><td>10</td><td>Nível Elite</td><td>9.765.625 pessoas</td><td>R$ 48.828.125,00</td></tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <p class="text-white font-black mb-2 uppercase">3. Ativação e Link</p>
-                <p class="mb-4">Efetue os 3 aportes e anexe os comprovantes. Após a validação, o sistema gera o seu link único para recrutar novos membros e subir de nível.</p>
+                <p class="text-white font-black mb-2 uppercase">3. Ativação do Painel</p>
+                <p class="mb-4">Realize os 3 aportes e envie os comprovantes. A liberação do seu link ocorre em até 30 minutos.</p>
 
                 <p class="text-white font-black mb-2 uppercase">4. Cláusula de Reciprocidade</p>
-                <p class="mb-4 italic border-l-2 border-yellow-500 pl-3">O Protocolo baseia-se na confiança mútua. Ao ingressar, compromete-se com a honestidade e entende que o fluxo de ganhos depende do esforço coletivo da sua rede.</p>
+                <p class="mb-4 italic border-l-2 border-yellow-500 pl-3">O sucesso da rede depende da honestidade e do esforço coletivo. Ao entrar, você se compromete a apoiar o crescimento da sua rede.</p>
 
-                <p class="text-red-500 font-black mb-2 uppercase">5. Tolerância Zero</p>
-                <p>O uso de comprovantes falsos ou repetidos resulta no banimento imediato e irreversível do CPF e IP.</p>
+                <p class="text-red-500 font-black mb-2 uppercase text-[10px]">5. Segurança</p>
+                <p>Comprovantes falsos resultam em banimento imediato e irreversível.</p>
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px] tracking-widest">Li e Concordo</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[10px]">Entendido e Concordo</button>
         </div>
     </div>
 
     <script>
-        function copy(t){ navigator.clipboard.writeText(t); alert("Chave Pix Copiada!"); }
+        function copy(t){ navigator.clipboard.writeText(t); alert("Copiado!"); }
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }
     </script>

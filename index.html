@@ -23,141 +23,67 @@
         .pix-card {
             background: rgba(30, 41, 59, 0.4); 
             border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 15px; 
-            padding: 20px; 
-            margin-bottom: 12px; 
-            cursor: pointer;
+            border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
             transition: transform 0.1s;
         }
         .pix-card:active { transform: scale(0.98); background: rgba(212, 175, 55, 0.1); }
 
         .solid-gold-btn {
-            display: flex; 
-            align-items: center; 
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
-            color: #000 !important; 
-            font-weight: 900; 
-            font-size: 11px; 
-            text-transform: uppercase;
-            height: 60px; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            border: none; 
-            width: 100%;
+            color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase;
+            height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
         /* Botão Flutuante Regras */
         .float-rules {
-            position: fixed !important; 
-            bottom: 30px !important; 
-            right: 20px !important;
-            width: 70px !important; 
-            height: 70px !important; 
-            border-radius: 50% !important;
+            position: fixed !important; bottom: 30px !important; right: 20px !important;
+            width: 70px !important; height: 70px !important; border-radius: 50% !important;
             background: linear-gradient(135deg, #b8860b, var(--gold)) !important;
-            color: #000 !important; 
-            display: flex !important; 
-            align-items: center !important; 
-            justify-content: center !important; 
-            font-weight: 900 !important; 
-            font-size: 10px !important; 
-            text-transform: uppercase !important; 
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6) !important; 
-            z-index: 999 !important; 
-            cursor: pointer !important; 
-            border: 3px solid rgba(255,255,255,0.4) !important;
+            color: #000 !important; display: flex !important; align-items: center !important; 
+            justify-content: center !important; font-weight: 900 !important; font-size: 10px !important; 
+            text-transform: uppercase !important; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6) !important; 
+            z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
-        /* NOTIFICAÇÃO DOURADA (TOAST) - POSICIONADA NO TOPO */
+        /* TOAST NO TOPO */
         #toast {
-            visibility: hidden; 
-            min-width: 280px; 
+            visibility: hidden; min-width: 280px; 
             background: linear-gradient(135deg, #b8860b, #d4af37);
-            color: #000; 
-            text-align: center; 
-            border-radius: 50px; 
-            padding: 16px; 
-            position: fixed; 
-            z-index: 9999; 
-            left: 50%; 
-            top: 40px; /* Alinhado no topo da tela */
-            transform: translateX(-50%); 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            font-size: 13px; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            color: #000; text-align: center; border-radius: 50px; padding: 16px; 
+            position: fixed; z-index: 9999; left: 50%; top: 40px; 
+            transform: translateX(-50%); font-weight: 900; text-transform: uppercase; 
+            font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.8);
             border: 2px solid rgba(255,255,255,0.3);
         }
-        #toast.show { 
-            visibility: visible; 
-            animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s; 
-        }
+        #toast.show { visibility: visible; animation: slideInDown 0.5s, slideOutUp 0.5s 2.5s; }
 
-        @keyframes slideInDown { 
-            from { top: -100px; opacity: 0; } 
-            to { top: 40px; opacity: 1; } 
-        }
-        @keyframes slideOutUp { 
-            from { top: 40px; opacity: 1; } 
-            to { top: -100px; opacity: 0; } 
-        }
+        @keyframes slideInDown { from { top: -100px; opacity: 0; } to { top: 40px; opacity: 1; } }
+        @keyframes slideOutUp { from { top: 40px; opacity: 1; } to { top: -100px; opacity: 0; } }
 
-        /* Modal Regras */
+        /* Modal Regras Expandido */
         .modal-overlay {
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px); 
-            display: none; 
-            z-index: 1000;
-            align-items: center; 
-            justify-content: center; 
-            padding: 15px;
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px); display: none; z-index: 1000;
+            align-items: center; justify-content: center; padding: 15px;
         }
         .modal-box {
-            background: #0f172a; 
-            border: 2px solid var(--gold);
-            border-radius: 20px; 
-            max-width: 500px; 
-            width: 100%; 
-            height: 85vh; 
-            display: flex; 
-            flex-direction: column;
+            background: #0f172a; border: 2px solid var(--gold);
+            border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column;
         }
-        .modal-content { 
-            flex: 1; 
-            overflow-y: auto; 
-            padding: 20px; 
-            font-size: 11px; 
-            color: #cbd5e1; 
-            line-height: 1.6; 
+        .modal-content { flex: 1; overflow-y: auto; padding: 25px; font-size: 12px; color: #cbd5e1; line-height: 1.6; }
+        
+        .rule-section { margin-bottom: 25px; }
+        .rule-header { 
+            color: var(--gold); font-weight: 900; text-transform: uppercase; 
+            font-size: 11px; display: block; border-left: 4px solid var(--gold); 
+            padding-left: 12px; margin-bottom: 10px; background: rgba(212, 175, 55, 0.05); padding-top: 5px; padding-bottom: 5px;
         }
-        .table-container { 
-            overflow-x: auto; 
-            margin: 15px 0; 
-            border: 1px solid #334155; 
-            border-radius: 8px; 
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            font-size: 9px; 
-            white-space: nowrap; 
-        }
-        th { 
-            background: #1e293b; 
-            color: var(--gold); 
-            padding: 10px; 
-            text-align: left; 
-            text-transform: uppercase; 
-            border-bottom: 2px solid var(--gold); 
-        }
-        td { 
-            border-bottom: 1px solid #1e293b; 
-            padding: 8px 10px; 
-            color: #fff; 
-        }
+
+        .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; font-size: 10px; white-space: nowrap; }
+        th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
+        td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; }
     </style>
 </head>
 <body>
@@ -172,40 +98,29 @@
 
         <div class="pix-card" onclick="copyText('04036277375')">
             <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 01 - Master</p>
-            <div class="flex justify-between items-center">
-                <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
-                <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
-            </div>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
-        
         <div class="pix-card" onclick="copyText('04036277375')">
             <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 02 - Suporte</p>
-            <div class="flex justify-between items-center">
-                <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
-                <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
-            </div>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
-        
         <div class="pix-card" onclick="copyText('04036277375')">
             <p class="text-[8px] text-yellow-500 font-black uppercase italic mb-1">Nível 03 - Fundador</p>
-            <div class="flex justify-between items-center">
-                <p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p>
-                <p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p>
-            </div>
+            <div class="flex justify-between items-center"><p class="font-black italic uppercase text-sm">Galdino Pereira Fidalgo</p><p class="text-yellow-500 font-black italic text-xs">R$ 5,00</p></div>
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
-            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Envio de Comprovantes</h3>
+            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 01</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Comprovante Nível 02</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn"><span>Comprovante Nível 03</span><input type="file" class="hidden"></label>
         </div>
 
         <div class="mt-12">
-            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro Seguro</h3>
-            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
-            <input type="text" placeholder="CHAVE PIX PARA RECEBER" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs">
-            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Meu Protocolo</button>
+            <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">2. Cadastro de Membro</h3>
+            <input type="text" placeholder="NOME COMPLETO" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <input type="text" placeholder="CHAVE PIX PARA RECEBIMENTOS" class="w-full bg-slate-900 border border-slate-800 p-4 rounded-xl mb-4 text-white outline-none focus:border-yellow-500 text-xs shadow-none">
+            <button class="solid-gold-btn h-[75px] shadow-2xl">Ativar Meu Protocolo Elite</button>
         </div>
     </div>
 
@@ -218,59 +133,66 @@
                 <button onclick="closeModal()" class="text-white text-3xl">&times;</button>
             </div>
             <div class="modal-content">
-                <p class="text-white font-black mb-2 uppercase">1. O Sistema</p>
-                <p class="mb-4">Economia colaborativa baseada em 10 níveis.</p>
                 
-                <p class="text-white font-black mb-2 uppercase">2. Projeção de Ganhos</p>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr><th>Nível</th><th>Tipo de Ganho</th><th>Membros</th><th>Ganho Total</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>01</td><td>Indicações Diretas</td><td>5 pessoas</td><td>R$ 25,00</td></tr>
-                            <tr><td>02</td><td>Indicação Indireta</td><td>25 pessoas</td><td>R$ 125,00</td></tr>
-                            <tr><td>03</td><td>Indicação Indireta</td><td>125 pessoas</td><td>R$ 625,00</td></tr>
-                            <tr><td>04</td><td>Indicação Indireta</td><td>625 pessoas</td><td>R$ 3.125,00</td></tr>
-                            <tr><td>05</td><td>Indicação Indireta</td><td>3.125 pessoas</td><td>R$ 15.625,00</td></tr>
-                            <tr><td>06</td><td>Indicação Indireta</td><td>15.625 pessoas</td><td>R$ 78.125,00</td></tr>
-                            <tr><td>07</td><td>Indicação Indireta</td><td>78.125 pessoas</td><td>R$ 390.625,00</td></tr>
-                            <tr><td>08</td><td>Indicação Indireta</td><td>390.625 pessoas</td><td>R$ 1.953.125,00</td></tr>
-                            <tr><td>09</td><td>Indicação Indireta</td><td>1.953.125 pessoas</td><td>R$ 9.765.625,00</td></tr>
-                            <tr><td>10</td><td>Nível Elite</td><td>9.765.625 pessoas</td><td>R$ 48.828.125,00</td></tr>
-                        </tbody>
-                    </table>
+                <div class="rule-section">
+                    <span class="rule-header">1. Dinâmica de Ajuda Mútua</span>
+                    <p>O Protocolo é um ecossistema de doações voluntárias diretas. A ativação ocorre mediante o repasse de R$ 5,00 para os 3 níveis superiores da sua fila de entrada.</p>
                 </div>
-                <p class="text-red-500 font-black mb-2 uppercase">3. Segurança</p>
-                <p>Comprovantes falsos causam banimento imediato.</p>
+
+                <div class="rule-section">
+                    <span class="rule-header">2. Tabela de Projeção (Matriz 5x10)</span>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Nível</th><th>Membros</th><th>Ganhos Totais</th></tr></thead>
+                            <tbody>
+                                <tr><td>01</td><td>5</td><td>R$ 25,00</td></tr>
+                                <tr><td>02 ao 05</td><td>3.125</td><td>R$ 15.625,00</td></tr>
+                                <tr><td>06 ao 08</td><td>390.625</td><td>R$ 1.953.125,00</td></tr>
+                                <tr><td>09 ao 10</td><td>9.765.625</td><td>R$ 48.828.125,00</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">3. Painel Administrativo Elite</span>
+                    <p>Após a ativação, você terá acesso a um Escritório Virtual exclusivo. Nele, você poderá monitorar sua rede, verificar comprovantes recebidos e acompanhar seu saldo em tempo real.</p>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">4. Link de Divulgação Inteligente</span>
+                    <p>Seu link único utiliza tecnologia de rastreio por ID. Ele garante que novos membros sejam alocados na sua matriz, respeitando a ordem de derramamento para maximizar seus ganhos.</p>
+                </div>
+
+                <div class="rule-section">
+                    <span class="rule-header">5. Segurança e Compliance</span>
+                    <p>O prazo de auditoria dos comprovantes é de 24h. O envio de arquivos falsos ou duplicados acarretará no <strong>bloqueio imediato do CPF e IP</strong> de forma irreversível.</p>
+                </div>
+
+                <div class="rule-section">
+                    <p class="italic text-slate-400 text-center border-t border-slate-800 pt-4">"A integridade gera riqueza. Siga o protocolo e colha os frutos da rede."</p>
+                </div>
+
             </div>
-            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[10px]">Entendido</button>
+            <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[11px]">Aceitar Termos e Ativar</button>
         </div>
     </div>
 
     <script>
         function copyText(val) {
-            // Método de cópia que tenta burlar as caixas de sistema (Input Invisível)
             const el = document.createElement('textarea');
             el.value = val;
             el.setAttribute('readonly', '');
-            el.style.position = 'fixed';
-            el.style.left = '-9999px';
-            el.style.top = '0';
+            el.style.position = 'fixed'; el.style.left = '-9999px'; el.style.top = '0';
             document.body.appendChild(el);
-            el.select();
-            el.setSelectionRange(0, 99999);
+            el.select(); el.setSelectionRange(0, 99999);
             document.execCommand('copy');
             document.body.removeChild(el);
 
-            // Dispara o balão dourado no topo
             const toast = document.getElementById("toast");
             toast.className = "show";
-            setTimeout(() => { 
-                toast.className = toast.className.replace("show", ""); 
-            }, 3000);
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
         }
-
         function openModal(){ document.getElementById('modal').style.display = 'flex'; }
         function closeModal(){ document.getElementById('modal').style.display = 'none'; }
     </script>

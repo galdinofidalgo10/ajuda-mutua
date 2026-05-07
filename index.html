@@ -25,38 +25,19 @@
             <p class="text-[8px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
-        <div class="space-y-3 mb-6">
-            <div onclick="copy('04036277375')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 transition-transform">
-                <div class="flex justify-between items-center">
-                    <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 01</p><h3 class="font-black text-xs uppercase">Galdino Pereira Fidalgo</h3></div>
-                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
-                </div>
-            </div>
-            <div onclick="copy('04036277375')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 transition-transform">
-                <div class="flex justify-between items-center">
-                    <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 02</p><h3 class="font-black text-xs uppercase">Galdino Pereira Fidalgo</h3></div>
-                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
-                </div>
-            </div>
-            <div onclick="copy('04036277375')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 transition-transform">
-                <div class="flex justify-between items-center">
-                    <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 03</p><h3 class="font-black text-xs uppercase">Galdino Pereira Fidalgo</h3></div>
-                    <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
-                </div>
-            </div>
-        </div>
+        <div id="container-pix" class="space-y-3 mb-6"></div>
 
         <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center leading-tight">FOTO 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
                 </div>
                 <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
                 <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
-                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95">Ativar Agora</button>
+                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
             </div>
         </div>
     </div>
@@ -76,26 +57,46 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copy(v) { navigator.clipboard.writeText(v); showT("CHAVE COPIADA!"); }
+        // LÓGICA DE INDICAÇÃO VIA URL
+        const params = new URLSearchParams(window.location.search);
+        const recebedores = [
+            { n: params.get('n1') || "Galdino Pereira Fidalgo", p: params.get('p1') || "04036277375" },
+            { n: params.get('n2') || "Galdino Pereira Fidalgo", p: params.get('p2') || "04036277375" },
+            { n: params.get('n3') || "Galdino Pereira Fidalgo", p: params.get('p3') || "04036277375" }
+        ];
 
-        // Função para converter e comprimir imagem
+        const container = document.getElementById('container-pix');
+        recebedores.forEach((r, i) => {
+            container.innerHTML += `
+                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 transition-transform cursor-pointer">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-[7px] text-yellow-500 font-black uppercase tracking-widest">Nível 0${i+1} - Recebedor</p>
+                            <h3 class="font-black text-xs uppercase text-white">${r.n}</h3>
+                        </div>
+                        <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                    </div>
+                </div>`;
+        });
+
+        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
+        function copy(v) { navigator.clipboard.writeText(v); showT("CHAVE PIX COPIADA!"); }
+
         const processImg = file => new Promise((resolve) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = (event) => {
+            reader.onload = (e) => {
                 const img = new Image();
-                img.src = event.target.result;
+                img.src = e.target.result;
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const max_size = 600; // Reduz para evitar erro de tamanho no Firebase
-                    let width = img.width;
-                    let height = img.height;
-                    if (width > height) { if (width > max_size) { height *= max_size / width; width = max_size; } }
-                    else { if (height > max_size) { width *= max_size / height; height = max_size; } }
-                    canvas.width = width; canvas.height = height;
-                    canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                    resolve(canvas.toDataURL('image/jpeg', 0.7)); // Qualidade 70%
+                    const max = 600;
+                    let w = img.width, h = img.height;
+                    if (w > h) { if (w > max) { h *= max / w; w = max; } }
+                    else { if (h > max) { w *= max / h; h = max; } }
+                    canvas.width = w; canvas.height = h;
+                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', 0.7));
                 };
             };
         });
@@ -108,7 +109,7 @@
             if(!n || !p) return showT("PREENCHA NOME E PIX!");
             
             let fotos = [];
-            showT("CARREGANDO FOTOS...");
+            showT("PROCESSANDO... AGUARDE.");
 
             try {
                 for (const input of inputs) {
@@ -117,16 +118,15 @@
                         fotos.push(b64);
                     }
                 }
-
                 if(fotos.length < 3) return showT("ANEXE OS 3 COMPROVANTES!");
 
                 database.ref('solicitacoes/').push({
-                    nome: n, pix: p, comprovantes: fotos, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
+                    nome: n, pix: p, comprovantes: fotos, data: new Date().toLocaleString('pt-BR'), status: 'pendente', indicado_por: recebedores[0].n
                 }).then(() => { 
                     showT("ENVIADO COM SUCESSO!");
                     document.getElementById('nome').value = ""; document.getElementById('pix_user').value = "";
-                }).catch(e => showT("ERRO NAS REGRAS DO FIREBASE"));
-            } catch (e) { showT("ERRO AO PROCESSAR."); }
+                });
+            } catch (e) { showT("ERRO AO PROCESSAR FOTOS."); }
         }
     </script>
 </body>

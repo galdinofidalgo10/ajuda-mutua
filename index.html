@@ -8,17 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --gold-light: #fde047; }
-        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 120px; }
+        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; min-height: 100vh; margin: 0; padding-bottom: 120px; overflow-x: hidden; }
+
+        /* Estilização Premium */
+        .pix-card {
+            background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
+        }
 
         .solid-gold-btn {
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, #b8860b 0%, #d4af37 50%, #fde047 100%);
             color: #000 !important; font-weight: 900; font-size: 11px; text-transform: uppercase;
-            height: 60px; border-radius: 12px; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); margin-bottom: 12px; border: none; width: 100%;
-            letter-spacing: 1px; text-align: center;
+            height: 60px; border-radius: 12px; cursor: pointer; border: none; width: 100%;
         }
 
+        /* Botão Flutuante Regras */
         .float-rules {
             position: fixed !important; bottom: 30px !important; right: 20px !important;
             width: 70px !important; height: 70px !important; border-radius: 50% !important;
@@ -26,42 +31,39 @@
             color: #000 !important; display: flex !important; align-items: center !important; 
             justify-content: center !important; font-weight: 900 !important; font-size: 10px !important; 
             text-transform: uppercase !important; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.6) !important; 
-            z-index: 999999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
+            z-index: 999 !important; cursor: pointer !important; border: 3px solid rgba(255,255,255,0.4) !important;
         }
 
+        /* Modal de Regras Detalhado */
         .modal-overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            backdrop-filter: blur(15px); display: none; z-index: 1000000;
+            backdrop-filter: blur(15px); display: none; z-index: 1000;
             align-items: center; justify-content: center; padding: 15px;
         }
         .modal-box {
             background: #0f172a; border: 2px solid var(--gold);
-            border-radius: 20px; max-width: 500px; width: 100%; height: 90vh; display: flex; flex-direction: column;
+            border-radius: 20px; max-width: 500px; width: 100%; height: 85vh; display: flex; flex-direction: column;
         }
-        .modal-content { flex: 1; overflow-y: auto; padding: 20px; font-size: 11px; color: #cbd5e1; line-height: 1.5; }
+        .modal-content { flex: 1; overflow-y: auto; padding: 20px; font-size: 11px; color: #cbd5e1; line-height: 1.6; }
         
+        /* Tabela 10 Níveis */
         .table-container { overflow-x: auto; margin: 15px 0; border: 1px solid #334155; border-radius: 8px; }
         table { width: 100%; border-collapse: collapse; font-size: 9px; white-space: nowrap; }
         th { background: #1e293b; color: var(--gold); padding: 10px; text-align: left; text-transform: uppercase; border-bottom: 2px solid var(--gold); }
         td { border-bottom: 1px solid #1e293b; padding: 8px 10px; color: #fff; }
-        tr:nth-child(even) { background: rgba(30, 41, 59, 0.3); }
 
-        .pix-card {
-            background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 15px; padding: 20px; margin-bottom: 12px; cursor: pointer;
-        }
-
-        /* Notificação temporária */
+        /* NOTIFICAÇÃO DOURADA (TOAST) */
         #toast {
-            visibility: hidden; min-width: 200px; background-color: var(--gold); color: #000;
-            text-align: center; border-radius: 50px; padding: 16px; position: fixed;
-            z-index: 1000001; left: 50%; bottom: 100px; transform: translateX(-50%);
-            font-weight: 900; text-transform: uppercase; font-size: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            visibility: hidden; min-width: 250px; 
+            background: linear-gradient(135deg, #b8860b, #d4af37);
+            color: #000; text-align: center; border-radius: 50px; padding: 16px; 
+            position: fixed; z-index: 2000; left: 50%; bottom: 50px; 
+            transform: translateX(-50%); font-weight: 900; text-transform: uppercase; 
+            font-size: 13px; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 100px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 100px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 50px; opacity: 1;} }
+        @keyframes fadeout { from {bottom: 50px; opacity: 1;} to {bottom: 0; opacity: 0;} }
     </style>
 </head>
 <body class="p-6">
@@ -89,8 +91,8 @@
 
         <div class="mt-12">
             <h3 class="text-center text-[10px] text-yellow-600 font-black uppercase tracking-widest mb-6 italic">1. Enviar Comprovantes</h3>
-            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
-            <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
+            <label class="solid-gold-btn mb-3"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
             <label class="solid-gold-btn"><span>Enviar Comprovante</span><input type="file" class="hidden"></label>
         </div>
 
@@ -112,9 +114,9 @@
             </div>
             <div class="modal-content">
                 <p class="text-white font-black mb-2 uppercase">1. O Sistema</p>
-                <p class="mb-4">Economia colaborativa baseada em 10 níveis de profundidade. Sua ativação libera o seu **Painel e Link Único**.</p>
+                <p class="mb-4">Economia colaborativa de alta performance. Sua ativação libera o **Painel Administrativo** e o seu **Link Único**.</p>
                 
-                <p class="text-white font-black mb-2 uppercase">2. Projeção de Ganhos Detalhada</p>
+                <p class="text-white font-black mb-2 uppercase">2. Tabela de Níveis Detalhada</p>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -136,10 +138,10 @@
                 </div>
 
                 <p class="text-white font-black mb-2 uppercase">3. Cláusula de Reciprocidade</p>
-                <p class="mb-4 italic border-l-2 border-yellow-500 pl-3">O Protocolo baseia-se na confiança mútua. Ao ingressar, compromete-se com a honestidade e entende que o fluxo de ganhos depende do esforço coletivo da rede.</p>
+                <p class="mb-4 italic border-l-2 border-yellow-500 pl-3">O Protocolo baseia-se na confiança mútua. Ao ingressar, compromete-se com a honestidade e entende que o fluxo de ganhos depende do esforço coletivo da sua rede.</p>
 
                 <p class="text-red-500 font-black mb-2 uppercase">4. Tolerância Zero</p>
-                <p>Comprovantes falsos ou repetidos resultam no banimento imediato e irreversível do CPF e IP.</p>
+                <p>Comprovantes falsos resultam no banimento imediato e irreversível do CPF e IP.</p>
             </div>
             <button onclick="closeModal()" class="bg-yellow-500 p-5 text-black font-black uppercase text-[10px]">Li e Concordo</button>
         </div>

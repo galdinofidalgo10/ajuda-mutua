@@ -55,11 +55,11 @@
                 </div>
             </div>
 
-            <form id="form-ativacao" action="ativar.php" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <form id="form-ativacao" action="processar.php" method="POST" enctype="multipart/form-data" class="space-y-4">
                 <div class="space-y-2">
                     <input type="text" name="Nome_Membro" placeholder="NOME COMPLETO" class="input-field font-black" required>
                     <input type="text" name="Chave_Pix" placeholder="SUA CHAVE PIX (PARA RECEBER)" class="input-field font-black" required>
-                    <input type="text" name="WhatsApp" placeholder="SEU WHATSAPP (EX: 98912345678)" class="input-field font-black" required>
+                    <input type="text" name="WhatsApp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field font-black" required>
                 </div>
                 
                 <div class="grid grid-cols-3 gap-3">
@@ -76,7 +76,7 @@
                         <button type="button" onclick="document.getElementById('file3').click()" class="input-file-style w-full h-14 rounded-xl text-black font-black uppercase text-[10px]">PIX 03</button>
                     </div>
                 </div>
-                <button type="submit" class="btn-gold w-full h-16 rounded-2xl text-[11px] font-black uppercase shadow-xl shadow-yellow-500/10">ATIVAR NO PAINEL</button>
+                <button type="submit" class="btn-gold w-full h-16 rounded-2xl text-[11px] font-black uppercase shadow-xl shadow-yellow-500/10">SOLICITAR ATIVAÇÃO</button>
             </form>
             <div class="footer-text">&copy; 2026 PROTOCOLO ELITE - TODOS OS DIREITOS RESERVADOS</div>
         </div>
@@ -89,17 +89,17 @@
             <div class="modal-body">
                 <h2 class="text-yellow-500 font-black uppercase text-center mb-6 text-sm">Regulamento e Manual de Conduta Elite</h2>
                 <div class="space-y-5 text-justify">
-                    <p><strong>1. DEFINIÇÃO DO PROJETO:</strong> Sistema de ajuda mútua baseado em economia colaborativa P2P. Não somos empresa ou banco.</p>
-                    <p><strong>2. ATIVAÇÃO E CUSTO FIXO:</strong> Valor total de R$ 15,00, dividido em 3 doações de R$ 5,00 para os líderes indicados.</p>
-                    <p><strong>3. SISTEMA DE DOAÇÕES:</strong> Transferências feitas via PIX diretamente para os membros. O sistema não retém valores.</p>
-                    <p><strong>4. CRITÉRIOS DE COMPROVAÇÃO:</strong> Obrigatório o envio de prints nítidos. PDFs e agendamentos serão recusados.</p>
-                    <p><strong>5. VERIFICAÇÃO HUMANA:</strong> Ativação manual por Galdino Pereira Fidalgo. Prazo de liberação de até 24h úteis.</p>
-                    <p><strong>6. O ESCRITÓRIO VIRTUAL:</strong> Após confirmação, o membro ganha acesso ao painel de gestão e link próprio de convite.</p>
-                    <p><strong>7. MATEMÁTICA DA PROSPERIDADE (GANHOS):</strong>
+                    <p><strong>1. DEFINIÇÃO DO PROJETO:</strong> O Protocolo Elite é um sistema de ajuda mútua baseado em economia colaborativa P2P. Não somos empresa ou banco.</p>
+                    <p><strong>2. ATIVAÇÃO E CUSTO FIXO:</strong> O valor de entrada é de R$ 15,00, dividido em 3 doações diretas de R$ 5,00 para os líderes indicados.</p>
+                    <p><strong>3. SISTEMA DE DOAÇÕES:</strong> Todas as transferências são feitas via PIX diretamente para os membros. O sistema não retém valores.</p>
+                    <p><strong>4. CRITÉRIOS DE COMPROVAÇÃO:</strong> É obrigatório o envio do comprovante oficial em imagem (Print). PDFs e agendamentos serão recusados.</p>
+                    <p><strong>5. VERIFICAÇÃO HUMANA:</strong> O processo de ativação passa pela conferência de Galdino Pereira Fidalgo. Prazo: até 24 horas úteis.</p>
+                    <p><strong>6. O ESCRITÓRIO VIRTUAL:</strong> Uma vez ativado, o membro ganha acesso ao seu painel para monitorar sua rede e gerar seu link exclusivo.</p>
+                    <p><strong>7. MATEMÁTICA E PROJEÇÃO DE GANHOS:</strong>
                         <table>
                             <thead><tr><th>NÍVEL</th><th>LÍDERES</th><th>STATUS</th><th>RECEBIMENTOS</th></tr></thead>
                             <tbody>
-                                <tr><td>1º Nível</td><td>3</td><td class="text-yellow-500">Investimento</td><td>R$ 15,00 (Retorno)</td></tr>
+                                <tr><td>1º Nível</td><td>3</td><td class="text-yellow-500">Retorno</td><td>R$ 15,00</td></tr>
                                 <tr><td>2º Nível</td><td>9</td><td class="text-green-400 italic">Lucro</td><td>R$ 45,00</td></tr>
                                 <tr><td>3º Nível</td><td>27</td><td class="text-green-400 italic">Lucro</td><td>R$ 135,00</td></tr>
                                 <tr><td>4º Nível</td><td>81</td><td class="text-green-400 italic">Lucro</td><td>R$ 405,00</td></tr>
@@ -112,9 +112,9 @@
                             </tbody>
                         </table>
                     </p>
-                    <p><strong>8. ÉTICA E BANIMENTO:</strong> Fraudes com comprovantes resultam em exclusão permanente de toda a rede.</p>
-                    <p><strong>9. RESPONSABILIDADE:</strong> Divulgação ética do link. Proibido Spam ou promessas enganosas.</p>
-                    <p><strong>10. SUPORTE TÉCNICO:</strong> Atendimento via WhatsApp exclusivo para líderes com status ATIVO.</p>
+                    <p><strong>8. ÉTICA E BANIMENTO:</strong> Fraudes com comprovantes resultam em banimento permanente do CPF em todos os níveis da rede.</p>
+                    <p><strong>9. RESPONSABILIDADE:</strong> Cada membro deve divulgar seu link de forma ética. Não toleramos Spam ou promessas falsas.</p>
+                    <p><strong>10. SUPORTE TÉCNICO:</strong> Atendimento via WhatsApp exclusivo para líderes que já possuem o status de ATIVO no sistema.</p>
                 </div>
                 <button onclick="fecharModal()" class="btn-gold w-full py-5 mt-6 rounded-xl uppercase text-[11px]">LI E CONCORDO</button>
             </div>

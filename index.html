@@ -16,7 +16,7 @@
         .btn-flutuante { position: fixed; bottom: 25px; right: 25px; z-index: 50; background: #fde047; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(253, 224, 71, 0.4); border: 2px solid #b8860b; font-size: 24px; cursor: pointer; animation: pulse 2s infinite; }
         @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 224, 71, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(253, 224, 71, 0); } 100% { transform: scale(1); } }
 
-        /* Modal Estruturado */
+        /* Modal Estruturado com Scroll */
         #modalRegras { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 15px; }
         .modal-content { background: #0f172a; border: 2px solid #fde047; border-radius: 24px; max-width: 480px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,1); }
         .modal-body { overflow-y: auto; padding: 25px; font-size: 11px; line-height: 1.7; color: #cbd5e1; }
@@ -66,19 +66,19 @@
             </div>
             <div class="modal-body">
                 <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">1. NATUREZA DO PROJETO</h3>
-                <p class="mb-4 text-slate-400">O Protocolo Elite é uma comunidade fechada de ajuda mútua. Somos um sistema de tecnologia que organiza a doação direta entre pessoas (P2P). O valor doado entra diretamente na conta do beneficiado, sem intermediários.</p>
+                <p class="mb-4">O Protocolo Elite é uma comunidade fechada de ajuda mútua (P2P). O valor doado entra diretamente na conta do beneficiado, sem intermediários.</p>
                 
                 <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">2. O INVESTIMENTO INICIAL</h3>
-                <p class="mb-4">O valor total de admissão é de <span class="highlight">R$ 15,00</span>, fracionado em 3 depósitos de R$ 5,00 para as chaves Pix indicadas na tela principal. Para receber, primeiro você deve doar.</p>
+                <p class="mb-4 text-slate-400">O valor total de admissão é de <span class="highlight">R$ 15,00</span>, fracionado em 3 depósitos de R$ 5,00 para as chaves Pix indicadas no formulário.</p>
 
                 <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">3. REGRAS DE COMPROVAÇÃO (PRINTS)</h3>
                 <p class="mb-2 text-yellow-500 font-bold underline italic uppercase">ACEITAMOS APENAS PRINTS (IMAGENS).</p>
-                <p class="mb-4 text-slate-400 italic">Arquivos em PDF, links externos ou comprovantes de agendamento NÃO SÃO ACEITOS. O sistema irá ignorar cadastros que não contenham as 3 imagens nítidas.</p>
+                <p class="mb-4 text-slate-400 italic">Arquivos em PDF ou links externos NÃO SÃO ACEITOS. O sistema ignora cadastros sem as 3 imagens nítidas.</p>
 
-                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">4. MATEMÁTICA DA PROSPERIDADE</h3>
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">4. MATEMÁTICA DA PROSPERIDADE (MATRIZ 3X3)</h3>
                 <table>
                     <thead>
-                        <tr><th>NÍVEL</th><th>PESSOAS</th><th>GANHO</th><th>ACUMULADO</th></tr>
+                        <tr><th>NÍVEL</th><th>LÍDERES</th><th>GANHO</th><th>ACUMULADO</th></tr>
                     </thead>
                     <tbody>
                         <tr><td>1º</td><td>3</td><td>R$ 15</td><td><b class="highlight">R$ 15</b></td></tr>
@@ -94,13 +94,13 @@
                     </tbody>
                 </table>
 
-                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">5. TOLERÂNCIA ZERO</h3>
-                <p class="mb-4 text-red-400 font-bold">Enviar prints falsos ou repetidos gera banimento imediato e irreversível da sua chave Pix e CPF em toda a nossa rede de líderes.</p>
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">5. SEGURANÇA</h3>
+                <p class="mb-4 text-red-400 font-bold italic">O envio de prints falsos gera banimento imediato da chave Pix em toda a rede.</p>
                 
-                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">6. SUPORTE</h3>
-                <p class="mb-4">Ativação manual em até 24h. O suporte é realizado exclusivamente via WhatsApp para membros ativos.</p>
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">6. ATIVAÇÃO</h3>
+                <p class="mb-4">Conferência manual em até 24h úteis. O suporte é via WhatsApp para membros ativos.</p>
             </div>
-            <button onclick="fecharModal()" class="bg-yellow-500 text-black font-black py-6 uppercase text-[11px] tracking-widest border-t border-black/20 active:bg-white transition-all">
+            <button onclick="fecharModal()" class="bg-yellow-500 text-black font-black py-6 uppercase text-[11px] tracking-widest border-t border-black/20 active:bg-white">
                 LI E CONCORDO COM OS TERMOS
             </button>
         </div>
@@ -111,17 +111,27 @@
         function fecharModal() { document.getElementById('modalRegras').style.display = 'none'; }
 
         function gerarLink() {
-            const nome = encodeURIComponent(document.getElementById('meu_nome').value.trim().toUpperCase());
-            const pix = encodeURIComponent(document.getElementById('meu_pix').value.trim());
-            if(!nome || !pix) return alert("Erro: Preencha seu Nome e sua Chave Pix!");
+            // Dados digitados pelo novo líder
+            const nomeLider = encodeURIComponent(document.getElementById('meu_nome').value.trim().toUpperCase());
+            const pixLider = encodeURIComponent(document.getElementById('meu_pix').value.trim());
+            
+            if(!nomeLider || !pixLider) return alert("Erro: Preencha seu Nome e sua Chave Pix!");
 
-            const nGaldino = encodeURIComponent("Galdino Pereira Fidalgo");
-            const pGaldino = "04036277375";
+            // SEUS DADOS FIXOS COMO ADMINISTRADOR
+            const nomeAdm = encodeURIComponent("Galdino Pereira Fidalgo");
+            const pixAdm = "04036277375";
+
+            // Define a base da URL (troca membro.html por index.html)
             const base = window.location.href.split('membro.html')[0] + "index.html";
-            const link = `${base}?n1=${nome}&p1=${pix}&n2=${nGaldino}&p2=${pGaldino}&n3=${nGaldino}&p3=${pGaldino}`;
+            
+            // MONTAGEM FINAL DO LINK:
+            // n1, p1 = Novo Líder | n2, p2, n3, p3 = Galdino (Adm)
+            const link = `${base}?n1=${nomeLider}&p1=${pixLider}&n2=${nomeAdm}&p2=${pixAdm}&n3=${nomeAdm}&p3=${pixAdm}`;
 
             document.getElementById('link_final').value = link;
             document.getElementById('resultado').classList.remove('hidden');
+            
+            // Rola a tela suavemente para mostrar o link gerado
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
@@ -129,7 +139,7 @@
             const copyText = document.getElementById("link_final");
             copyText.select();
             navigator.clipboard.writeText(copyText.value);
-            alert("✓ LINK COPIADO! Agora divulgue para seus líderes.");
+            alert("✓ LINK COPIADO! Agora divulgue para seus 3 líderes.");
         }
     </script>
 </body>

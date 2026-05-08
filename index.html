@@ -3,118 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ajuda Mútua | Protocolo Elite</title>
+    <title>Escritório Elite | Protocolo Elite</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
-        .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
-        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
-        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
-        #toast { visibility: hidden; min-width: 280px; background: #fde047; color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
-        #toast.show { visibility: visible; animation: slideDown 0.5s; }
-        @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
+        body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        .glass-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
+        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; }
+        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 12px; border-radius: 12px; color: white; outline: none; }
+        
+        /* Botão Flutuante Pulsante */
+        .btn-flutuante { position: fixed; bottom: 25px; right: 25px; z-index: 50; background: #fde047; color: #000; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(253, 224, 71, 0.4); border: 2px solid #b8860b; font-size: 24px; cursor: pointer; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(253, 224, 71, 0.7); } 70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(253, 224, 71, 0); } 100% { transform: scale(1); } }
+
+        /* Modal Estruturado */
+        #modalRegras { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); align-items: center; justify-content: center; padding: 15px; }
+        .modal-content { background: #0f172a; border: 2px solid #fde047; border-radius: 24px; max-width: 480px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .modal-body { overflow-y: auto; padding: 25px; font-size: 11px; line-height: 1.7; color: #cbd5e1; }
+        .modal-header { padding: 20px; border-bottom: 1px solid rgba(252, 224, 71, 0.1); text-align: center; background: rgba(255,255,255,0.02); }
+        
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 10px; border: 1px solid rgba(212, 175, 55, 0.1); }
+        th { background: rgba(212, 175, 55, 0.2); color: #fde047; padding: 10px; text-align: left; }
+        td { padding: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .highlight { color: #fde047; font-weight: 900; }
+        
+        .modal-body::-webkit-scrollbar { width: 5px; }
+        .modal-body::-webkit-scrollbar-thumb { background: #fde047; border-radius: 10px; }
     </style>
 </head>
-<body class="p-4">
-    <div id="toast"></div>
+<body class="p-4 pb-24">
+
     <div class="max-w-md mx-auto">
-        <header class="text-center mb-6 pt-4">
-            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
-            <p class="text-[8px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
+        <header class="text-center mb-8 pt-6">
+            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Escritório Elite</h1>
+            <p class="text-[10px] font-bold text-slate-500 tracking-[0.4em] uppercase italic">Painel de Liderança Oficial</p>
         </header>
 
-        <div id="container-pix" class="space-y-3 mb-6"></div>
-
-        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
-            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
+        <div class="glass-card p-6 border-t-4 border-t-yellow-500 mb-6 shadow-2xl">
+            <h2 class="text-[11px] font-black text-yellow-500 mb-6 uppercase tracking-widest text-center">Configuração de Convite</h2>
             <div class="space-y-4">
-                <div class="grid grid-cols-3 gap-2 text-center">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
-                </div>
-                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
-                <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
-                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
-                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
+                <input type="text" id="meu_nome" placeholder="NOME DO LÍDER" class="input-field text-xs uppercase font-black tracking-widest">
+                <input type="text" id="meu_pix" placeholder="CHAVE PIX PARA RECEBER" class="input-field text-xs font-bold">
+                <button onclick="gerarLink()" class="btn-gold w-full h-16 rounded-2xl text-[11px] font-black uppercase active:scale-95 shadow-xl shadow-yellow-500/10">Ativar meu Link de Divulgação</button>
             </div>
+            
+            <div id="resultado" class="hidden mt-6 pt-6 border-t border-yellow-500/20">
+                <p class="text-[9px] text-yellow-500 font-black mb-3 uppercase tracking-tighter italic text-center">Link gerado! Copie e divulgue para seus 3 líderes:</p>
+                <textarea id="link_final" readonly class="w-full bg-black/70 p-4 text-[10px] rounded-xl text-white border border-yellow-500/20 outline-none h-28 mb-4 font-mono leading-relaxed"></textarea>
+                <button onclick="copiarLink()" class="w-full bg-white text-black font-black py-5 rounded-2xl text-[11px] uppercase shadow-2xl active:bg-slate-300">Copiar Link Agora</button>
+            </div>
+        </div>
+
+        <p class="text-center text-[8px] text-slate-700 mt-16 uppercase font-black tracking-[0.4em]">© 2026 Protocolo Elite - Ajuda Mútua</p>
+    </div>
+
+    <div class="btn-flutuante" onclick="abrirModal()">📜</div>
+
+    <div id="modalRegras">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="text-yellow-500 font-black uppercase text-xs tracking-[0.2em]">Regulamento e Manual Elite</h2>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">1. NATUREZA DO PROJETO</h3>
+                <p class="mb-4 text-slate-400">O Protocolo Elite é uma comunidade fechada de ajuda mútua. Somos um sistema de tecnologia que organiza a doação direta entre pessoas (P2P). O valor doado entra diretamente na conta do beneficiado, sem intermediários.</p>
+                
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">2. O INVESTIMENTO INICIAL</h3>
+                <p class="mb-4">O valor total de admissão é de <span class="highlight">R$ 15,00</span>, fracionado em 3 depósitos de R$ 5,00 para as chaves Pix indicadas na tela principal. Para receber, primeiro você deve doar.</p>
+
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">3. REGRAS DE COMPROVAÇÃO (PRINTS)</h3>
+                <p class="mb-2 text-yellow-500 font-bold underline italic uppercase">ACEITAMOS APENAS PRINTS (IMAGENS).</p>
+                <p class="mb-4 text-slate-400 italic">Arquivos em PDF, links externos ou comprovantes de agendamento NÃO SÃO ACEITOS. O sistema irá ignorar cadastros que não contenham as 3 imagens nítidas.</p>
+
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">4. MATEMÁTICA DA PROSPERIDADE</h3>
+                <table>
+                    <thead>
+                        <tr><th>NÍVEL</th><th>PESSOAS</th><th>GANHO</th><th>ACUMULADO</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1º</td><td>3</td><td>R$ 15</td><td><b class="highlight">R$ 15</b></td></tr>
+                        <tr><td>2º</td><td>9</td><td>R$ 45</td><td><b class="highlight">R$ 60</b></td></tr>
+                        <tr><td>3º</td><td>27</td><td>R$ 135</td><td><b class="highlight">R$ 195</b></td></tr>
+                        <tr><td>4º</td><td>81</td><td>R$ 405</td><td><b class="highlight">R$ 600</b></td></tr>
+                        <tr><td>5º</td><td>243</td><td>R$ 1215</td><td><b class="highlight">R$ 1815</b></td></tr>
+                        <tr><td>6º</td><td>729</td><td>R$ 3645</td><td><b class="highlight">R$ 5460</b></td></tr>
+                        <tr><td>7º</td><td>2187</td><td>R$ 10935</td><td><b class="highlight">R$ 16395</b></td></tr>
+                        <tr><td>8º</td><td>6561</td><td>R$ 32805</td><td><b class="highlight">R$ 49200</b></td></tr>
+                        <tr><td>9º</td><td>19683</td><td>R$ 98415</td><td><b class="highlight">R$ 147615</b></td></tr>
+                        <tr><td>10º</td><td>59049</td><td>R$ 295245</td><td><b class="text-green-400 font-black">R$ 442.860</b></td></tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">5. TOLERÂNCIA ZERO</h3>
+                <p class="mb-4 text-red-400 font-bold">Enviar prints falsos ou repetidos gera banimento imediato e irreversível da sua chave Pix e CPF em toda a nossa rede de líderes.</p>
+                
+                <h3 class="text-white font-black mb-3 uppercase text-[10px] border-l-2 border-yellow-500 pl-2">6. SUPORTE</h3>
+                <p class="mb-4">Ativação manual em até 24h. O suporte é realizado exclusivamente via WhatsApp para membros ativos.</p>
+            </div>
+            <button onclick="fecharModal()" class="bg-yellow-500 text-black font-black py-6 uppercase text-[11px] tracking-widest border-t border-black/20 active:bg-white transition-all">
+                LI E CONCORDO COM OS TERMOS
+            </button>
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCZIP0M0M8FqC_LAtI9I36e_IIn_V-C4m4",
-            authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
-            databaseURL: "https://ajuda-mutua-7d99a-default-rtdb.firebaseio.com",
-            projectId: "ajuda-mutua-7d99a",
-            storageBucket: "ajuda-mutua-7d99a.appspot.com",
-            appId: "1:1070775313117:web:fa90f5f0cb519ab38b1d34"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        function abrirModal() { document.getElementById('modalRegras').style.display = 'flex'; }
+        function fecharModal() { document.getElementById('modalRegras').style.display = 'none'; }
 
-        const params = new URLSearchParams(window.location.search);
-        const recebedores = [
-            { n: params.get('n1') || "Galdino Pereira Fidalgo", p: params.get('p1') || "04036277375" },
-            { n: params.get('n2') || "Galdino Pereira Fidalgo", p: params.get('p2') || "04036277375" },
-            { n: params.get('n3') || "Galdino Pereira Fidalgo", p: params.get('p3') || "04036277375" }
-        ];
+        function gerarLink() {
+            const nome = encodeURIComponent(document.getElementById('meu_nome').value.trim().toUpperCase());
+            const pix = encodeURIComponent(document.getElementById('meu_pix').value.trim());
+            if(!nome || !pix) return alert("Erro: Preencha seu Nome e sua Chave Pix!");
 
-        const container = document.getElementById('container-pix');
-        recebedores.forEach((r, i) => {
-            container.innerHTML += `
-                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer">
-                    <div class="flex justify-between items-center text-white">
-                        <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
-                        <h3 class="font-black text-xs uppercase">${r.n}</h3></div>
-                        <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
-                    </div>
-                </div>`;
-        });
+            const nGaldino = encodeURIComponent("Galdino Pereira Fidalgo");
+            const pGaldino = "04036277375";
+            const base = window.location.href.split('membro.html')[0] + "index.html";
+            const link = `${base}?n1=${nome}&p1=${pix}&n2=${nGaldino}&p2=${pGaldino}&n3=${nGaldino}&p3=${pGaldino}`;
 
-        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copy(v) { navigator.clipboard.writeText(v); showT("PIX COPIADO!"); }
+            document.getElementById('link_final').value = link;
+            document.getElementById('resultado').classList.remove('hidden');
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
 
-        const processImg = file => new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (e) => {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const max = 600;
-                    let w = img.width, h = img.height;
-                    if (w > h) { if (w > max) { h *= max / w; w = max; } }
-                    else { if (h > max) { w *= max / h; h = max; } }
-                    canvas.width = w; canvas.height = h;
-                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                    resolve(canvas.toDataURL('image/jpeg', 0.7));
-                };
-            };
-        });
-
-        async function ativar() {
-            const n = document.getElementById('nome').value;
-            const p = document.getElementById('pix_user').value;
-            const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            const inputs = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
-            
-            if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
-            
-            let fotos = [];
-            showT("ENVIANDO...");
-            try {
-                for (const input of inputs) { if (input.files[0]) { fotos.push(await processImg(input.files[0])); } }
-                if(fotos.length < 3) return showT("ANEXE AS 3 FOTOS!");
-                database.ref('solicitacoes/').push({
-                    nome: n, pix: p, whatsapp: w, comprovantes: fotos, 
-                    indicado_por: recebedores[0].n, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
-                }).then(() => { showT("ENVIADO! AGUARDE APROVAÇÃO."); });
-            } catch (e) { showT("ERRO NO ENVIO."); }
+        function copiarLink() {
+            const copyText = document.getElementById("link_final");
+            copyText.select();
+            navigator.clipboard.writeText(copyText.value);
+            alert("✓ LINK COPIADO! Agora divulgue para seus líderes.");
         }
     </script>
 </body>

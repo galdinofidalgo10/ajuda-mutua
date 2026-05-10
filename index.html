@@ -9,14 +9,11 @@
     <style>
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
         .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
-        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
-        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
+        .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; transition: 0.3s; }
+        .btn-gold:active { transform: scale(0.95); }
+        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; font-size: 14px; }
         .btn-check { background: #10b981 !important; color: white !important; }
-        
-        /* Cards de PIX */
-        .pix-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(212, 175, 55, 0.3); padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .pix-card:active { scale: 0.95; }
-
+        .pix-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(212, 175, 55, 0.3); padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; }
         #toast { visibility: hidden; min-width: 280px; background: #ef4444; color: #fff; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
@@ -55,11 +52,11 @@
                     <label id="l3" class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*" onchange="validarAnexo('l3', 'f3')"></label>
                 </div>
                 
-                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase font-bold">
-                <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field text-xs font-bold">
-                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs font-bold">
+                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field uppercase font-bold">
+                <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field font-bold">
+                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field font-bold">
                 
-                <button onclick="ativar()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black">Solicitar Ativação</button>
+                <button onclick="ativar()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black shadow-lg">Solicitar Ativação</button>
             </div>
         </div>
     </div>
@@ -79,7 +76,7 @@
         const database = firebase.database();
 
         function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copiarPix(chave) { navigator.clipboard.writeText(chave); showT("CHAVE COPIADA!"); }
+        function copiarPix(c) { navigator.clipboard.writeText(c); showT("CHAVE COPIADA!"); }
         function validarAnexo(l, i) { if(document.getElementById(i).files.length > 0) { document.getElementById(l).classList.add('btn-check'); document.getElementById(l).innerText = "OK"; } }
 
         async function comprimir(input) {
@@ -92,40 +89,45 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const maxW = 500;
+                        const maxW = 400; 
                         const scale = maxW / img.width;
                         canvas.width = maxW; canvas.height = img.height * scale;
                         canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                        resolve(canvas.toDataURL('image/jpeg', 0.5));
                     };
                 };
             });
         }
 
         async function ativar() {
+            const btn = document.getElementById('btnAtivar');
             const n = document.getElementById('nome').value.trim();
             const p = document.getElementById('pix_usuario').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            const f1 = document.getElementById('f1');
-            const f2 = document.getElementById('f2');
-            const f3 = document.getElementById('f3');
+            const f1 = document.getElementById('f1'); const f2 = document.getElementById('f2'); const f3 = document.getElementById('f3');
 
             if(!n || !p || w.length < 10 || !f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("PREENCHA TUDO E ANEXE OS 3 PRINTS!");
 
-            document.getElementById('btnAtivar').innerText = "ENVIANDO...";
-            
-            const i1 = await comprimir(f1);
-            const i2 = await comprimir(f2);
-            const i3 = await comprimir(f3);
+            btn.innerText = "COMPRIMINDO..."; btn.disabled = true;
 
-            database.ref('solicitacoes/').push({
-                nome: n, pix_cadastro: p, whatsapp: w,
-                print1_url: i1, print2_url: i2, print3_url: i3,
-                status: 'pendente', data: new Date().toLocaleString('pt-BR')
-            }).then(() => {
-                alert("SUCESSO! AGUARDE A ATIVAÇÃO NO WHATSAPP.");
-                location.reload();
-            });
+            try {
+                const i1 = await comprimir(f1);
+                const i2 = await comprimir(f2);
+                const i3 = await comprimir(f3);
+                btn.innerText = "ENVIANDO...";
+
+                database.ref('solicitacoes/').push({
+                    nome: n, pix_cadastro: p, whatsapp: w,
+                    print1_url: i1, print2_url: i2, print3_url: i3,
+                    status: 'pendente', data: new Date().toLocaleString('pt-BR')
+                }).then(() => {
+                    alert("ENVIADO COM SUCESSO!");
+                    location.reload();
+                });
+            } catch(e) {
+                alert("Erro ao enviar. Tente novamente.");
+                btn.innerText = "Solicitar Ativação"; btn.disabled = false;
+            }
         }
     </script>
 </body>

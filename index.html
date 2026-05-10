@@ -63,7 +63,9 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
+        // Configuração do Banco de Dados
         const firebaseConfig = {
             apiKey: "AIzaSyCZIP0M0M8FqC_LAtI9I36e_IIn_V-C4m4",
             authDomain: "ajuda-mutua-7d99a.firebaseapp.com",
@@ -79,6 +81,7 @@
         function copiarPix(c) { navigator.clipboard.writeText(c); showT("CHAVE COPIADA!"); }
         function validarAnexo(l, i) { if(document.getElementById(i).files.length > 0) { document.getElementById(l).classList.add('btn-check'); document.getElementById(l).innerText = "OK"; } }
 
+        // Função para diminuir o tamanho das fotos para o envio funcionar
         async function comprimir(input) {
             return new Promise((resolve) => {
                 const file = input.files[0];
@@ -89,44 +92,65 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const maxW = 400; 
+                        const maxW = 400; // Tamanho leve para não travar
                         const scale = maxW / img.width;
                         canvas.width = maxW; canvas.height = img.height * scale;
                         canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5));
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // Qualidade média
                     };
                 };
             });
         }
 
+        // Função acionada pelo Botão Solicitar
         async function ativar() {
             const btn = document.getElementById('btnAtivar');
             const n = document.getElementById('nome').value.trim();
             const p = document.getElementById('pix_usuario').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            const f1 = document.getElementById('f1'); const f2 = document.getElementById('f2'); const f3 = document.getElementById('f3');
+            const f1 = document.getElementById('f1'); 
+            const f2 = document.getElementById('f2'); 
+            const f3 = document.getElementById('f3');
 
-            if(!n || !p || w.length < 10 || !f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("PREENCHA TUDO E ANEXE OS 3 PRINTS!");
+            // Verifica se preencheu tudo
+            if(!n || !p || w.length < 10 || !f1.files[0] || !f2.files[0] || !f3.files[0]) {
+                return showT("PREENCHA TUDO E ANEXE OS 3 PRINTS!");
+            }
 
-            btn.innerText = "COMPRIMINDO..."; btn.disabled = true;
+            btn.innerText = "PROCESSANDO..."; 
+            btn.disabled = true;
 
             try {
+                // Comprime as imagens uma por uma
                 const i1 = await comprimir(f1);
                 const i2 = await comprimir(f2);
                 const i3 = await comprimir(f3);
+                
                 btn.innerText = "ENVIANDO...";
 
+                // Envia para a pasta 'solicitacoes' no Firebase
                 database.ref('solicitacoes/').push({
-                    nome: n, pix_cadastro: p, whatsapp: w,
-                    print1_url: i1, print2_url: i2, print3_url: i3,
-                    status: 'pendente', data: new Date().toLocaleString('pt-BR')
+                    nome: n,
+                    pix_cadastro: p,
+                    whatsapp: w,
+                    print1_url: i1,
+                    print2_url: i2,
+                    print3_url: i3,
+                    status: 'pendente',
+                    data: new Date().toLocaleString('pt-BR')
                 }).then(() => {
-                    alert("ENVIADO COM SUCESSO!");
+                    alert("✅ SOLICITAÇÃO ENVIADA!\nAguarde o contato no seu WhatsApp.");
                     location.reload();
+                }).catch((error) => {
+                    alert("Erro ao conectar com o banco: " + error.message);
+                    btn.innerText = "Solicitar Ativação";
+                    btn.disabled = false;
                 });
+
             } catch(e) {
-                alert("Erro ao enviar. Tente novamente.");
-                btn.innerText = "Solicitar Ativação"; btn.disabled = false;
+                alert("Erro ao processar imagens. Tente novamente.");
+                btn.innerText = "Solicitar Ativação";
+                btn.disabled = false;
             }
         }
     </script>

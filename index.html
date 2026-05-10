@@ -20,6 +20,9 @@
         
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Estilo para quando a foto for selecionada */
+        .file-selected { background: #10b981 !important; color: white !important; }
     </style>
 </head>
 <body class="p-4">
@@ -53,9 +56,9 @@
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2 text-center">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
+                    <label id="l1" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*" onchange="marcar('l1')"></label>
+                    <label id="l2" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*" onchange="marcar('l2')"></label>
+                    <label id="l3" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*" onchange="marcar('l3')"></label>
                 </div>
                 <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
                 <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field text-xs">
@@ -87,28 +90,65 @@
 
         const container = document.getElementById('container-pix');
         recebedores.forEach((r, i) => {
-            container.innerHTML += `
-                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer">
-                    <div class="flex justify-between items-center text-white">
-                        <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
-                        <h3 class="font-black text-xs uppercase">${r.n}</h3></div>
-                        <span class="text-yellow-500 font-black text-xs italic">R$ 5,00</span>
-                    </div>
-                </div>`;
+            container.innerHTML += `<div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer"><div class="flex justify-between items-center text-white"><div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p><h3 class="font-black text-xs uppercase">${r.n}</h3></div><span class="text-yellow-500 font-black text-xs italic">R$ 5,00</span></div></div>`;
         });
 
         function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
         function copy(v) { navigator.clipboard.writeText(v).then(() => { showT("PIX COPIADO COM SUCESSO!"); }); }
+        function marcar(id) { document.getElementById(id).classList.add('file-selected'); document.getElementById(id).innerText = "OK"; }
+
+        // --- FUNÇÃO DE COMPRESSÃO ---
+        async function comprimir(input) {
+            return new Promise((resolve) => {
+                const file = input.files[0];
+                if (!file) return resolve(null);
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const maxW = 600;
+                        const scale = maxW / img.width;
+                        canvas.width = maxW;
+                        canvas.height = img.height * scale;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.6));
+                    };
+                };
+            });
+        }
 
         async function ativar() {
             const n = document.getElementById('nome').value.trim();
             const p = document.getElementById('pix_usuario').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
+            const f1 = document.getElementById('f1');
+            const f2 = document.getElementById('f2');
+            const f3 = document.getElementById('f3');
+
             if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
+            if(!f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("ANEXE OS 3 PRINTS!");
             
-            document.getElementById('btnAtivar').innerText = "ENVIANDO...";
+            const btn = document.getElementById('btnAtivar');
+            btn.innerText = "COMPRIMINDO PRINTS...";
+            btn.disabled = true;
+
+            const img1 = await comprimir(f1);
+            const img2 = await comprimir(f2);
+            const img3 = await comprimir(f3);
+
             database.ref('solicitacoes/').push({
-                nome: n, pix_cadastro: p, whatsapp: w, status: 'pendente', data: new Date().toLocaleString('pt-BR')
+                nome: n, 
+                pix_cadastro: p, 
+                whatsapp: w, 
+                print1_url: img1,
+                print2_url: img2,
+                print3_url: img3,
+                status: 'pendente', 
+                data: new Date().toLocaleString('pt-BR')
             }).then(() => {
                 localStorage.setItem('usuario_nome', n);
                 document.getElementById('modalSucesso').classList.add('active');

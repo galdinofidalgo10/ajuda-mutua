@@ -10,13 +10,14 @@
         body { background: #020617; color: #f8fafc; font-family: 'Montserrat', sans-serif; }
         .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
         .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
-        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
+        .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; transition: 0.3s; }
+        .input-field:focus { border-color: #fde047; background: rgba(30, 41, 59, 0.8); }
         
-        /* Toast Dourado */
-        #toast { visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047); color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; box-shadow: 0 4px 15px rgba(184, 134, 11, 0.4); }
+        /* Toast Dourado de Sucesso */
+        #toast { visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047); color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         
-        /* Modal Pós-Envio */
+        /* Modal de Redirecionamento */
         #modalSucesso { display: none; }
         #modalSucesso.active { display: flex; animation: fadeIn 0.4s ease; }
         
@@ -25,19 +26,20 @@
     </style>
 </head>
 <body class="p-4">
-    <div id="toast"></div>
 
-    <div id="modalSucesso" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[10000] items-center justify-center p-6 text-center">
+    <div id="toast">PIX COPIADO COM SUCESSO!</div>
+
+    <div id="modalSucesso" class="fixed inset-0 bg-black/95 backdrop-blur-lg z-[10000] items-center justify-center p-6 text-center">
         <div class="glass-card p-8 border-2 border-yellow-500 max-w-xs w-full shadow-[0_0_50px_rgba(253,224,71,0.2)]">
             <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <svg class="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
             </div>
-            <h2 class="text-yellow-500 font-black text-xl uppercase mb-3 italic">Enviado!</h2>
+            <h2 class="text-yellow-500 font-black text-xl uppercase mb-3 italic">Cadastro Enviado!</h2>
             <p class="text-[10px] text-white font-bold uppercase opacity-80 leading-relaxed mb-6">
-                Sua solicitação está em análise.<br>Acesse seu painel agora.
+                Sua ativação está pendente.<br>Acesse agora seu escritório virtual.
             </p>
-            <button onclick="irParaEscritorio()" class="btn-gold w-full py-4 rounded-xl text-xs shadow-lg">
-                Abrir Escritório Virtual
+            <button onclick="irParaEscritorio()" class="btn-gold w-full py-4 rounded-xl text-xs shadow-lg shadow-yellow-500/20">
+                Acessar Escritório Virtual
             </button>
         </div>
     </div>
@@ -50,17 +52,30 @@
 
         <div id="container-pix" class="space-y-3 mb-6"></div>
 
-        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
+        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30 shadow-2xl">
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
+                
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
                     <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
                     <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
                 </div>
-                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
-                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
-                <button onclick="ativar()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
+
+                <div class="space-y-3">
+                    <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
+                    
+                    <div class="relative">
+                        <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field text-xs border-yellow-500/30">
+                        <span class="absolute right-3 top-4 text-[7px] text-yellow-500 font-black uppercase italic">Receber</span>
+                    </div>
+
+                    <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
+                </div>
+
+                <button onclick="ativar()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20 transition-all">
+                    Solicitar Ativação
+                </button>
             </div>
         </div>
     </div>
@@ -79,6 +94,7 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+        // Dados Fixos do Líder para os 3 Níveis
         const recebedores = [
             { n: "Galdino Pereira Fidalgo", p: "04036277375" },
             { n: "Galdino Pereira Fidalgo", p: "04036277375" },
@@ -88,16 +104,26 @@
         const container = document.getElementById('container-pix');
         recebedores.forEach((r, i) => {
             container.innerHTML += `
-                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer">
+                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer transition-transform">
                     <div class="flex justify-between items-center text-white">
-                        <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
-                        <h3 class="font-black text-xs uppercase">${r.n}</h3></div>
-                        <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
+                        <div>
+                            <p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
+                            <h3 class="font-black text-[11px] uppercase">${r.n}</h3>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-yellow-500 font-black text-xs italic">R$ 5,00</span>
+                            <p class="text-[6px] text-slate-500 uppercase tracking-widest">Toque para Copiar</p>
+                        </div>
                     </div>
                 </div>`;
         });
 
-        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
+        function showT(m) { 
+            const t = document.getElementById("toast"); 
+            t.innerText = m; 
+            t.className = "show"; 
+            setTimeout(() => { t.className = ""; }, 3000); 
+        }
         
         function copy(v) { 
             navigator.clipboard.writeText(v).then(() => {
@@ -107,21 +133,32 @@
 
         async function ativar() {
             const n = document.getElementById('nome').value.trim();
+            const p = document.getElementById('pix_usuario').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            if(!n || !w) return showT("PREENCHA OS CAMPOS!");
             
-            document.getElementById('btnAtivar').innerText = "ENVIANDO...";
+            if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
             
+            document.getElementById('btnAtivar').innerText = "ENVIANDO SOLICITAÇÃO...";
+            document.getElementById('btnAtivar').disabled = true;
+
             database.ref('solicitacoes/').push({
-                nome: n, whatsapp: w, status: 'pendente', data: new Date().toLocaleString('pt-BR')
+                nome: n,
+                pix_cadastro: p,
+                whatsapp: w,
+                status: 'pendente',
+                data: new Date().toLocaleString('pt-BR')
             }).then(() => {
                 localStorage.setItem('usuario_nome', n);
                 document.getElementById('modalSucesso').classList.add('active');
+            }).catch(() => {
+                showT("ERRO AO ENVIAR. TENTE NOVAMENTE.");
+                document.getElementById('btnAtivar').disabled = false;
             });
         }
 
         function irParaEscritorio() {
             const nome = localStorage.getItem('usuario_nome');
+            // Redireciona para o repositório ajuda-p2p conforme solicitado
             window.location.href = "https://galdinofidalgo10.github.io/ajuda-p2p/escritorio.html?user=" + encodeURIComponent(nome);
         }
     </script>

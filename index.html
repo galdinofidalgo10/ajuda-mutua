@@ -12,7 +12,10 @@
         .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
         .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
         
-        #toast { visibility: hidden; min-width: 280px; background: linear-gradient(135deg, #b8860b, #fde047); color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
+        /* Estilo do botão de anexo quando selecionado */
+        .btn-check { background: #10b981 !important; color: white !important; }
+
+        #toast { visibility: hidden; min-width: 280px; background: #ef4444; color: #fff; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         
         #modalSucesso { display: none; }
@@ -20,9 +23,6 @@
         
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Estilo para quando a foto for selecionada */
-        .file-selected { background: #10b981 !important; color: white !important; }
     </style>
 </head>
 <body class="p-4">
@@ -34,13 +34,7 @@
                 <svg class="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
             </div>
             <h2 class="text-yellow-500 font-black text-xl uppercase mb-3 italic">Solicitação Enviada!</h2>
-            <p class="text-[10px] text-white font-bold uppercase opacity-80 leading-relaxed mb-6">
-                Seu cadastro foi recebido com sucesso.<br>
-                <span class="text-yellow-500">Aguarde a liberação em até 24 horas.</span>
-            </p>
-            <button onclick="irParaEscritorio()" class="btn-gold w-full py-4 rounded-xl text-xs shadow-lg">
-                Acessar Escritório Virtual
-            </button>
+            <button onclick="irParaEscritorio()" class="btn-gold w-full py-4 rounded-xl text-xs shadow-lg">Acessar Escritório</button>
         </div>
     </div>
 
@@ -56,13 +50,15 @@
             <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2 text-center">
-                    <label id="l1" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*" onchange="marcar('l1')"></label>
-                    <label id="l2" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*" onchange="marcar('l2')"></label>
-                    <label id="l3" class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*" onchange="marcar('l3')"></label>
+                    <label id="l1" class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] cursor-pointer italic font-black">PIX 1<input type="file" id="f1" class="hidden" accept="image/*" onchange="validarAnexo('l1', 'f1')"></label>
+                    <label id="l2" class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] cursor-pointer italic font-black">PIX 2<input type="file" id="f2" class="hidden" accept="image/*" onchange="validarAnexo('l2', 'f2')"></label>
+                    <label id="l3" class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] cursor-pointer italic font-black">PIX 3<input type="file" id="f3" class="hidden" accept="image/*" onchange="validarAnexo('l3', 'f3')"></label>
                 </div>
-                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
-                <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field text-xs">
-                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
+                
+                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase font-bold">
+                <input type="text" id="pix_usuario" placeholder="CADASTRAR SUA CHAVE PIX" class="input-field text-xs font-bold">
+                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs font-bold">
+                
                 <button onclick="ativar()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
             </div>
         </div>
@@ -82,22 +78,16 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        const recebedores = [
-            { n: "Galdino Pereira Fidalgo", p: "04036277375" },
-            { n: "Galdino Pereira Fidalgo", p: "04036277375" },
-            { n: "Galdino Pereira Fidalgo", p: "04036277375" }
-        ];
+        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3500); }
+        
+        function validarAnexo(labelId, inputId) {
+            const input = document.getElementById(inputId);
+            if(input.files.length > 0) {
+                document.getElementById(labelId).classList.add('btn-check');
+                document.getElementById(labelId).innerText = "CHECK";
+            }
+        }
 
-        const container = document.getElementById('container-pix');
-        recebedores.forEach((r, i) => {
-            container.innerHTML += `<div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer"><div class="flex justify-between items-center text-white"><div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p><h3 class="font-black text-xs uppercase">${r.n}</h3></div><span class="text-yellow-500 font-black text-xs italic">R$ 5,00</span></div></div>`;
-        });
-
-        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copy(v) { navigator.clipboard.writeText(v).then(() => { showT("PIX COPIADO COM SUCESSO!"); }); }
-        function marcar(id) { document.getElementById(id).classList.add('file-selected'); document.getElementById(id).innerText = "OK"; }
-
-        // --- FUNÇÃO DE COMPRESSÃO ---
         async function comprimir(input) {
             return new Promise((resolve) => {
                 const file = input.files[0];
@@ -111,8 +101,7 @@
                         const canvas = document.createElement('canvas');
                         const maxW = 600;
                         const scale = maxW / img.width;
-                        canvas.width = maxW;
-                        canvas.height = img.height * scale;
+                        canvas.width = maxW; canvas.height = img.height * scale;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
                         resolve(canvas.toDataURL('image/jpeg', 0.6));
@@ -129,30 +118,34 @@
             const f2 = document.getElementById('f2');
             const f3 = document.getElementById('f3');
 
-            if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
-            if(!f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("ANEXE OS 3 PRINTS!");
-            
+            // --- TRAVA DE SEGURANÇA ---
+            if(!n) return showT("DIGITE SEU NOME!");
+            if(!p) return showT("DIGITE SUA CHAVE PIX!");
+            if(w.length < 10) return showT("WHATSAPP INVÁLIDO!");
+            if(!f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("VOCÊ PRECISA ANEXAR OS 3 PRINTS!");
+
             const btn = document.getElementById('btnAtivar');
-            btn.innerText = "COMPRIMINDO PRINTS...";
+            btn.innerText = "PROCESSANDO...";
             btn.disabled = true;
 
-            const img1 = await comprimir(f1);
-            const img2 = await comprimir(f2);
-            const img3 = await comprimir(f3);
+            try {
+                const i1 = await comprimir(f1);
+                const i2 = await comprimir(f2);
+                const i3 = await comprimir(f3);
 
-            database.ref('solicitacoes/').push({
-                nome: n, 
-                pix_cadastro: p, 
-                whatsapp: w, 
-                print1_url: img1,
-                print2_url: img2,
-                print3_url: img3,
-                status: 'pendente', 
-                data: new Date().toLocaleString('pt-BR')
-            }).then(() => {
-                localStorage.setItem('usuario_nome', n);
-                document.getElementById('modalSucesso').classList.add('active');
-            });
+                database.ref('solicitacoes/').push({
+                    nome: n, pix_cadastro: p, whatsapp: w,
+                    print1_url: i1, print2_url: i2, print3_url: i3,
+                    status: 'pendente', data: new Date().toLocaleString('pt-BR')
+                }).then(() => {
+                    localStorage.setItem('usuario_nome', n);
+                    document.getElementById('modalSucesso').classList.add('active');
+                });
+            } catch(e) {
+                showT("ERRO AO ENVIAR. TENTE NOVAMENTE.");
+                btn.innerText = "Solicitar Ativação";
+                btn.disabled = false;
+            }
         }
 
         function irParaEscritorio() {

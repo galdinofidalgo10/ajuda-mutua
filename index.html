@@ -2,8 +2,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Ajuda Mútua | Protocolo Elite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Elite | Cadastro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,33 +11,28 @@
         .glass-card { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.1); border-radius: 20px; }
         .btn-gold { background: linear-gradient(135deg, #b8860b 0%, #fde047 100%); color: #000; font-weight: 900; text-transform: uppercase; }
         .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; }
-        #toast { visibility: hidden; min-width: 280px; background: #fde047; color: #000; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
-        #toast.show { visibility: visible; animation: slideDown 0.5s; }
-        @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
     </style>
 </head>
 <body class="p-4">
-    <div id="toast"></div>
     <div class="max-w-md mx-auto">
-        <header class="text-center mb-6 pt-4">
-            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
+        <header class="text-center mb-8 pt-4">
+            <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">AJUDA MÚTUA</h1>
             <p class="text-[8px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
-        <div id="container-pix" class="space-y-3 mb-6"></div>
+        <div id="container-pix" class="space-y-3 mb-6">
+            </div>
 
-        <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
-            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
+        <div class="glass-card p-6 border-t-2 border-yellow-500/30">
             <div class="space-y-4">
-                <div class="grid grid-cols-3 gap-2 text-center">
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
-                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
+                <div class="grid grid-cols-3 gap-2">
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center">PIX 1<input type="file" id="f1" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center">PIX 2<input type="file" id="f2" class="hidden" accept="image/*"></label>
+                    <label class="btn-gold h-10 rounded-lg flex items-center justify-center text-[8px] cursor-pointer text-center">PIX 3<input type="file" id="f3" class="hidden" accept="image/*"></label>
                 </div>
-                <input type="text" id="nome" placeholder="SEU NOME COMPLETO" class="input-field text-xs uppercase">
-                <input type="text" id="pix_user" placeholder="SUA CHAVE PIX" class="input-field text-xs">
-                <input type="tel" id="whatsapp" placeholder="SEU WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
-                <button onclick="ativar()" class="btn-gold w-full h-16 rounded-xl text-sm font-black active:scale-95 shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
+                <input type="text" id="nome" placeholder="NOME COMPLETO" class="input-field text-xs uppercase">
+                <input type="tel" id="whatsapp" placeholder="WHATSAPP (DDD + NÚMERO)" class="input-field text-xs">
+                <button onclick="solicitarAtivacao()" id="btnAtivar" class="btn-gold w-full h-16 rounded-xl text-sm font-black shadow-lg shadow-yellow-500/20">Solicitar Ativação</button>
             </div>
         </div>
     </div>
@@ -56,65 +51,18 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        const params = new URLSearchParams(window.location.search);
-        const recebedores = [
-            { n: params.get('n1') || "Galdino Pereira Fidalgo", p: params.get('p1') || "04036277375" },
-            { n: params.get('n2') || "Galdino Pereira Fidalgo", p: params.get('p2') || "04036277375" },
-            { n: params.get('n3') || "Galdino Pereira Fidalgo", p: params.get('p3') || "04036277375" }
-        ];
-
-        const container = document.getElementById('container-pix');
-        recebedores.forEach((r, i) => {
-            container.innerHTML += `
-                <div onclick="copy('${r.p}')" class="glass-card p-4 border-l-4 border-l-yellow-500 active:scale-95 cursor-pointer">
-                    <div class="flex justify-between items-center text-white">
-                        <div><p class="text-[7px] text-yellow-500 font-black uppercase">Nível 0${i+1}</p>
-                        <h3 class="font-black text-xs uppercase">${r.n}</h3></div>
-                        <span class="text-yellow-500 font-black text-xs">R$ 5,00</span>
-                    </div>
-                </div>`;
-        });
-
-        function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copy(v) { navigator.clipboard.writeText(v); showT("PIX COPIADO!"); }
-
-        const processImg = file => new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = (e) => {
-                const img = new Image();
-                img.src = e.target.result;
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const max = 600;
-                    let w = img.width, h = img.height;
-                    if (w > h) { if (w > max) { h *= max / w; w = max; } }
-                    else { if (h > max) { w *= max / h; h = max; } }
-                    canvas.width = w; canvas.height = h;
-                    canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-                    resolve(canvas.toDataURL('image/jpeg', 0.7));
-                };
-            };
-        });
-
-        async function ativar() {
-            const n = document.getElementById('nome').value;
-            const p = document.getElementById('pix_user').value;
+        function solicitarAtivacao() {
+            const n = document.getElementById('nome').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            const inputs = [document.getElementById('f1'), document.getElementById('f2'), document.getElementById('f3')];
-            
-            if(!n || !p || !w) return showT("PREENCHA TODOS OS CAMPOS!");
-            
-            let fotos = [];
-            showT("ENVIANDO...");
-            try {
-                for (const input of inputs) { if (input.files[0]) { fotos.push(await processImg(input.files[0])); } }
-                if(fotos.length < 3) return showT("ANEXE AS 3 FOTOS!");
-                database.ref('solicitacoes/').push({
-                    nome: n, pix: p, whatsapp: w, comprovantes: fotos, 
-                    indicado_por: recebedores[0].n, data: new Date().toLocaleString('pt-BR'), status: 'pendente'
-                }).then(() => { showT("ENVIADO! AGUARDE APROVAÇÃO."); });
-            } catch (e) { showT("ERRO NO ENVIO."); }
+            if(!n || !w) return alert("Preencha os campos!");
+
+            document.getElementById('btnAtivar').innerText = "ENVIANDO...";
+            database.ref('solicitacoes/').push({
+                nome: n, whatsapp: w, status: 'pendente', data: new Date().toLocaleString('pt-BR')
+            }).then(() => {
+                alert("Enviado com sucesso! Aguarde contato da gestão.");
+                location.reload();
+            });
         }
     </script>
 </body>

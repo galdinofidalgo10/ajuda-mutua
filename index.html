@@ -13,7 +13,6 @@
         .btn-gold:active { transform: scale(0.95); }
         .input-field { width: 100%; background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(212, 175, 55, 0.2); padding: 15px; border-radius: 12px; color: white; outline: none; font-size: 14px; }
         .btn-check { background: #10b981 !important; color: white !important; }
-        .pix-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(212, 175, 55, 0.3); padding: 12px; border-radius: 15px; text-align: center; cursor: pointer; }
         #toast { visibility: hidden; min-width: 280px; background: #ef4444; color: #fff; text-align: center; border-radius: 50px; padding: 15px; position: fixed; z-index: 9999; left: 50%; top: 30px; transform: translateX(-50%); font-weight: 900; font-size: 11px; }
         #toast.show { visibility: visible; animation: slideDown 0.5s; }
         @keyframes slideDown { from { top: -100px; } to { top: 30px; } }
@@ -23,28 +22,14 @@
     <div id="toast"></div>
 
     <div class="max-w-md mx-auto">
-        <header class="text-center mb-6 pt-4">
+        <header class="text-center mb-8 pt-4">
             <h1 class="text-3xl font-black italic text-yellow-500 uppercase tracking-tighter">Ajuda Mútua</h1>
             <p class="text-[8px] font-bold text-slate-500 tracking-[0.4em] uppercase">Protocolo Elite</p>
         </header>
 
-        <div class="space-y-3 mb-6">
-            <div class="pix-card" onclick="copiarPix('04036277375')">
-                <p class="text-yellow-500 text-[10px] font-black uppercase">💰 PIX 1 - Galdino Pereira</p>
-                <p class="text-white font-black">04036277375</p>
-            </div>
-            <div class="pix-card" onclick="copiarPix('04036277375')">
-                <p class="text-yellow-500 text-[10px] font-black uppercase">💰 PIX 2 - Galdino Pereira</p>
-                <p class="text-white font-black">04036277375</p>
-            </div>
-            <div class="pix-card" onclick="copiarPix('04036277375')">
-                <p class="text-yellow-500 text-[10px] font-black uppercase">💰 PIX 3 - Galdino Pereira</p>
-                <p class="text-white font-black">04036277375</p>
-            </div>
-        </div>
-
         <div class="glass-card p-6 border-t-2 border-t-yellow-500/30">
-            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-4 tracking-widest">Validar sua Entrada</h2>
+            <h2 class="text-center text-[10px] text-yellow-500 font-black uppercase mb-6 tracking-widest">Validar sua Entrada</h2>
+            
             <div class="space-y-4">
                 <div class="grid grid-cols-3 gap-2 text-center">
                     <label id="l1" class="btn-gold h-12 rounded-lg flex items-center justify-center text-[9px] cursor-pointer">PIX 1<input type="file" id="f1" class="hidden" accept="image/*" onchange="validarAnexo('l1', 'f1')"></label>
@@ -63,6 +48,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCZIP0M0M8FqC_LAtI9I36e_IIn_V-C4m4",
@@ -76,12 +62,12 @@
         const database = firebase.database();
 
         function showT(m) { const t = document.getElementById("toast"); t.innerText = m; t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }
-        function copiarPix(c) { navigator.clipboard.writeText(c); showT("CHAVE COPIADA!"); }
         function validarAnexo(l, i) { if(document.getElementById(i).files.length > 0) { document.getElementById(l).classList.add('btn-check'); document.getElementById(l).innerText = "OK"; } }
-
-        // Mecanismo de Delay (Pausa)
+        
+        // Pausa de segurança para não travar o celular
         const delay = ms => new Promise(res => setTimeout(res, ms));
 
+        // Mecanismo para diminuir a imagem (Essencial para o Firebase não recusar)
         async function comprimir(input) {
             return new Promise((resolve) => {
                 const file = input.files[0];
@@ -92,11 +78,11 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        const maxW = 400; 
+                        const maxW = 400; // Reduz para 400px de largura
                         const scale = maxW / img.width;
                         canvas.width = maxW; canvas.height = img.height * scale;
                         canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.5));
+                        resolve(canvas.toDataURL('image/jpeg', 0.5)); // Qualidade 50%
                     };
                 };
             });
@@ -107,40 +93,54 @@
             const n = document.getElementById('nome').value.trim();
             const p = document.getElementById('pix_usuario').value.trim();
             const w = document.getElementById('whatsapp').value.replace(/\D/g,'');
-            const f1 = document.getElementById('f1'); const f2 = document.getElementById('f2'); const f3 = document.getElementById('f3');
+            const f1 = document.getElementById('f1'); 
+            const f2 = document.getElementById('f2'); 
+            const f3 = document.getElementById('f3');
 
-            if(!n || !p || w.length < 10 || !f1.files[0] || !f2.files[0] || !f3.files[0]) return showT("PREENCHA TUDO E ANEXE OS 3 PRINTS!");
+            if(!n || !p || w.length < 10 || !f1.files[0] || !f2.files[0] || !f3.files[0]) {
+                return showT("PREENCHA TUDO E ANEXE OS 3 PRINTS!");
+            }
 
             btn.disabled = true;
-            btn.style.opacity = "0.6";
+            btn.style.opacity = "0.7";
 
             try {
-                btn.innerText = "PROCESSANDO PRINT 1...";
+                btn.innerText = "DIMINUINDO PRINT 1...";
                 const i1 = await comprimir(f1);
-                await delay(1500); // Pausa de 1.5s
+                await delay(1000);
 
-                btn.innerText = "PROCESSANDO PRINT 2...";
+                btn.innerText = "DIMINUINDO PRINT 2...";
                 const i2 = await comprimir(f2);
-                await delay(1500); // Pausa de 1.5s
+                await delay(1000);
 
-                btn.innerText = "PROCESSANDO PRINT 3...";
+                btn.innerText = "DIMINUINDO PRINT 3...";
                 const i3 = await comprimir(f3);
-                await delay(1500); // Pausa de 1.5s
+                await delay(1000);
 
-                btn.innerText = "SINCRONIZANDO ENVIO...";
+                btn.innerText = "ENVIANDO AO PAINEL...";
 
-                database.ref('solicitacoes/').push({
-                    nome: n, pix_cadastro: p, whatsapp: w,
-                    print1_url: i1, print2_url: i2, print3_url: i3,
-                    status: 'pendente', data: new Date().toLocaleString('pt-BR')
-                }).then(() => {
-                    btn.innerText = "CONCLUÍDO!";
-                    alert("✅ SOLICITAÇÃO ENVIADA COM SUCESSO!");
-                    location.reload();
-                });
+                // AQUI ESTÁ A CHAVE: Nomes idênticos aos que o PAINEL-GESTAO lê
+                const dadosParaPainel = {
+                    nome: n,
+                    pix_cadastro: p,
+                    whatsapp: w,
+                    print1_url: i1,
+                    print2_url: i2,
+                    print3_url: i3,
+                    status: 'pendente',
+                    data: new Date().toLocaleString('pt-BR')
+                };
+
+                await database.ref('solicitacoes/').push(dadosParaPainel);
+                
+                alert("✅ ENVIADO COM SUCESSO!\nAguarde a liberação de um líder.");
+                location.reload();
+
             } catch(e) {
+                console.error(e);
                 alert("Erro ao enviar. Tente novamente.");
-                btn.innerText = "Solicitar Ativação"; btn.disabled = false; btn.style.opacity = "1";
+                btn.innerText = "Solicitar Ativação"; 
+                btn.disabled = false;
             }
         }
     </script>
